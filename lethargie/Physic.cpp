@@ -429,10 +429,6 @@ void corps_visible::setPosition(Float2 new_position)
 	modif_images = true;
 	corps::setPosition(new_position);
 }
-void corps_visible::setOrientation(float new_orientation)
-{
-	modif_images = true;
-}
 void corps_visible::updatePosition(sf::Time deltaT)
 {
 	corps::updatePosition(deltaT);
