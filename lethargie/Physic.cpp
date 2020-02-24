@@ -1,0 +1,441 @@
+#include "Physic.h"
+Float2 doBounce(Float2& v, Float2 normal, float bouncing)
+{
+	float delta = v.angle() - normal.angle();
+	if (isnan(delta)) return v;
+	if (delta < -PI / 2) delta += 2 * PI;
+	else if (delta > 3 * PI / 2) delta -= 2 * PI;
+
+	if (delta > PI / 2) {
+		v -= (v / normal) * (1 + bouncing);
+	}
+	return v;
+}
+corps::corps()
+{
+	forme = Concave();
+	worldForme = Concave();
+	approxTaille = 0;
+	modif = 0;
+	position.x = 0;
+	position.y = 0;
+	old_position.x = 0;
+	old_position.y = 0;
+	masse = 0;
+	is_Dynamic = 0;
+	bounce = 0.5;
+	friction = 0.5;
+
+}
+corps::corps(float _masse, Float2 _position, Concave _forme, bool dynamic)
+{
+	forme = Concave();
+	worldForme = Concave();
+	old_position.x = 0;
+	old_position.y = 0;
+	setPosition(_position);
+	setForme(_forme);
+	masse = _masse;
+	modif = 0;
+	is_Dynamic = dynamic;
+	bounce = 0.5;
+	friction = 0.5;
+
+}
+void corps::setForme(Concave new_forme)
+{
+	forme = new_forme;
+	float max = 0;
+	short taille = forme.size();
+	for (short i = 0; i < taille; i++)
+	{
+		short taille2 = forme.formes[i].size();
+		for (short j = 0; j < taille2; j++)
+		{
+			float x = forme.formes[i].sommets[j].x;
+			float y = forme.formes[i].sommets[j].y;
+			float tailleJ = x * x + y * y;
+			if (tailleJ > max)max = tailleJ;
+		}
+	}
+	approxTaille = sqrtf(max);
+	modif = true;
+}
+Concave corps::getForme() const
+{
+	return forme;
+}
+Concave corps::getWorldForme()
+{
+	if (modif)
+	{
+		worldForme = forme;
+		short taille = forme.size();
+		for (short i = 0; i < taille; i++)
+		{
+			short taille2 = worldForme.formes[i].size();
+			for (short j = 0; j < taille2; j++)
+			{
+				worldForme.formes[i].sommets[j] += position;
+			}
+		}
+		modif = false;
+	}
+	
+	return worldForme;
+}
+void corps::setPosition(Float2 new_position) 
+{
+	position = new_position;
+	modif = true;
+}
+Float2 corps::getPosition() const 
+{
+	return position;
+}
+float corps::getApproxTaille() const
+{
+	return approxTaille;
+
+}
+void corps::updatePosition(sf::Time deltaT)
+{
+	old_position = position;
+	float sec = deltaT.asSeconds();
+		modif = true;
+		acc += forc  / masse;
+		position += (acc * sec * sec * 0.5f) + vit * sec;
+		vit += acc * sec;
+		acc = Float2(0, 0);
+		forc = Float2(0, 0);
+}
+infoColl corps::operator * (corps& c)
+{
+	infoColl info;
+	bool col = true;
+	Float2 dir = position - c.getPosition();
+	float dist = dir.x * dir.x + dir.y * dir.y;
+	float tailleSqrt = approxTaille + c.getApproxTaille();
+	tailleSqrt *= tailleSqrt;
+	if (dist > tailleSqrt) {
+		col = false;
+	}
+	else
+	{
+		info = getWorldForme() * c.getWorldForme();
+	}
+
+	return info;
+}
+infoColl corps::operator + (corps& c)
+{
+	infoColl collision = *this * c;
+	if (collision.taille == 0)return collision;
+
+	int tailleCol = collision.taille;
+
+	corps* firstF = this;
+	corps* secondF = &c;
+
+	collisionSolution fact;
+	for (int i = 0; i < tailleCol; i++)
+	{
+		corps* first;
+		corps* second;
+		bool stop = false;
+
+		if (collision.firstElem[i])
+		{
+			stop = true;
+			first = this;
+			second = &c;
+
+		}
+		else
+		{
+			first = &c;
+			second = this;
+		}
+
+		const Float2 pactu = first->position;
+		const Float2 pancien = first->old_position;
+
+		const Float2 pactu2 = second->position;
+		const Float2 pancien2 = second->old_position;
+
+		Convexe formeCol = second->getWorldForme().formes[collision.index[i]];
+
+
+		int taille = formeCol.size();
+
+		collisionSolution factT = solveCollision(collision.point[i], collision.point[i] - pactu + pancien, formeCol, pactu2, pancien2);
+			
+		if (factT.factor > fact.factor)
+		{
+			fact = factT;
+			firstF = first;
+			secondF = second;
+		}
+	}
+	if (firstF->is_Dynamic && secondF->is_Dynamic)
+	{
+		//position
+		setPosition(position + fact.factor * (old_position - position));
+		c.setPosition(c.position + fact.factor * (c.old_position - c.position));
+
+
+		Float2 normal = fact.normal;
+
+		float smasse = masse + c.masse;
+
+		Float2 v1 = firstF->vit/normal;
+		Float2 v2 = secondF->vit/normal;
+
+		firstF->vit -= v1;
+		firstF->vit += v1 * (firstF->masse - secondF->masse) / smasse + v2 * 2.f * secondF->masse / smasse;
+
+		secondF->vit -= v2;
+		secondF->vit += v2 * (secondF->masse - firstF->masse) / smasse + v2 * 2.f * firstF->masse / smasse;
+
+		std::cout << std::endl;
+
+
+	}
+	else if (firstF->is_Dynamic)
+	{
+		//position
+
+		if (fact.factor <= -1)fact.factor = 1.5;
+		firstF->setPosition(firstF->position + fact.factor * (firstF->old_position - firstF->position));
+
+		//force
+		Float2 normal = fact.normal;
+
+		doBounce(firstF->forc, normal, 0);
+
+		//vitesse
+		doBounce(firstF->vit, normal, bounce * c.bounce);
+
+
+		char c;
+		if (isnan(firstF->vit.x) || isnan(firstF->vit.y) || isnan(firstF->getPosition().x) || isnan(firstF->getPosition().y))
+		{
+			corps* brise = firstF;
+			std::cout << "first" << std::endl;
+			std::cout << "normal = " << normal << std::endl;
+			std::cout <<"force = "<<brise->forc<< std::endl;
+			std::cout <<"vitesse = "<<brise->vit<< std::endl;
+			std::cout <<"position = "<<brise->getPosition()<< std::endl;
+		}
+	}
+	else if (secondF->is_Dynamic)
+	{
+		//position
+
+		if (fact.factor <= -1)fact.factor = 1.5;
+		secondF->setPosition(secondF->position + fact.factor * (secondF->old_position - secondF->position));
+
+		//force
+		Float2 normal = -fact.normal;
+		
+		doBounce(secondF->forc, normal, 0);
+		
+		//vitesse
+		doBounce(secondF->vit, normal, bounce * c.bounce);
+
+		char c;
+		if (isnan(secondF->vit.x) || isnan(secondF->vit.y) || isnan(secondF->getPosition().x) || isnan(secondF->getPosition().y))
+		{
+			corps* brise = secondF;
+			std::cout << "second" << std::endl;
+			std::cout << "normal = " << normal << std::endl;
+			std::cout << "force = " << brise->forc << std::endl;
+			std::cout << "vitesse = " << brise->vit << std::endl;
+			std::cout << "position = " << brise->getPosition() << std::endl;
+		}
+	}
+
+	return collision;
+}
+
+collisionSolution solveCollision(Float2 pactu, Float2 pancien, Convexe& forme, Float2 posConvexe, Float2 posConvexeAncien)
+{
+	
+	collisionSolution retour;
+	bool normalSet = 0;
+	const Float2 V = pancien - pactu;
+	const Float2 VD = posConvexeAncien - posConvexe;
+	
+	short taille = forme.size();
+	for (short i = 0; i < taille; i++)
+	{
+		Float2 sommets[2];
+		sommets[0] = forme.sommets[i];
+		if (i == 0)sommets[1] =forme.sommets[taille-1];
+		else sommets[1] = forme.sommets[i - 1];
+		Droite D = Droite(sommets[0], sommets[1]);
+
+		if (isnan(D.A))
+		{
+			const float denom = V.x - VD.x;
+			if (denom > 0.000001 || denom < 0.000001)
+			{
+				const float num = D.B - pactu.x;
+				const float fact = num / denom;
+				if (fact > retour.factor && fact < 1.2)
+				{
+					Float2 borneMin = sommets[0];
+					Float2 borneMax = sommets[1];
+					if (sommets[0].x > sommets[1].x)
+					{
+						borneMin.x = sommets[1].x;
+						borneMax.x = sommets[0].x;
+					}
+					if (sommets[0].y > sommets[1].y)
+					{
+						borneMin.y = sommets[1].y;
+						borneMax.y = sommets[0].y;
+					}
+					borneMin += VD * fact;
+					borneMax += VD * fact;
+					Float2 position = pactu + V * fact;
+					if (position.y < borneMax.y && position.y > borneMin.y)
+					{
+						retour.factor = fact;
+						//calcul normal
+						Float2 vitesse = (V - VD)*fact;
+
+
+						float angle = 0;
+						float delta = (vitesse).angle();
+						if (delta < -PI / 2) delta += 2 * PI;
+						else if (delta > 3 * PI / 2) delta -= 2 * PI;
+						if (delta > PI / 2) angle += PI;
+
+						retour.normal = Float2(0, 1).setAngle(angle);
+						normalSet = true;
+					}
+
+				}
+			}
+		}
+		else
+		{
+			const float denom = V.y - VD.y + D.A * (VD.x - V.x);
+			if (denom > 0.000001 || denom < 0.000001)
+			{
+				const float num = sommets[0].y - pactu.y + D.A * (pactu.x - sommets[0].x);
+				const float fact = num / denom;
+				if (fact > retour.factor && fact < 2)
+				{
+					
+					Float2 borneMin = sommets[0];
+					Float2 borneMax = sommets[1];
+					if (sommets[0].x > sommets[1].x)
+					{
+						borneMin.x = sommets[1].x;
+						borneMax.x = sommets[0].x;
+					}
+					if (sommets[0].y > sommets[1].y)
+					{
+						borneMin.y = sommets[1].y;
+						borneMax.y = sommets[0].y;
+					}
+					borneMin += VD * fact;
+					borneMax += VD * fact;
+					Float2 position =  pactu+ V * fact;
+					bool ignoreY = D.A < 0.00001 && D.A > -0.00001;
+					if (position.x < borneMax.x && position.x > borneMin.x&&(ignoreY||( position.y < borneMax.y && position.y > borneMin.y)))
+					{
+						retour.factor = fact;
+						//calcul normal
+						Float2 vitesse = (V - VD) * fact;
+						float angle = ((Float2)(sommets[0] - sommets[1])).angle() + PI / 2;
+						float angle2 = vitesse.angle();
+						float delta = angle - angle2;
+						if (delta < -PI/2) delta += 2*PI;
+						else if (delta > 3*PI/2) delta -= 2*PI;
+						if (delta > PI / 2) angle += PI;
+
+						retour.normal = Float2(0,1).setAngle(angle);
+						normalSet = true;
+					}
+					
+				}
+			}
+		}
+	}
+	/*if (!normalSet)
+	{
+		retour.factor = 0;
+		Float2 normal;
+		int taille = forme.size();
+		for (int i = 0; i < taille; i++)
+		{
+			normal += forme.sommets[i];
+		}
+		normal /= (float)taille;
+		normal = pancien - normal;
+		normal.setNorm(1);
+		retour.normal = normal;
+	}*/
+	return retour;
+}
+
+corps_visible::corps_visible()
+	:corps()
+{
+	layer = 0;
+	modif_images = false;
+}
+corps_visible::corps_visible(float _masse, Float2 _position, Concave _forme, bool dynamic )
+	: corps(_masse, _position, _forme, dynamic)
+{
+	layer = 0;
+	modif_images = false;
+}
+
+void corps_visible::clear_images()
+{
+	images.clear();
+	images_offet.clear();
+}
+void corps_visible::add_images(sf::Sprite image, Float2 offset)
+{
+	images.push_back(image);
+	images_offet.push_back(offset);
+	modif_images = true;
+}
+
+void corps_visible::afficher(sf::RenderWindow& fenetre)
+{
+	const int taille = images.size();
+	if (modif_images)
+	{
+		for (int i = 0; i < taille; i++)
+		{
+			images[i].setPosition(position);
+			modif_images = false;
+		}
+	}
+	for (int i = 0; i < taille; i++)
+	{
+		fenetre.draw(images[i]);
+	}
+}
+
+void corps_visible::setPosition(Float2 new_position)
+{
+	modif_images = true;
+	corps::setPosition(new_position);
+}
+void corps_visible::setOrientation(float new_orientation)
+{
+	modif_images = true;
+}
+void corps_visible::updatePosition(sf::Time deltaT)
+{
+	corps::updatePosition(deltaT);
+	modif_images = true;
+}
+
