@@ -16,11 +16,10 @@ corps::corps()
 	forme = Concave();
 	worldForme = Concave();
 	approxTaille = 0;
-	modif = 0;
+	modif = false;
 	position.x = 0;
 	position.y = 0;
-	old_position.x = 0;
-	old_position.y = 0;
+	old_position = Float2(0,0);
 	masse = 0;
 	is_Dynamic = 0;
 	bounce = 0.5;
@@ -31,12 +30,11 @@ corps::corps(float _masse, Float2 _position, Concave _forme, bool dynamic)
 {
 	forme = Concave();
 	worldForme = Concave();
-	old_position.x = 0;
-	old_position.y = 0;
+	old_position = _position;
 	setPosition(_position);
 	setForme(_forme);
 	masse = _masse;
-	modif = 0;
+	modif = true;
 	is_Dynamic = dynamic;
 	bounce = 0.5;
 	friction = 0.5;
@@ -87,6 +85,7 @@ Concave corps::getWorldForme()
 void corps::setPosition(Float2 new_position) 
 {
 	position = new_position;
+	if (!is_Dynamic)old_position = new_position;
 	modif = true;
 }
 Float2 corps::getPosition() const 
@@ -108,6 +107,7 @@ void corps::updatePosition(sf::Time deltaT)
 		vit += acc * sec;
 		acc = Float2(0, 0);
 		forc = Float2(0, 0);
+
 }
 infoColl corps::operator * (corps& c)
 {
@@ -217,7 +217,6 @@ infoColl corps::operator + (corps& c)
 		doBounce(firstF->vit, normal, bounce * c.bounce);
 
 
-		char c;
 		if (isnan(firstF->vit.x) || isnan(firstF->vit.y) || isnan(firstF->getPosition().x) || isnan(firstF->getPosition().y))
 		{
 			corps* brise = firstF;
@@ -243,7 +242,6 @@ infoColl corps::operator + (corps& c)
 		//vitesse
 		doBounce(secondF->vit, normal, bounce * c.bounce);
 
-		char c;
 		if (isnan(secondF->vit.x) || isnan(secondF->vit.y) || isnan(secondF->getPosition().x) || isnan(secondF->getPosition().y))
 		{
 			corps* brise = secondF;
@@ -392,7 +390,7 @@ corps_visible::corps_visible(float _masse, Float2 _position, Concave _forme, boo
 	: corps(_masse, _position, _forme, dynamic)
 {
 	layer = 0;
-	modif_images = false;
+	modif_images = true;
 }
 
 void corps_visible::clear_images()
@@ -428,10 +426,6 @@ void corps_visible::setPosition(Float2 new_position)
 {
 	modif_images = true;
 	corps::setPosition(new_position);
-}
-void corps_visible::setOrientation(float new_orientation)
-{
-	modif_images = true;
 }
 void corps_visible::updatePosition(sf::Time deltaT)
 {

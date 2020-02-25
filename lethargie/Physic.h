@@ -63,6 +63,5 @@ public:
 	void afficher( sf::RenderWindow& fenetre);
 
 	virtual void setPosition(Float2 new_position);
-	virtual void setOrientation(float new_orientation);
 	virtual void updatePosition(sf::Time deltaT);
 };
