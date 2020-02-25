@@ -1,11 +1,10 @@
 #include <SFML/Graphics.hpp>
-#include "Physic.h"
+#include "Monde.h"
 
 int main()
 {
-    int calculT = 0;
-    float temps = 0;
-    sf::Clock timer;
+    Monde univers;
+
     Convexe carre;
     carre.sommets.push_back(Float2(0,0));
     carre.sommets.push_back(Float2(0, 28));
@@ -22,6 +21,8 @@ int main()
     corps_visible perso(1,Float2(0,0),box);
     perso.add_images(ptitbonhomme);
     
+    corps_visible* p_perso = univers.addDynamique(perso);
+    
     Convexe mur;
     mur.sommets.push_back(Float2(0,50));
     mur.sommets.push_back(Float2(0,75));
@@ -37,7 +38,10 @@ int main()
     Concave murColide;
     murColide.formes.push_back(mur);
     murColide.formes.push_back(mur2);
-    corps murPhy(1,Float2(0,0),murColide,0);
+    corps_visible murPhy(1,Float2(0,0),murColide,0);
+
+    univers.addStatique(murPhy);
+
     //corps murPhy2(1, Float2(50, 50), murColide, 0);
 
     sf::VertexArray murText (sf::TrianglesFan, 5);
@@ -71,7 +75,7 @@ int main()
         Float2 mv;
         float rot = 0;
 
-        const float puiss = 5000;
+        const float puiss = 100;
         const float frict = 10.0f;
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))mv += Float2(0, -puiss);
@@ -79,58 +83,19 @@ int main()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))mv += Float2(-puiss, 0);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))mv += Float2(puiss, 0);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) perso.vit = Float2(0, 0);
-        sf::Time deltaTime = timer.restart();
 
-        perso.forc += mv;
-        perso.forc += perso.vit * -frict;
+        p_perso->forc += mv;
+        p_perso->forc += p_perso->vit * -frict;
 
-        sf::Clock tempsCol;
-        tempsCol.restart();
-        infoColl truc = perso + murPhy;
-        temps += (tempsCol.getElapsedTime() * 100.f).asMicroseconds();
-        calculT++;
-        if (calculT > 100000)
-        {
-            temps /= (100.f * calculT);
-            std::cout << "temps moyen =" << temps << std::endl;
-            temps = 0;
-            calculT = 0;
-        }
 
-        if (truc.taille != 0)
-            for (int i = 0; i < 5; i++)
-            {
-                murText[i].color = sf::Color::Red; 
-                murText2[i].color = sf::Color::Red;
-            }
-        else 
-            for (int i = 0; i < 5; i++)
-            { 
-                murText[i].color = sf::Color::Green; 
-                murText2[i].color = sf::Color::Green;
-            }
-
-        /*if ((perso + murPhy2).col)
-            for (int i = 0; i < 5; i++)
-            {
-                murText2[i].color = sf::Color::Red;
-            }
-        else
-            for (int i = 0; i < 5; i++)
-            {
-                murText2[i].color = sf::Color::Green;
-            }*/
-
-        perso.updatePosition(deltaTime);
-        murPhy.updatePosition(deltaTime);
-        //murPhy2.updatePosition(deltaTime);
+        univers.update();
 
         camera.setCenter(perso.getPosition());
 
         window.clear();
         window.draw(murText);
         window.draw(murText2);
-        perso.afficher(window);
+        univers.afficher(window);
 
         window.setView(camera);
         window.display();
