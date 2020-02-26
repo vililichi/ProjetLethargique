@@ -64,4 +64,7 @@ public:
 
 	virtual void setPosition(Float2 new_position);
 	virtual void updatePosition(sf::Time deltaT);
+
+	friend bool LireFichier(std::string path, corps_visible& contenant); //définie dans FichierIO.cpp
+	friend bool EcrireFichier(std::string path, corps_visible& objet); //définie dans FichierIO.cpp
 };
