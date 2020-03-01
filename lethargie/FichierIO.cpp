@@ -28,7 +28,25 @@ bool LireFichier(std::ifstream& fichier, corps_visible& contenant)
 		forme.formes.push_back(sousForme);
 	}
 	contenant.setForme(forme);
-	//image (futur)
+	//image
+	fichier >> taillei;
+	for (int i = 0; i < taillei; i++)
+	{
+		sf::Sprite image;
+		std::string fichierImage;
+		float rot;
+		Float2 scale;
+		Float2 offSet;
+		fichier >> fichierImage;
+		fichier >> rot;
+		fichier >> scale;
+		fichier >> offSet;
+		sf::Texture* p_text = GestionnaireTexture::obtenirTexture(fichierImage);
+		image.setTexture(*p_text);
+		image.setRotation(rot);
+		image.setScale(scale);
+		contenant.add_images(image, offSet);
+	}
 
 	return 1;
 }
@@ -39,7 +57,7 @@ bool EcrireFichier(std::ofstream& fichier, corps_visible& objet)
 	//type de l'objet
 	fichier << "cv\n";
 	//caractéristique
-	fichier << objet.masse << '\t' << objet.bounce << '\t' << objet.friction << '\t';
+	fichier << objet.masse << '\t' << objet.bounce << '\t' << objet.friction << '\n';
 	//forme
 	fichier << objet.forme.size()<<'\n';
 	for (int i = 0, taillei = objet.forme.size(); i < taillei; i++)
@@ -51,7 +69,7 @@ bool EcrireFichier(std::ofstream& fichier, corps_visible& objet)
 		}
 		fichier << '\n';
 	}
-	//image (futur)
+	//image
 	fichier << objet.images.size() << '\n';
 	for (int i = 0, taillei = objet.images.size(); i < taillei; i++)
 	{
@@ -60,8 +78,8 @@ bool EcrireFichier(std::ofstream& fichier, corps_visible& objet)
 		else
 		{
 			fichier << nom << '\t'
-				<< objet.images[i].getRotation << '\t'
-				<< objet.images[i].getScale << '\t'
+				<< objet.images[i].getRotation() << '\t'
+				<< (Float2)objet.images[i].getScale() << '\t'
 				<< objet.images_offet[i] << '\n';
 
 		}
@@ -86,14 +104,15 @@ sf::Texture* GestionnaireTexture::obtenirTexture(std::string nom)
 
 	if (!retour)
 	{
-		sf::Texture nouvelleTexture;
-		if (nouvelleTexture.loadFromFile(nom))
+		listeTexture.push_back(textureNommee());
+		if (listeTexture[listeTexture.size() - 1].texture.loadFromFile(nom))
 		{
-			textureNommee ajout;
-			ajout.nom = nom;
-			ajout.texture = nouvelleTexture;
-			listeTexture.push_back(ajout);
-			retour = &listeTexture[listeTexture.size-1].texture;
+			listeTexture[listeTexture.size() - 1].nom = nom;
+			retour = &listeTexture[listeTexture.size()-1].texture;
+		}
+		else
+		{
+			listeTexture.pop_back();
 		}
 	}
 	return retour;

@@ -197,7 +197,6 @@ infoColl corps::operator + (corps& c)
 		secondF->vit -= v2;
 		secondF->vit += v2 * (secondF->masse - firstF->masse) / smasse + v2 * 2.f * firstF->masse / smasse;
 
-		std::cout << std::endl;
 
 
 	}
@@ -215,17 +214,6 @@ infoColl corps::operator + (corps& c)
 
 		//vitesse
 		doBounce(firstF->vit, normal, bounce * c.bounce);
-
-
-		if (isnan(firstF->vit.x) || isnan(firstF->vit.y) || isnan(firstF->getPosition().x) || isnan(firstF->getPosition().y))
-		{
-			corps* brise = firstF;
-			std::cout << "first" << std::endl;
-			std::cout << "normal = " << normal << std::endl;
-			std::cout <<"force = "<<brise->forc<< std::endl;
-			std::cout <<"vitesse = "<<brise->vit<< std::endl;
-			std::cout <<"position = "<<brise->getPosition()<< std::endl;
-		}
 	}
 	else if (secondF->is_Dynamic)
 	{
@@ -241,16 +229,6 @@ infoColl corps::operator + (corps& c)
 		
 		//vitesse
 		doBounce(secondF->vit, normal, bounce * c.bounce);
-
-		if (isnan(secondF->vit.x) || isnan(secondF->vit.y) || isnan(secondF->getPosition().x) || isnan(secondF->getPosition().y))
-		{
-			corps* brise = secondF;
-			std::cout << "second" << std::endl;
-			std::cout << "normal = " << normal << std::endl;
-			std::cout << "force = " << brise->forc << std::endl;
-			std::cout << "vitesse = " << brise->vit << std::endl;
-			std::cout << "position = " << brise->getPosition() << std::endl;
-		}
 	}
 
 	return collision;

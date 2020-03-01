@@ -1,27 +1,15 @@
 #include <SFML/Graphics.hpp>
 #include "Monde.h"
+#include "FichierIO.h"
 
 int main()
 {
     Monde univers;
-
-    Convexe carre;
-    carre.sommets.push_back(Float2(0,0));
-    carre.sommets.push_back(Float2(0, 28));
-    carre.sommets.push_back(Float2(20, 28));
-    carre.sommets.push_back(Float2(20, 0));
-    Concave box;
-    box.formes.push_back(carre);
-
-    sf::Sprite ptitbonhomme;
-    sf::Texture textBonhomme;
-    textBonhomme.loadFromFile("Ressource/Texture/test Sprite.png");
-    ptitbonhomme.setTexture(textBonhomme);
-
-    corps_visible perso(1,Float2(0,0),box);
-    perso.add_images(ptitbonhomme);
-    
-    corps_visible* p_perso = univers.addDynamique(perso);
+    std::ifstream fs;
+    fs.open("perso.txt");
+    corps_visible* p_perso = univers.addDynamique(corps_visible());
+    LireFichier(fs, *p_perso);
+    fs.close();
     
     Convexe mur;
     mur.sommets.push_back(Float2(0,50));
@@ -42,14 +30,13 @@ int main()
 
     univers.addStatique(murPhy);
 
-    //corps murPhy2(1, Float2(50, 50), murColide, 0);
 
     sf::VertexArray murText (sf::TrianglesFan, 5);
     for (int i = 0; i < 5; i++) { murText[i].position = mur.sommets[i]; murText[i].color = sf::Color::Green; }
     sf::VertexArray murText2(sf::TrianglesFan, 5);
     for (int i = 0; i < 5; i++) { murText2[i].position = mur.sommets[i]+sf::Vector2f(50,50); murText2[i].color = sf::Color::Green; }
 
-
+    
 
     sf::View camera;
     camera.setCenter(0, 0);
@@ -57,7 +44,6 @@ int main()
 
 
     sf::RenderWindow window(sf::VideoMode(500,500), "SFML works!");
-
 
     while (window.isOpen())
     {
@@ -82,7 +68,7 @@ int main()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))mv += Float2(0, puiss);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))mv += Float2(-puiss, 0);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))mv += Float2(puiss, 0);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) perso.vit = Float2(0, 0);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) p_perso->vit = Float2(0, 0);
 
         p_perso->forc += mv;
         p_perso->forc += p_perso->vit * -frict;
@@ -90,7 +76,7 @@ int main()
 
         univers.update();
 
-        camera.setCenter(perso.getPosition());
+        camera.setCenter(p_perso->getPosition());
 
         window.clear();
         window.draw(murText);
