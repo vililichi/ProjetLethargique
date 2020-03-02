@@ -233,6 +233,18 @@ infoColl corps::operator + (corps& c)
 
 	return collision;
 }
+void corps::resize(Float2 multiplicateur)
+{
+	for (int i = 0, taillei = forme.size(); i < taillei; i++)
+	{
+		for (int j = 0, taillej = forme.formes[i].size(); j < taillej; j++)
+		{
+			forme.formes[i].sommets[j].x *= multiplicateur.x;
+			forme.formes[i].sommets[j].y *= multiplicateur.y;
+		}
+	}
+	modif = true;
+}
 
 collisionSolution solveCollision(Float2 pactu, Float2 pancien, Convexe& forme, Float2 posConvexe, Float2 posConvexeAncien)
 {
@@ -408,6 +420,20 @@ void corps_visible::setPosition(Float2 new_position)
 void corps_visible::updatePosition(sf::Time deltaT)
 {
 	corps::updatePosition(deltaT);
+	modif_images = true;
+}
+void corps_visible::resize(Float2 multiplicateur)
+{
+	corps::resize(multiplicateur);
+	for (int i = 0, taille = images.size(); i < taille; i++)
+	{
+		Float2 scale = images[i].getScale();
+		scale.x *= multiplicateur.x;
+		scale.y *= multiplicateur.y;
+		images[i].setScale(scale);
+		images_offet[i].x *= multiplicateur.x;
+		images_offet[i].y *= multiplicateur.y;
+	}
 	modif_images = true;
 }
 
