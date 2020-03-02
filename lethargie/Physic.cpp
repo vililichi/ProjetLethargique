@@ -402,7 +402,7 @@ void corps_visible::afficher(sf::RenderWindow& fenetre)
 	{
 		for (int i = 0; i < taille; i++)
 		{
-			images[i].setPosition(position);
+			images[i].setPosition(position + images_offet[i]);
 			modif_images = false;
 		}
 	}

@@ -14,7 +14,7 @@ prototypes dans Physic.h
 struct textureNommee
 {
 	std::string nom;
-	sf::Texture texture;
+	sf::Texture* texture;
 };
 class GestionnaireTexture
 {

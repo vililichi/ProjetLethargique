@@ -97,21 +97,24 @@ sf::Texture* GestionnaireTexture::obtenirTexture(std::string nom)
 	{
 		if (listeTexture[i].nom == nom)
 		{
-			retour = &listeTexture[i].texture;
+			retour = listeTexture[i].texture;
 			break;
 		}
 	}
 
 	if (!retour)
 	{
+		unsigned int index = listeTexture.size();
 		listeTexture.push_back(textureNommee());
-		if (listeTexture[listeTexture.size() - 1].texture.loadFromFile(nom))
+		listeTexture[index].texture = new sf::Texture;
+		if (listeTexture[index].texture->loadFromFile(nom))
 		{
-			listeTexture[listeTexture.size() - 1].nom = nom;
-			retour = &listeTexture[listeTexture.size()-1].texture;
+			listeTexture[index].nom = nom;
+			retour = listeTexture[index].texture;
 		}
 		else
 		{
+			delete listeTexture[index].texture;
 			listeTexture.pop_back();
 		}
 	}
@@ -123,7 +126,7 @@ std::string GestionnaireTexture::retrouverNom(const sf::Texture* adresse)
 	std::string retour("");
 	for (int i = 0, taille = listeTexture.size(); i < taille; i++)
 	{
-		if (&listeTexture[i].texture == adresse)
+		if (listeTexture[i].texture == adresse)
 		{
 			retour = listeTexture[i].nom;
 			break;
@@ -134,5 +137,9 @@ std::string GestionnaireTexture::retrouverNom(const sf::Texture* adresse)
 
 void GestionnaireTexture::clear()
 {
+	for (int i = 0, taille = listeTexture.size(); i < taille; i++)
+	{
+		delete listeTexture[i].texture;
+	}
 	listeTexture.clear();
 }

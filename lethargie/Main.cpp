@@ -12,29 +12,23 @@ int main()
     fs.close();
     
     Convexe mur;
-    mur.sommets.push_back(Float2(0,50));
-    mur.sommets.push_back(Float2(0,75));
-    mur.sommets.push_back(Float2(100, 75));
-    mur.sommets.push_back(Float2(100, 50));
-    mur.sommets.push_back(Float2(50, 25));
-    Convexe mur2;
-    mur2.sommets.push_back(Float2(50, 100));
-    mur2.sommets.push_back(Float2(50, 125));
-    mur2.sommets.push_back(Float2(150, 125));
-    mur2.sommets.push_back(Float2(150, 100));
-    mur2.sommets.push_back(Float2(100, 75));
+    mur.sommets.push_back(Float2(-50,25));
+    mur.sommets.push_back(Float2(50,25));
+    mur.sommets.push_back(Float2(50, -25));
+    mur.sommets.push_back(Float2(-50, -25));
     Concave murColide;
     murColide.formes.push_back(mur);
-    murColide.formes.push_back(mur2);
-    corps_visible murPhy(1,Float2(0,0),murColide,0);
+    corps_visible murPhy(1,Float2(0,150),murColide,0);
+    
+    sf::Sprite imageMur;
+    sf::Texture* textMur = GestionnaireTexture::obtenirTexture("Ressource/Texture/degrad50_100.png");
+    imageMur.setTexture(*textMur);
+    murPhy.add_images(imageMur, Float2(-50, -25));
+    
 
     univers.addStatique(murPhy);
 
 
-    sf::VertexArray murText (sf::TrianglesFan, 5);
-    for (int i = 0; i < 5; i++) { murText[i].position = mur.sommets[i]; murText[i].color = sf::Color::Green; }
-    sf::VertexArray murText2(sf::TrianglesFan, 5);
-    for (int i = 0; i < 5; i++) { murText2[i].position = mur.sommets[i]+sf::Vector2f(50,50); murText2[i].color = sf::Color::Green; }
 
     
 
@@ -79,8 +73,6 @@ int main()
         camera.setCenter(p_perso->getPosition());
 
         window.clear();
-        window.draw(murText);
-        window.draw(murText2);
         univers.afficher(window);
 
         window.setView(camera);
