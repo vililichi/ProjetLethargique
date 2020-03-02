@@ -15,6 +15,8 @@ protected:
 	Float2 position;
 	Float2 old_position;
 
+	void calculApproxTaille();
+
 public:
 	float bounce, friction, masse;
 

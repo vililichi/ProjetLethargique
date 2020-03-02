@@ -25,6 +25,7 @@ int main()
     imageMur.setTexture(*textMur);
     murPhy.add_images(imageMur, Float2(-50, -25));
     
+    murPhy.resize(Float2(2, 4));
 
     univers.addStatique(murPhy);
 

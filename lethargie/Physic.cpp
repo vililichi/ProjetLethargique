@@ -43,20 +43,7 @@ corps::corps(float _masse, Float2 _position, Concave _forme, bool dynamic)
 void corps::setForme(Concave new_forme)
 {
 	forme = new_forme;
-	float max = 0;
-	short taille = forme.size();
-	for (short i = 0; i < taille; i++)
-	{
-		short taille2 = forme.formes[i].size();
-		for (short j = 0; j < taille2; j++)
-		{
-			float x = forme.formes[i].sommets[j].x;
-			float y = forme.formes[i].sommets[j].y;
-			float tailleJ = x * x + y * y;
-			if (tailleJ > max)max = tailleJ;
-		}
-	}
-	approxTaille = sqrtf(max);
+	calculApproxTaille();
 	modif = true;
 }
 Concave corps::getForme() const
@@ -243,7 +230,24 @@ void corps::resize(Float2 multiplicateur)
 			forme.formes[i].sommets[j].y *= multiplicateur.y;
 		}
 	}
+	calculApproxTaille();
 	modif = true;
+}
+void corps::calculApproxTaille()
+{
+	float max = 0;
+	for (short i = 0, taille = forme.size(); i < taille; i++)
+	{
+		short taille2 = forme.formes[i].size();
+		for (short j = 0; j < taille2; j++)
+		{
+			float x = forme.formes[i].sommets[j].x;
+			float y = forme.formes[i].sommets[j].y;
+			float tailleJ = x * x + y * y;
+			if (tailleJ > max)max = tailleJ;
+		}
+	}
+	approxTaille = sqrtf(max);
 }
 
 collisionSolution solveCollision(Float2 pactu, Float2 pancien, Convexe& forme, Float2 posConvexe, Float2 posConvexeAncien)
