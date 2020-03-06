@@ -1,6 +1,6 @@
 #include "Vivant.h"
 
-Vivant::Vivant(float _lumiereMax = 10, float _ombreMax = 10, float _masse = 1, Float2 _position = Float2(0, 0), Concave _forme = Concave())
+Vivant::Vivant(float _lumiereMax, float _ombreMax, float _masse, Float2 _position, Concave _forme)
 	: corps_visible(_masse, _position, _forme)
 {
 	lumiereMax = _lumiereMax;
@@ -104,7 +104,7 @@ bool Vivant::estVivant()
 {
 	return vivant;
 }
-void Vivant::resurection(int puissance = 0)
+void Vivant::resurection(int puissance )
 {
 	for (int i = 0; i < nbrEtat; i++)
 	{
