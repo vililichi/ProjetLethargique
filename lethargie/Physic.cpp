@@ -92,8 +92,10 @@ void corps::updatePosition(sf::Time deltaT)
 		acc += forc  / masse;
 		position += (acc * sec * sec * 0.5f) + vit * sec;
 		vit += acc * sec;
+
 		acc = Float2(0, 0);
 		forc = Float2(0, 0);
+
 
 }
 infoColl corps::operator * (corps& c)
@@ -101,7 +103,7 @@ infoColl corps::operator * (corps& c)
 	infoColl info;
 	bool col = true;
 	Float2 dir = position - c.getPosition();
-	float dist = dir.x * dir.x + dir.y * dir.y;
+	float dist = dir.norm2();
 	float tailleSqrt = approxTaille + c.getApproxTaille();
 	tailleSqrt *= tailleSqrt;
 	if (dist > tailleSqrt) {
@@ -119,13 +121,11 @@ infoColl corps::operator + (corps& c)
 	infoColl collision = *this * c;
 	if (collision.taille == 0)return collision;
 
-	int tailleCol = collision.taille;
-
 	corps* firstF = this;
 	corps* secondF = &c;
 
 	collisionSolution fact;
-	for (int i = 0; i < tailleCol; i++)
+	for (int i = 0, tailleCol = collision.taille; i < tailleCol; i++)
 	{
 		corps* first;
 		corps* second;
@@ -164,60 +164,59 @@ infoColl corps::operator + (corps& c)
 			secondF = second;
 		}
 	}
-	if (firstF->is_Dynamic && secondF->is_Dynamic)
-	{
-		//position
-		setPosition(position + fact.factor * (old_position - position));
-		c.setPosition(c.position + fact.factor * (c.old_position - c.position));
+		if (firstF->is_Dynamic && secondF->is_Dynamic)
+		{
+			//position
+			setPosition(position + fact.factor * (old_position - position));
+			c.setPosition(c.position + fact.factor * (c.old_position - c.position));
 
 
-		Float2 normal = fact.normal;
+			Float2 normal = fact.normal;
 
-		float smasse = masse + c.masse;
+			float smasse = masse + c.masse;
 
-		Float2 v1 = firstF->vit/normal;
-		Float2 v2 = secondF->vit/normal;
+			Float2 v1 = firstF->vit / normal;
+			Float2 v2 = secondF->vit / normal;
 
-		firstF->vit -= v1;
-		firstF->vit += v1 * (firstF->masse - secondF->masse) / smasse + v2 * 2.f * secondF->masse / smasse;
+			firstF->vit -= v1;
+			firstF->vit += v1 * (firstF->masse - secondF->masse) / smasse + v2 * 2.f * secondF->masse / smasse;
 
-		secondF->vit -= v2;
-		secondF->vit += v2 * (secondF->masse - firstF->masse) / smasse + v2 * 2.f * firstF->masse / smasse;
+			secondF->vit -= v2;
+			secondF->vit += v2 * (secondF->masse - firstF->masse) / smasse + v2 * 2.f * firstF->masse / smasse;
 
 
 
-	}
-	else if (firstF->is_Dynamic)
-	{
-		//position
+		}
+		else if (firstF->is_Dynamic)
+		{
+			//position
 
-		if (fact.factor <= -1)fact.factor = 1.5;
-		firstF->setPosition(firstF->position + fact.factor * (firstF->old_position - firstF->position));
+			if (fact.factor <= -1)fact.factor = 1.5;
+			firstF->setPosition(firstF->position + fact.factor * (firstF->old_position - firstF->position));
 
-		//force
-		Float2 normal = fact.normal;
+			//force
+			Float2 normal = fact.normal;
 
-		doBounce(firstF->forc, normal, 0);
+			doBounce(firstF->forc, normal, 0);
 
-		//vitesse
-		doBounce(firstF->vit, normal, bounce * c.bounce);
-	}
-	else if (secondF->is_Dynamic)
-	{
-		//position
+			//vitesse
+			doBounce(firstF->vit, normal, bounce * c.bounce);
+		}
+		else if (secondF->is_Dynamic)
+		{
+			//position
 
-		if (fact.factor <= -1)fact.factor = 1.5;
-		secondF->setPosition(secondF->position + fact.factor * (secondF->old_position - secondF->position));
+			if (fact.factor <= -1)fact.factor = 1.5;
+			secondF->setPosition(secondF->position + fact.factor * (secondF->old_position - secondF->position));
 
-		//force
-		Float2 normal = -fact.normal;
-		
-		doBounce(secondF->forc, normal, 0);
-		
-		//vitesse
-		doBounce(secondF->vit, normal, bounce * c.bounce);
-	}
+			//force
+			Float2 normal = -fact.normal;
 
+			doBounce(secondF->forc, normal, 0);
+
+			//vitesse
+			doBounce(secondF->vit, normal, bounce * c.bounce);
+		}
 	return collision;
 }
 void corps::resize(Float2 multiplicateur)

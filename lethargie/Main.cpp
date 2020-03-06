@@ -4,31 +4,38 @@
 
 int main()
 {
+    bool doGrav = false;
+    sf::Clock timerFPS;
+    int compteur = 0;
     Monde univers;
-    std::ifstream fs;
-    fs.open("perso.txt");
+    std::ifstream ifs;
+
+    ifs.open("perso.txt");
     corps_visible* p_perso = univers.addDynamique(corps_visible());
-    LireFichier(fs, *p_perso);
-    fs.close();
-    
-    Convexe mur;
-    mur.sommets.push_back(Float2(-50,25));
-    mur.sommets.push_back(Float2(50,25));
-    mur.sommets.push_back(Float2(50, -25));
-    mur.sommets.push_back(Float2(-50, -25));
-    Concave murColide;
-    murColide.formes.push_back(mur);
-    corps_visible murPhy(1,Float2(0,150),murColide,0);
-    
-    sf::Sprite imageMur;
-    sf::Texture* textMur = GestionnaireTexture::obtenirTexture("Ressource/Texture/degrad50_100.png");
-    imageMur.setTexture(*textMur);
-    murPhy.add_images(imageMur, Float2(-50, -25));
-    
-    murPhy.resize(Float2(2, 4));
+    LireFichier(ifs, *p_perso);
+    ifs.close();
 
-    univers.addStatique(murPhy);
+    corps_visible* p_objet;
+    ifs.open("Ressource/MapItem/platform1");
+    p_objet = univers.addStatique(corps_visible());
+    LireFichier(ifs, *p_objet);
+    p_objet->setPosition(Float2(0, 150));
+    p_objet->resize(Float2(4, 1));
+    ifs.close();
 
+    ifs.open("Ressource/MapItem/platform1");
+    p_objet = univers.addStatique(corps_visible());
+    LireFichier(ifs, *p_objet);
+    p_objet->setPosition(Float2(-200, 400));
+    p_objet->resize(Float2(2, 1));
+    ifs.close();
+
+    ifs.open("Ressource/MapItem/platform1");
+    p_objet = univers.addStatique(corps_visible());
+    LireFichier(ifs, *p_objet);
+    p_objet->setPosition(Float2(200, 150));
+    p_objet->resize(Float2(0.5, 5));
+    ifs.close();
 
 
     
@@ -40,6 +47,7 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode(500,500), "SFML works!");
 
+    timerFPS.restart();
     while (window.isOpen())
     {
 
@@ -57,16 +65,20 @@ int main()
         float rot = 0;
 
         const float puiss = 100;
-        const float frict = 10.0f;
+        const float fren = 10;
+        const float fric = 0.5;
+        const Float2 grav(0, 500);
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))mv += Float2(0, -puiss);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))mv += Float2(0, puiss);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))mv += Float2(-puiss, 0);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))mv += Float2(puiss, 0);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) p_perso->vit = Float2(0, 0);
+        if (mv.x * p_perso->vit.x < 1) mv.x += p_perso->vit.x * -fren;
+        mv += p_perso->vit * -fric;
+        if (doGrav)mv += grav;
+        else doGrav = true;
 
         p_perso->forc += mv;
-        p_perso->forc += p_perso->vit * -frict;
 
 
         univers.update();
@@ -78,6 +90,13 @@ int main()
 
         window.setView(camera);
         window.display();
+        compteur++;
+        if (compteur == 10000)
+        {
+            
+            std::cout << 10000 / timerFPS.restart().asSeconds()<<" boucles par seconde" << std::endl;
+            compteur = 0;
+        }
     }
 
     return 0;

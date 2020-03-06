@@ -84,10 +84,6 @@ void Monde::update()
 		{
 			*dynamiques[i] + *dynamiques[j];
 		}
-		for (int j = 0; j < tailleS; j++)
-		{
-			*dynamiques[i] + *dynamiques[j];
-		}
 	}
 
 	//statique  //n'étant pas modifier par les colision, l'ordre n'importe pas
