@@ -24,6 +24,7 @@ corps::corps()
 	is_Dynamic = 0;
 	bounce = 0.5;
 	friction = 0.5;
+	p_monde = NULL;
 
 }
 corps::corps(float _masse, Float2 _position, Concave _forme, bool dynamic)
@@ -38,6 +39,7 @@ corps::corps(float _masse, Float2 _position, Concave _forme, bool dynamic)
 	is_Dynamic = dynamic;
 	bounce = 0.5;
 	friction = 0.5;
+	p_monde = NULL;
 
 }
 void corps::setForme(Concave new_forme)
@@ -247,6 +249,10 @@ void corps::calculApproxTaille()
 		}
 	}
 	approxTaille = sqrtf(max);
+}
+void corps::setMonde(void* p_newMonde)
+{
+	p_monde = p_newMonde;
 }
 
 collisionSolution solveCollision(Float2 pactu, Float2 pancien, Convexe& forme, Float2 posConvexe, Float2 posConvexeAncien)

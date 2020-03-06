@@ -17,6 +17,8 @@ protected:
 
 	void calculApproxTaille();
 
+	void* p_monde;
+
 public:
 	float bounce, friction, masse;
 
@@ -37,6 +39,7 @@ public:
 	infoColl operator * (corps& c);
 	infoColl operator + (corps& c);
 	void resize(Float2 multiplicateur);
+	void setMonde(void* p_newMonde);
 };
 
 struct collisionSolution

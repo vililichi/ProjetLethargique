@@ -155,12 +155,14 @@
     <ClCompile Include="Math_addOn.cpp" />
     <ClCompile Include="Monde.cpp" />
     <ClCompile Include="Physic.cpp" />
+    <ClCompile Include="Vivant.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FichierIO.h" />
     <ClInclude Include="Math_addOn.h" />
     <ClInclude Include="Monde.h" />
     <ClInclude Include="Physic.h" />
+    <ClInclude Include="Vivant.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
