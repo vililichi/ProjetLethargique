@@ -4,6 +4,7 @@ Monde::Monde()
 {
 	clear();
 	temps.restart();
+	gravity = Float2(0, 0);
 }
 Monde::~Monde()
 {
@@ -27,8 +28,16 @@ void Monde::clear()
 			delete dynamiques[i];
 		}
 	}
+	for (int i = 0, taille = joueurs.size(); i < taille; i++)
+	{
+		if (joueurs[i] != NULL)
+		{
+			delete joueurs[i];
+		}
+	}
 	statiques.clear();
 	dynamiques.clear();
+	joueurs.clear();
 }
 corps_visible* Monde::addStatique(corps_visible new_corps)
 {
@@ -46,6 +55,12 @@ corps_visible* Monde::addDynamique(corps_visible new_corps)
 	dynamiques.push_back(p_new_corps);
 	return p_new_corps;
 }
+Joueur* Monde::addJoueur()
+{
+	Joueur* p_new_joueur = new Joueur();
+	joueurs.push_back(p_new_joueur);
+	return p_new_joueur;
+}
 void Monde::update()
 {
 //nettoyage des pointeur null et calcul tailles
@@ -53,6 +68,7 @@ void Monde::update()
 	//tailles initiale
 	int tailleS = statiques.size();
 	int tailleD = dynamiques.size();
+	int tailleJ = joueurs.size();
 
 	//statique
 	for (int i = 0; i < tailleS;)
@@ -76,15 +92,46 @@ void Monde::update()
 		}
 		else i++;
 	}
+	//joueur
+	for (int i = 0; i < tailleJ;)
+	{
+		if (!joueurs[i])
+		{
+			tailleJ--;
+			std::swap(joueurs[i], joueurs[tailleJ]);
+			joueurs.pop_back();
+		}
+		else i++;
+	}
+//gravité
+	if (temps.getElapsedTime().asSeconds() < 0.1)
+	{
+
+		for (int i = 0; i < tailleD; i++)
+		{
+			dynamiques[i]->forc += gravity * dynamiques[i]->masse;
+		}
+		for (int i = 0; i < tailleJ; i++)
+		{
+			joueurs[i]->forc += gravity * joueurs[i]->masse;
+		}
+	}
+
 
 //collision
 
-	//dynamique - dynamique
+	
 	for (int i = 0; i < tailleD; i++)
 	{
+		//dynamique - dynamique
 		for (int j = i + 1; j < tailleD; j++)
 		{
 			*dynamiques[i] + *dynamiques[j];
+		}
+		//dynamique - joueur
+		for (int j = 0; j < tailleJ; j++)
+		{
+			*joueurs[j] + *dynamiques[i];
 		}
 	}
 
@@ -96,7 +143,11 @@ void Monde::update()
 		{
 			*statiques[i] + *dynamiques[j];
 		}
-		//statique-autre
+		//statique-joueur
+		for (int j = 0; j < tailleJ; j++)
+		{
+			*joueurs[j] + *statiques[i];
+		}
 	}
 
 //mise à jour des position en fonction du temps
@@ -105,6 +156,10 @@ void Monde::update()
 	for (int i = 0; i < tailleD; i++)
 	{
 		dynamiques[i]->updatePosition(deltaT);
+	}
+	for (int i = 0; i < tailleJ; i++)
+	{
+		joueurs[i]->update(deltaT);
 	}
 }
 
@@ -117,5 +172,9 @@ void Monde::afficher(sf::RenderWindow& fenetre)
 	for (int i = 0, taille = dynamiques.size(); i < taille; i++)
 	{
 		dynamiques[i]->afficher(fenetre);
+	}
+	for (int i = 0, taille = joueurs.size(); i < taille; i++)
+	{
+		joueurs[i]->afficher(fenetre);
 	}
 }

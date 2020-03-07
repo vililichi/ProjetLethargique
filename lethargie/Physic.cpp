@@ -203,6 +203,10 @@ infoColl corps::operator + (corps& c)
 
 			//vitesse
 			doBounce(firstF->vit, normal, bounce * c.bounce);
+
+			//ground
+			collision.grounded = true;
+			collision.groundDir = normal;
 		}
 		else if (secondF->is_Dynamic)
 		{
@@ -218,6 +222,10 @@ infoColl corps::operator + (corps& c)
 
 			//vitesse
 			doBounce(secondF->vit, normal, bounce * c.bounce);
+
+			//ground
+			collision.grounded = true;
+			collision.groundDir = normal;
 		}
 	return collision;
 }
