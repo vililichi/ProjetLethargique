@@ -79,6 +79,8 @@ struct infoColl
 	bool firstElem[100] = {0};
 	int index[100] = {0};
 	int taille = 0;
+	bool grounded = false;
+	Float2 groundDir = Float2(0, 1);
 };
 
 class Convexe
