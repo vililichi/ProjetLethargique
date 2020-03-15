@@ -8,7 +8,7 @@ const int action2 = 2;
 const int dash = 3;
 const int jumpMem = 4;
 
-const float actionTime[nbrAction] = { 0.3, 0.7,0.7,1,0.5 };
+const float actionTime[nbrAction] = { 0.3, 0.7,0.7,1,0.2 };
 
 const float puiss = 300;
 const float fren = 10;

@@ -191,15 +191,16 @@ infoColl corps::operator + (corps& c)
 		}
 		else if (firstF->is_Dynamic)
 		{
-			//position
-
-			if (fact.factor <= -1)fact.factor = 1.5;
-			firstF->setPosition(firstF->position + fact.factor * (firstF->old_position - firstF->position));
-
-			//force
+			//normal
 			Float2 normal = fact.normal;
+			//position
+			
+			if (fact.factor <= -1)fact.factor = 1.5;
+			firstF->setPosition(firstF->position + fact.factor * ((Float2)(firstF->old_position - firstF->position)/normal));
+			
+			//normal
 
-			doBounce(firstF->forc, normal, 0);
+			doBounce(firstF->forc, normal, 1);
 
 			//vitesse
 			doBounce(firstF->vit, normal, bounce * c.bounce);
@@ -210,15 +211,17 @@ infoColl corps::operator + (corps& c)
 		}
 		else if (secondF->is_Dynamic)
 		{
-			//position
-
-			if (fact.factor <= -1)fact.factor = 1.5;
-			secondF->setPosition(secondF->position + fact.factor * (secondF->old_position - secondF->position));
-
-			//force
+			//normal
 			Float2 normal = -fact.normal;
 
-			doBounce(secondF->forc, normal, 0);
+			//position
+			
+			if (fact.factor <= -1)fact.factor = 1.5;
+			secondF->setPosition(secondF->position + fact.factor * ((Float2)(firstF->old_position - firstF->position) / normal));
+			
+		
+			//force
+			doBounce(secondF->forc, normal, 1);
 
 			//vitesse
 			doBounce(secondF->vit, normal, bounce * c.bounce);
@@ -370,7 +373,7 @@ collisionSolution solveCollision(Float2 pactu, Float2 pancien, Convexe& forme, F
 			}
 		}
 	}
-	/*if (!normalSet)
+	if (!normalSet)
 	{
 		retour.factor = 0;
 		Float2 normal;
@@ -383,7 +386,7 @@ collisionSolution solveCollision(Float2 pactu, Float2 pancien, Convexe& forme, F
 		normal = pancien - normal;
 		normal.setNorm(1);
 		retour.normal = normal;
-	}*/
+	}
 	return retour;
 }
 

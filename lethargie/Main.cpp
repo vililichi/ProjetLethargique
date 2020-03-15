@@ -5,21 +5,15 @@
 
 int main()
 {
-    bool doGrav = false;
     sf::Clock timerFPS;
     int compteur = 0;
     Monde univers;
-    univers.gravity = Float2(0, 300);
+    univers.gravity = Float2(0, 1000);
     std::ifstream ifs;
     
     Controler mainDivine;
     mainDivine.p_joueur = univers.addJoueur();
 
- /*
-    ifs.open("perso.txt");
-    corps_visible* p_perso = univers.addDynamique(corps_visible());
-    LireFichier(ifs, *p_perso);
-    ifs.close();*/
 
     corps_visible* p_objet;
     ifs.open("Ressource/MapItem/platform1");
