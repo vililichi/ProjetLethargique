@@ -24,6 +24,7 @@ corps::corps()
 	is_Dynamic = 0;
 	bounce = 0.5;
 	friction = 0.5;
+	p_monde = NULL;
 
 }
 corps::corps(float _masse, Float2 _position, Concave _forme, bool dynamic)
@@ -38,25 +39,13 @@ corps::corps(float _masse, Float2 _position, Concave _forme, bool dynamic)
 	is_Dynamic = dynamic;
 	bounce = 0.5;
 	friction = 0.5;
+	p_monde = NULL;
 
 }
 void corps::setForme(Concave new_forme)
 {
 	forme = new_forme;
-	float max = 0;
-	short taille = forme.size();
-	for (short i = 0; i < taille; i++)
-	{
-		short taille2 = forme.formes[i].size();
-		for (short j = 0; j < taille2; j++)
-		{
-			float x = forme.formes[i].sommets[j].x;
-			float y = forme.formes[i].sommets[j].y;
-			float tailleJ = x * x + y * y;
-			if (tailleJ > max)max = tailleJ;
-		}
-	}
-	approxTaille = sqrtf(max);
+	calculApproxTaille();
 	modif = true;
 }
 Concave corps::getForme() const
@@ -105,8 +94,10 @@ void corps::updatePosition(sf::Time deltaT)
 		acc += forc  / masse;
 		position += (acc * sec * sec * 0.5f) + vit * sec;
 		vit += acc * sec;
+
 		acc = Float2(0, 0);
 		forc = Float2(0, 0);
+
 
 }
 infoColl corps::operator * (corps& c)
@@ -114,7 +105,7 @@ infoColl corps::operator * (corps& c)
 	infoColl info;
 	bool col = true;
 	Float2 dir = position - c.getPosition();
-	float dist = dir.x * dir.x + dir.y * dir.y;
+	float dist = dir.norm2();
 	float tailleSqrt = approxTaille + c.getApproxTaille();
 	tailleSqrt *= tailleSqrt;
 	if (dist > tailleSqrt) {
@@ -132,13 +123,11 @@ infoColl corps::operator + (corps& c)
 	infoColl collision = *this * c;
 	if (collision.taille == 0)return collision;
 
-	int tailleCol = collision.taille;
-
 	corps* firstF = this;
 	corps* secondF = &c;
 
 	collisionSolution fact;
-	for (int i = 0; i < tailleCol; i++)
+	for (int i = 0, tailleCol = collision.taille; i < tailleCol; i++)
 	{
 		corps* first;
 		corps* second;
@@ -177,83 +166,104 @@ infoColl corps::operator + (corps& c)
 			secondF = second;
 		}
 	}
-	if (firstF->is_Dynamic && secondF->is_Dynamic)
-	{
-		//position
-		setPosition(position + fact.factor * (old_position - position));
-		c.setPosition(c.position + fact.factor * (c.old_position - c.position));
-
-
-		Float2 normal = fact.normal;
-
-		float smasse = masse + c.masse;
-
-		Float2 v1 = firstF->vit/normal;
-		Float2 v2 = secondF->vit/normal;
-
-		firstF->vit -= v1;
-		firstF->vit += v1 * (firstF->masse - secondF->masse) / smasse + v2 * 2.f * secondF->masse / smasse;
-
-		secondF->vit -= v2;
-		secondF->vit += v2 * (secondF->masse - firstF->masse) / smasse + v2 * 2.f * firstF->masse / smasse;
-
-		std::cout << std::endl;
-
-
-	}
-	else if (firstF->is_Dynamic)
-	{
-		//position
-
-		if (fact.factor <= -1)fact.factor = 1.5;
-		firstF->setPosition(firstF->position + fact.factor * (firstF->old_position - firstF->position));
-
-		//force
-		Float2 normal = fact.normal;
-
-		doBounce(firstF->forc, normal, 0);
-
-		//vitesse
-		doBounce(firstF->vit, normal, bounce * c.bounce);
-
-
-		if (isnan(firstF->vit.x) || isnan(firstF->vit.y) || isnan(firstF->getPosition().x) || isnan(firstF->getPosition().y))
+		if (firstF->is_Dynamic && secondF->is_Dynamic)
 		{
-			corps* brise = firstF;
-			std::cout << "first" << std::endl;
-			std::cout << "normal = " << normal << std::endl;
-			std::cout <<"force = "<<brise->forc<< std::endl;
-			std::cout <<"vitesse = "<<brise->vit<< std::endl;
-			std::cout <<"position = "<<brise->getPosition()<< std::endl;
+			//position
+			setPosition(position + fact.factor * (old_position - position));
+			c.setPosition(c.position + fact.factor * (c.old_position - c.position));
+
+
+			Float2 normal = fact.normal;
+
+			float smasse = masse + c.masse;
+
+			Float2 v1 = firstF->vit / normal;
+			Float2 v2 = secondF->vit / normal;
+
+			firstF->vit -= v1;
+			firstF->vit += v1 * (firstF->masse - secondF->masse) / smasse + v2 * 2.f * secondF->masse / smasse;
+
+			secondF->vit -= v2;
+			secondF->vit += v2 * (secondF->masse - firstF->masse) / smasse + v2 * 2.f * firstF->masse / smasse;
+
+
+
 		}
-	}
-	else if (secondF->is_Dynamic)
-	{
-		//position
-
-		if (fact.factor <= -1)fact.factor = 1.5;
-		secondF->setPosition(secondF->position + fact.factor * (secondF->old_position - secondF->position));
-
-		//force
-		Float2 normal = -fact.normal;
-		
-		doBounce(secondF->forc, normal, 0);
-		
-		//vitesse
-		doBounce(secondF->vit, normal, bounce * c.bounce);
-
-		if (isnan(secondF->vit.x) || isnan(secondF->vit.y) || isnan(secondF->getPosition().x) || isnan(secondF->getPosition().y))
+		else if (firstF->is_Dynamic)
 		{
-			corps* brise = secondF;
-			std::cout << "second" << std::endl;
-			std::cout << "normal = " << normal << std::endl;
-			std::cout << "force = " << brise->forc << std::endl;
-			std::cout << "vitesse = " << brise->vit << std::endl;
-			std::cout << "position = " << brise->getPosition() << std::endl;
-		}
-	}
+			//normal
+			Float2 normal = fact.normal;
+			//position
+			
+			if (fact.factor <= -1)fact.factor = 1.5;
+			firstF->setPosition(firstF->position + fact.factor * ((Float2)(firstF->old_position - firstF->position)/normal));
+			
+			//normal
 
+			doBounce(firstF->forc, normal, 1);
+
+			//vitesse
+			doBounce(firstF->vit, normal, bounce * c.bounce);
+
+			//ground
+			collision.grounded = true;
+			collision.groundDir = normal;
+		}
+		else if (secondF->is_Dynamic)
+		{
+			//normal
+			Float2 normal = -fact.normal;
+
+			//position
+			
+			if (fact.factor <= -1)fact.factor = 1.5;
+			secondF->setPosition(secondF->position + fact.factor * ((Float2)(firstF->old_position - firstF->position) / normal));
+			
+		
+			//force
+			doBounce(secondF->forc, normal, 1);
+
+			//vitesse
+			doBounce(secondF->vit, normal, bounce * c.bounce);
+
+			//ground
+			collision.grounded = true;
+			collision.groundDir = normal;
+		}
 	return collision;
+}
+void corps::resize(Float2 multiplicateur)
+{
+	for (int i = 0, taillei = forme.size(); i < taillei; i++)
+	{
+		for (int j = 0, taillej = forme.formes[i].size(); j < taillej; j++)
+		{
+			forme.formes[i].sommets[j].x *= multiplicateur.x;
+			forme.formes[i].sommets[j].y *= multiplicateur.y;
+		}
+	}
+	calculApproxTaille();
+	modif = true;
+}
+void corps::calculApproxTaille()
+{
+	float max = 0;
+	for (short i = 0, taille = forme.size(); i < taille; i++)
+	{
+		short taille2 = forme.formes[i].size();
+		for (short j = 0; j < taille2; j++)
+		{
+			float x = forme.formes[i].sommets[j].x;
+			float y = forme.formes[i].sommets[j].y;
+			float tailleJ = x * x + y * y;
+			if (tailleJ > max)max = tailleJ;
+		}
+	}
+	approxTaille = sqrtf(max);
+}
+void corps::setMonde(void* p_newMonde)
+{
+	p_monde = p_newMonde;
 }
 
 collisionSolution solveCollision(Float2 pactu, Float2 pancien, Convexe& forme, Float2 posConvexe, Float2 posConvexeAncien)
@@ -363,7 +373,7 @@ collisionSolution solveCollision(Float2 pactu, Float2 pancien, Convexe& forme, F
 			}
 		}
 	}
-	/*if (!normalSet)
+	if (!normalSet)
 	{
 		retour.factor = 0;
 		Float2 normal;
@@ -376,7 +386,7 @@ collisionSolution solveCollision(Float2 pactu, Float2 pancien, Convexe& forme, F
 		normal = pancien - normal;
 		normal.setNorm(1);
 		retour.normal = normal;
-	}*/
+	}
 	return retour;
 }
 
@@ -412,7 +422,7 @@ void corps_visible::afficher(sf::RenderWindow& fenetre)
 	{
 		for (int i = 0; i < taille; i++)
 		{
-			images[i].setPosition(position);
+			images[i].setPosition(position + images_offet[i]);
 			modif_images = false;
 		}
 	}
@@ -430,6 +440,20 @@ void corps_visible::setPosition(Float2 new_position)
 void corps_visible::updatePosition(sf::Time deltaT)
 {
 	corps::updatePosition(deltaT);
+	modif_images = true;
+}
+void corps_visible::resize(Float2 multiplicateur)
+{
+	corps::resize(multiplicateur);
+	for (int i = 0, taille = images.size(); i < taille; i++)
+	{
+		Float2 scale = images[i].getScale();
+		scale.x *= multiplicateur.x;
+		scale.y *= multiplicateur.y;
+		images[i].setScale(scale);
+		images_offet[i].x *= multiplicateur.x;
+		images_offet[i].y *= multiplicateur.y;
+	}
 	modif_images = true;
 }
 

@@ -15,6 +15,10 @@ protected:
 	Float2 position;
 	Float2 old_position;
 
+	void calculApproxTaille();
+
+	void* p_monde;
+
 public:
 	float bounce, friction, masse;
 
@@ -34,6 +38,8 @@ public:
 	void updatePosition(sf::Time deltaT);
 	infoColl operator * (corps& c);
 	infoColl operator + (corps& c);
+	void resize(Float2 multiplicateur);
+	void setMonde(void* p_newMonde);
 };
 
 struct collisionSolution
@@ -64,4 +70,8 @@ public:
 
 	virtual void setPosition(Float2 new_position);
 	virtual void updatePosition(sf::Time deltaT);
+	virtual void resize(Float2 multiplicateur);
+
+	friend bool LireFichier(std::ifstream& fichier, corps_visible& contenant); //définie dans FichierIO.cpp
+	friend bool EcrireFichier(std::ofstream& fichier, corps_visible& objet); //définie dans FichierIO.cpp
 };
