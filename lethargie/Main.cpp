@@ -2,9 +2,11 @@
 #include "Monde.h"
 #include "FichierIO.h"
 #include "Joueur.h"
+#include "ATH.h"
 
 int main()
 {
+
     sf::Clock timerFPS;
     int compteur = 0;
     Monde univers;
@@ -47,6 +49,13 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode(500,500), "SFML works!");
 
+    //interface
+    sf::View hud;
+    hud.setCenter(0, 0);
+    hud.setSize(500, 500);
+
+    Button bouton(window, 0, 0, 100, 40, 5);
+
     timerFPS.restart();
     while (window.isOpen())
     {
@@ -67,6 +76,10 @@ int main()
 
         window.clear();
         univers.afficher(window);
+
+        //interface
+        window.setView(hud);
+        bouton.Draw();
 
         window.setView(camera);
         window.display();
