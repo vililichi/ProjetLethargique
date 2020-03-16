@@ -143,3 +143,61 @@ void GestionnaireTexture::clear()
 	}
 	listeTexture.clear();
 }
+
+ProtoMonde::ProtoMonde() : Monde()
+{
+	clear();
+}
+ProtoMonde::~ProtoMonde()
+{
+	Monde::~Monde();
+	clear();
+}
+
+ void ProtoMonde::clear()
+{
+	 Monde::clear();
+	for (int i = 0, taille = official_dynamiques.size(); i < taille; i++)
+	{
+		if (official_dynamiques[i] != NULL)
+		{
+			delete official_dynamiques[i];
+		}
+	}
+	for (int i = 0, taille = official_statiques.size(); i < taille; i++)
+	{
+		if (official_statiques[i] != NULL)
+		{
+			delete official_statiques[i];
+		}
+	}
+	official_dynamiques.clear();
+	official_statiques.clear();
+}
+
+corps_visible* ProtoMonde::addOfficialStatique(std::string nom)
+{
+	official_corps_visible* p_new_corps = new official_corps_visible;
+	official_statiques.push_back(p_new_corps);
+	std::ifstream ifs;
+	ifs.open(nom);
+	LireFichier(ifs, p_new_corps->corps);
+	ifs.close();
+	p_new_corps->corps.is_Dynamic = false;
+	p_new_corps->corps.setMonde(this);
+	p_new_corps->nom = nom;
+	return &p_new_corps->corps;
+}
+corps_visible* ProtoMonde::addOfficialDynamique(std::string nom)
+{
+	official_corps_visible* p_new_corps = new official_corps_visible;
+	official_dynamiques.push_back(p_new_corps);
+	std::ifstream ifs;
+	ifs.open(nom);
+	LireFichier(ifs, p_new_corps->corps);
+	ifs.close();
+	p_new_corps->corps.is_Dynamic = true;
+	p_new_corps->corps.setMonde(this);
+	p_new_corps->nom = nom;
+	return &p_new_corps->corps;
+}
