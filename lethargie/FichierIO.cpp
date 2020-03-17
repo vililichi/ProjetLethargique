@@ -179,6 +179,7 @@ corps_visible* ProtoMonde::addOfficialStatique(std::string nom)
 {
 	official_corps_visible* p_new_corps = new official_corps_visible;
 	official_statiques.push_back(p_new_corps);
+	statiques.push_back(&p_new_corps->corps);
 	std::ifstream ifs;
 	ifs.open(nom);
 	LireFichier(ifs, p_new_corps->corps);
@@ -192,6 +193,7 @@ corps_visible* ProtoMonde::addOfficialDynamique(std::string nom)
 {
 	official_corps_visible* p_new_corps = new official_corps_visible;
 	official_dynamiques.push_back(p_new_corps);
+	dynamiques.push_back(&p_new_corps->corps);
 	std::ifstream ifs;
 	ifs.open(nom);
 	LireFichier(ifs, p_new_corps->corps);
@@ -200,4 +202,22 @@ corps_visible* ProtoMonde::addOfficialDynamique(std::string nom)
 	p_new_corps->corps.setMonde(this);
 	p_new_corps->nom = nom;
 	return &p_new_corps->corps;
+}
+corps_visible* ProtoMonde::addNonOfficialStatique(corps_visible new_corps)
+{
+	corps_visible* p_new_corps = new corps_visible(new_corps);
+	p_new_corps->is_Dynamic = false;
+	p_new_corps->setMonde(this);
+	statiques.push_back(p_new_corps);
+	non_official_statiques.push_back(p_new_corps);
+	return p_new_corps;
+}
+corps_visible* ProtoMonde::addNonOfficialDynamique(corps_visible new_corps)
+{
+	corps_visible* p_new_corps = new corps_visible(new_corps);
+	p_new_corps->is_Dynamic = true;
+	p_new_corps->setMonde(this);
+	dynamiques.push_back(p_new_corps);
+	non_official_dynamiques.push_back(p_new_corps);
+	return p_new_corps;
 }

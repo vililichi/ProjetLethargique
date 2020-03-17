@@ -43,7 +43,11 @@ public:
 
 	std::vector<official_corps_visible*> official_dynamiques;
 	std::vector<official_corps_visible*> official_statiques;
+	std::vector<corps_visible*> non_official_dynamiques;
+	std::vector<corps_visible*> non_official_statiques;
 
 	corps_visible* addOfficialStatique(std::string nom);
 	corps_visible* addOfficialDynamique(std::string nom);
+	corps_visible* addNonOfficialStatique(corps_visible);
+	corps_visible* addNonOfficialDynamique(corps_visible);
 };
