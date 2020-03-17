@@ -1,5 +1,5 @@
 #include"FichierIO.h"
-
+#pragma region fichiers corps
 int LireFichier(std::ifstream& fichier, corps_visible& contenant)
 {
 	int retour = REUSSITE;
@@ -55,7 +55,6 @@ int LireFichier(std::ifstream& fichier, corps_visible& contenant)
 
 	return retour;
 }
-
 int EcrireFichier(std::ofstream& fichier, corps_visible& objet)
 {
 	int retour = REUSSITE;
@@ -93,9 +92,86 @@ int EcrireFichier(std::ofstream& fichier, corps_visible& objet)
 
 	return retour;
 }
-
+#pragma endregion
+#pragma region ProtoMonde
+ProtoMonde::ProtoMonde() : Monde()
+{
+	clear();
+}
+ProtoMonde::~ProtoMonde()
+{
+	Monde::~Monde();
+	clear();
+}
+corps_visible* ProtoMonde::addOfficialStatique(std::string nom)
+{
+	official_corps_visible* p_new_corps = new official_corps_visible;
+	official_statiques.push_back(p_new_corps);
+	statiques.push_back(&p_new_corps->corps);
+	std::ifstream ifs;
+	ifs.open(nom);
+	LireFichier(ifs, p_new_corps->corps);
+	ifs.close();
+	p_new_corps->corps.is_Dynamic = false;
+	p_new_corps->corps.setMonde(this);
+	p_new_corps->nom = nom;
+	return &p_new_corps->corps;
+}
+corps_visible* ProtoMonde::addOfficialDynamique(std::string nom)
+{
+	official_corps_visible* p_new_corps = new official_corps_visible;
+	official_dynamiques.push_back(p_new_corps);
+	dynamiques.push_back(&p_new_corps->corps);
+	std::ifstream ifs;
+	ifs.open(nom);
+	LireFichier(ifs, p_new_corps->corps);
+	ifs.close();
+	p_new_corps->corps.is_Dynamic = true;
+	p_new_corps->corps.setMonde(this);
+	p_new_corps->nom = nom;
+	return &p_new_corps->corps;
+}
+corps_visible* ProtoMonde::addNonOfficialStatique(corps_visible new_corps)
+{
+	corps_visible* p_new_corps = new corps_visible(new_corps);
+	p_new_corps->is_Dynamic = false;
+	p_new_corps->setMonde(this);
+	statiques.push_back(p_new_corps);
+	non_official_statiques.push_back(p_new_corps);
+	return p_new_corps;
+}
+corps_visible* ProtoMonde::addNonOfficialDynamique(corps_visible new_corps)
+{
+	corps_visible* p_new_corps = new corps_visible(new_corps);
+	p_new_corps->is_Dynamic = true;
+	p_new_corps->setMonde(this);
+	dynamiques.push_back(p_new_corps);
+	non_official_dynamiques.push_back(p_new_corps);
+	return p_new_corps;
+}
+ void ProtoMonde::clear()
+{
+	 Monde::clear();
+	for (int i = 0, taille = official_dynamiques.size(); i < taille; i++)
+	{
+		if (official_dynamiques[i] != NULL)
+		{
+			delete official_dynamiques[i];
+		}
+	}
+	for (int i = 0, taille = official_statiques.size(); i < taille; i++)
+	{
+		if (official_statiques[i] != NULL)
+		{
+			delete official_statiques[i];
+		}
+	}
+	official_dynamiques.clear();
+	official_statiques.clear();
+}
+#pragma endregion
+#pragma region GestionnaireTexture
 std::vector<textureNommee> GestionnaireTexture::listeTexture;
-
 sf::Texture* GestionnaireTexture::obtenirTexture(std::string nom)
 {
 	sf::Texture* retour = NULL;
@@ -150,80 +226,18 @@ void GestionnaireTexture::clear()
 	listeTexture.clear();
 }
 
-ProtoMonde::ProtoMonde() : Monde()
+#pragma endregion
+#pragma region fichiers monde
+int LireFichier(std::ifstream& fichier, ProtoMonde& contenant)
 {
-	clear();
+	return 0;
 }
-ProtoMonde::~ProtoMonde()
+int LireFichier(std::ifstream& fichier, Monde& contenant)
 {
-	Monde::~Monde();
-	clear();
+	return 0;
 }
-
- void ProtoMonde::clear()
+int EcrireFichier(std::ofstream& fichier, ProtoMonde& monde)
 {
-	 Monde::clear();
-	for (int i = 0, taille = official_dynamiques.size(); i < taille; i++)
-	{
-		if (official_dynamiques[i] != NULL)
-		{
-			delete official_dynamiques[i];
-		}
-	}
-	for (int i = 0, taille = official_statiques.size(); i < taille; i++)
-	{
-		if (official_statiques[i] != NULL)
-		{
-			delete official_statiques[i];
-		}
-	}
-	official_dynamiques.clear();
-	official_statiques.clear();
+	return 0;
 }
-
-corps_visible* ProtoMonde::addOfficialStatique(std::string nom)
-{
-	official_corps_visible* p_new_corps = new official_corps_visible;
-	official_statiques.push_back(p_new_corps);
-	statiques.push_back(&p_new_corps->corps);
-	std::ifstream ifs;
-	ifs.open(nom);
-	LireFichier(ifs, p_new_corps->corps);
-	ifs.close();
-	p_new_corps->corps.is_Dynamic = false;
-	p_new_corps->corps.setMonde(this);
-	p_new_corps->nom = nom;
-	return &p_new_corps->corps;
-}
-corps_visible* ProtoMonde::addOfficialDynamique(std::string nom)
-{
-	official_corps_visible* p_new_corps = new official_corps_visible;
-	official_dynamiques.push_back(p_new_corps);
-	dynamiques.push_back(&p_new_corps->corps);
-	std::ifstream ifs;
-	ifs.open(nom);
-	LireFichier(ifs, p_new_corps->corps);
-	ifs.close();
-	p_new_corps->corps.is_Dynamic = true;
-	p_new_corps->corps.setMonde(this);
-	p_new_corps->nom = nom;
-	return &p_new_corps->corps;
-}
-corps_visible* ProtoMonde::addNonOfficialStatique(corps_visible new_corps)
-{
-	corps_visible* p_new_corps = new corps_visible(new_corps);
-	p_new_corps->is_Dynamic = false;
-	p_new_corps->setMonde(this);
-	statiques.push_back(p_new_corps);
-	non_official_statiques.push_back(p_new_corps);
-	return p_new_corps;
-}
-corps_visible* ProtoMonde::addNonOfficialDynamique(corps_visible new_corps)
-{
-	corps_visible* p_new_corps = new corps_visible(new_corps);
-	p_new_corps->is_Dynamic = true;
-	p_new_corps->setMonde(this);
-	dynamiques.push_back(p_new_corps);
-	non_official_dynamiques.push_back(p_new_corps);
-	return p_new_corps;
-}
+#pragma endregion

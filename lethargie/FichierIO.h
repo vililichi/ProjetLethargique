@@ -5,8 +5,8 @@
 #include <string>
 /*
 
-int LireFichier(std::string path, corps_visible& contenant);
-int EcrireFichier(std::string path, corps_visible& objet);
+int LireFichier(std::ifstream& fichier, corps_visible& contenant);
+int EcrireFichier(std::ofstream& fichier, corps_visible& objet);
 
 prototypes dans Physic.h
 */
@@ -52,3 +52,7 @@ public:
 	corps_visible* addNonOfficialStatique(corps_visible);
 	corps_visible* addNonOfficialDynamique(corps_visible);
 };
+
+int LireFichier(std::ifstream& fichier, ProtoMonde& contenant);
+int LireFichier(std::ifstream& fichier, Monde& contenant);
+int EcrireFichier(std::ofstream& fichier, ProtoMonde& monde);

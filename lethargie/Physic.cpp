@@ -1,4 +1,5 @@
 #include "Physic.h"
+#pragma region corps
 Float2 doBounce(Float2& v, Float2 normal, float bouncing)
 {
 	float delta = v.angle() - normal.angle();
@@ -389,7 +390,8 @@ collisionSolution solveCollision(Float2 pactu, Float2 pancien, Convexe& forme, F
 	}
 	return retour;
 }
-
+#pragma endregion fin de corps
+#pragma region corps_visible
 corps_visible::corps_visible()
 	:corps()
 {
@@ -456,4 +458,5 @@ void corps_visible::resize(Float2 multiplicateur)
 	}
 	modif_images = true;
 }
+#pragma endregion fin de corps_visible
 
