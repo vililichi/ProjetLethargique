@@ -97,7 +97,10 @@ const Float2 grav(0, 500);
 			actionPret[jumpMem] = false;
 			actionPret[jump] = false;
 			actionTimer[jump] = actionTime[jump];
-			vit += puiss  * collision.groundDir;
+			Float2 normalGrav = ((Monde*)p_monde)->gravity;
+			normalGrav.setNorm(1);
+			Float2 modVit = 2.f * collision.groundDir - normalGrav;
+			vit+= modVit.setNorm(puiss*1.3f);
 		}
 		return collision;
 	}

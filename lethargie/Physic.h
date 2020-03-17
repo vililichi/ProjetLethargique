@@ -17,7 +17,6 @@ protected:
 	Float2 size;
 
 	void calculApproxTaille();
-
 	void* p_monde;
 
 public:
