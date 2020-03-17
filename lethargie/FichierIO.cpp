@@ -150,7 +150,7 @@ corps_visible* ProtoMonde::addNonOfficialDynamique(corps_visible new_corps)
 }
  void ProtoMonde::clear()
 {
-	 Monde::clear();
+	
 	for (int i = 0, taille = official_dynamiques.size(); i < taille; i++)
 	{
 		if (official_dynamiques[i] != NULL)
@@ -165,8 +165,26 @@ corps_visible* ProtoMonde::addNonOfficialDynamique(corps_visible new_corps)
 			delete official_statiques[i];
 		}
 	}
+	for (int i = 0, taille = non_official_dynamiques.size(); i < taille; i++)
+	{
+		if (non_official_dynamiques[i] != NULL)
+		{
+			delete non_official_dynamiques[i];
+		}
+	}
+	for (int i = 0, taille = non_official_statiques.size(); i < taille; i++)
+	{
+		if (non_official_statiques[i] != NULL)
+		{
+			delete non_official_statiques[i];
+		}
+	}
 	official_dynamiques.clear();
 	official_statiques.clear();
+	non_official_dynamiques.clear();
+	non_official_statiques.clear();
+	statiques.clear();
+	dynamiques.clear();
 }
 #pragma endregion
 #pragma region GestionnaireTexture
