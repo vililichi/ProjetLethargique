@@ -34,7 +34,7 @@ public :
 	static void clear();
 };
 
-class ProtoMonde : Monde
+class ProtoMonde : public Monde
 {
 public:
 	ProtoMonde();

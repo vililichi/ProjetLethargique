@@ -14,6 +14,7 @@ protected:
 	float approxTaille;
 	Float2 position;
 	Float2 old_position;
+	Float2 size;
 
 	void calculApproxTaille();
 
@@ -39,6 +40,7 @@ public:
 	infoColl operator * (corps& c);
 	infoColl operator + (corps& c);
 	void resize(Float2 multiplicateur);
+	Float2 getSize();
 	void setMonde(void* p_newMonde);
 };
 

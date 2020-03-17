@@ -100,7 +100,6 @@ ProtoMonde::ProtoMonde() : Monde()
 }
 ProtoMonde::~ProtoMonde()
 {
-	Monde::~Monde();
 	clear();
 }
 corps_visible* ProtoMonde::addOfficialStatique(std::string nom)
@@ -230,14 +229,219 @@ void GestionnaireTexture::clear()
 #pragma region fichiers monde
 int LireFichier(std::ifstream& fichier, ProtoMonde& contenant)
 {
-	return 0;
+	int retour = REUSSITE;
+	int taille;
+	std::string type;
+	if (!fichier)return ERREUR_OUVERTURE;//erreur
+
+	//type de l'objet
+	fichier >> type;
+	if (type != "md")return ERREUR_FORMAT;//erreur
+	//caractéristique
+	fichier >> contenant.gravity;
+	//statique officiel
+	fichier >> taille;
+	for (int i = 0; i < taille; i++)
+	{
+		std::string nom;
+		corps_visible* p_objet;
+		Float2 position;
+		Float2 size;
+
+		fichier >> nom;
+		p_objet = contenant.addOfficialStatique(nom);
+		fichier >> position;
+		fichier >> size;
+		p_objet->setPosition(position);
+		p_objet->resize(size);
+	}
+	//statique non officiel
+	fichier >> taille;
+	for (int i = 0; i < taille; i++)
+	{
+		corps_visible* p_objet;
+		Float2 position ;
+		Float2 size;
+
+		p_objet = contenant.addNonOfficialStatique(corps_visible());
+		LireFichier(fichier, *p_objet);
+		fichier >> position;
+		fichier >> size;
+		p_objet->setPosition(position);
+		p_objet->resize(size);
+	}
+	//dynamique officiel
+	fichier >> taille;
+	for (int i = 0; i < taille; i++)
+	{
+		std::string nom;
+		corps_visible* p_objet;
+		Float2 position;
+		Float2 size;
+
+		fichier >> nom;
+		p_objet = contenant.addOfficialDynamique(nom);
+		fichier >> position;
+		fichier >> size;
+		p_objet->setPosition(position);
+		p_objet->resize(size);
+
+	}
+	//dynamique non officiel
+	fichier >> taille;
+	for (int i = 0; i < taille; i++)
+	{
+		corps_visible* p_objet;
+		Float2 position;
+		Float2 size;
+
+		p_objet = contenant.addNonOfficialDynamique(corps_visible());
+		LireFichier(fichier, *p_objet);
+		fichier >> position;
+		fichier >> size;
+		p_objet->setPosition(position);
+		p_objet->resize(size);
+	}
+	return retour;
 }
 int LireFichier(std::ifstream& fichier, Monde& contenant)
 {
-	return 0;
+	int retour = REUSSITE;
+	int taille;
+	std::string type;
+	if (!fichier)return ERREUR_OUVERTURE;//erreur
+
+	//type de l'objet
+	fichier >> type;
+	if (type != "md")return ERREUR_FORMAT;//erreur
+	//caractéristique
+	fichier >> contenant.gravity;
+	//statique officiel
+	fichier >> taille;
+	for (int i = 0; i < taille; i++)
+	{
+		std::ifstream ifs;
+		corps_visible* p_objet;
+		std::string nom;
+		Float2 position;
+		Float2 size;
+
+		fichier >> nom;
+		ifs.open(nom);
+		if (!ifs) return ERREUR_OUVERTURE;
+		p_objet = contenant.addStatique(corps_visible());
+		LireFichier(ifs, *p_objet);
+		ifs.close();
+		fichier >> position;
+		fichier >> size;
+		p_objet->setPosition(position);
+		p_objet->resize(size);
+	}
+	//statique non officiel
+	fichier >> taille;
+	for (int i = 0; i < taille; i++)
+	{
+		corps_visible* p_objet;
+		Float2 position;
+		Float2 size;
+
+		p_objet = contenant.addStatique(corps_visible());
+		LireFichier(fichier, *p_objet);
+		fichier >> position;
+		fichier >> size;
+		p_objet->setPosition(position);
+		p_objet->resize(size);
+	}
+	//dynamique officiel
+	fichier >> taille;
+	for (int i = 0; i < taille; i++)
+	{
+		std::ifstream ifs;
+		corps_visible* p_objet;
+		std::string nom;
+		Float2 position;
+		Float2 size;
+
+		fichier >> nom;
+		ifs.open(nom);
+		if (!ifs) return ERREUR_OUVERTURE;
+		p_objet = contenant.addDynamique(corps_visible());
+		LireFichier(ifs, *p_objet);
+		ifs.close();
+		fichier >> position;
+		fichier >> size;
+		p_objet->setPosition(position);
+		p_objet->resize(size);
+
+	}
+	//dynamique non officiel
+	fichier >> taille;
+	for (int i = 0; i < taille; i++)
+	{
+		std::ifstream ifs;
+		corps_visible* p_objet;
+		Float2 position;
+		Float2 size;
+
+		p_objet = contenant.addDynamique(corps_visible());
+		LireFichier(fichier, *p_objet);
+		fichier >> position;
+		fichier >> size;
+		p_objet->setPosition(position);
+		p_objet->resize(size);
+	}
+	return retour;
 }
 int EcrireFichier(std::ofstream& fichier, ProtoMonde& monde)
 {
-	return 0;
+	int retour = REUSSITE;
+	if (!fichier) return ERREUR_OUVERTURE;
+	//type de l'objet
+	fichier << "md\n";
+	//caractéristique
+	fichier << monde.gravity << '\n';
+	//statique officiel
+	fichier << monde.official_statiques.size() << '\n';
+	for (int i = 0, taille = monde.official_statiques.size(); i < taille; i++)
+	{
+		fichier << monde.official_statiques[i]->nom << '\n';
+		fichier << monde.official_statiques[i]->corps.getPosition() << '\n';
+		fichier << monde.official_statiques[i]->corps.getSize() << '\n';
+	}
+	//statique non officiel
+	fichier << monde.non_official_statiques.size() << '\n';
+	for (int i = 0, taille = monde.non_official_statiques.size(); i < taille; i++)
+	{
+		int erreur = EcrireFichier(fichier, *monde.non_official_statiques[i]);
+		fichier << monde.non_official_statiques[i]->getPosition() << '\n';
+		fichier << monde.non_official_statiques[i]->getSize() << '\n';
+		if (erreur != 1)
+		{
+			fichier << "/!\\ erreur " << erreur << " /!\\" << '\n';
+			return erreur;
+		}
+	}
+	//dynamique officiel
+	fichier << monde.official_dynamiques.size() << '\n';
+	for (int i = 0, taille = monde.official_dynamiques.size(); i < taille; i++)
+	{
+		fichier << monde.official_dynamiques[i]->nom << '\n';
+		fichier << monde.official_dynamiques[i]->corps.getPosition() << '\n';
+		fichier << monde.official_dynamiques[i]->corps.getSize() << '\n';
+	}
+	//dynamique non officiel
+	fichier << monde.non_official_dynamiques.size() << '\n';
+	for (int i = 0, taille = monde.non_official_dynamiques.size(); i < taille; i++)
+	{
+		int erreur = EcrireFichier(fichier, *monde.non_official_dynamiques[i]);
+		fichier << monde.non_official_dynamiques[i]->getPosition() << '\n';
+		fichier << monde.non_official_dynamiques[i]->getSize() << '\n';
+		if (erreur != 1)
+		{
+			fichier << "/!\\ erreur " << erreur << " /!\\" << '\n';
+			return erreur;
+		}
+	}
+	return retour;
 }
 #pragma endregion
