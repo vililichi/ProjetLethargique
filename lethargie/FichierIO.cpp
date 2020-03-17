@@ -1,13 +1,14 @@
 #include"FichierIO.h"
 
-bool LireFichier(std::ifstream& fichier, corps_visible& contenant)
+int LireFichier(std::ifstream& fichier, corps_visible& contenant)
 {
+	int retour = REUSSITE;
 	std::string type;
-	if (!fichier)return 0;//erreur
+	if (!fichier)return ERREUR_OUVERTURE;//erreur
 
 	//type de l'objet
 	fichier >> type;
-	if (type != "cv")return 0;//erreur
+	if (type != "cv")return ERREUR_FORMAT;//erreur
 	//caractéristique
 	fichier >> contenant.masse >> contenant.bounce >> contenant.friction;
 	//forme
@@ -42,18 +43,23 @@ bool LireFichier(std::ifstream& fichier, corps_visible& contenant)
 		fichier >> scale;
 		fichier >> offSet;
 		sf::Texture* p_text = GestionnaireTexture::obtenirTexture(fichierImage);
-		image.setTexture(*p_text);
-		image.setRotation(rot);
-		image.setScale(scale);
-		contenant.add_images(image, offSet);
+		if (!p_text) retour = ERREUR_OUVERTURE_TEXTURE;
+		else
+		{
+			image.setTexture(*p_text);
+			image.setRotation(rot);
+			image.setScale(scale);
+			contenant.add_images(image, offSet);
+		}
 	}
 
-	return 1;
+	return retour;
 }
 
-bool EcrireFichier(std::ofstream& fichier, corps_visible& objet)
+int EcrireFichier(std::ofstream& fichier, corps_visible& objet)
 {
-	int retour = 1;
+	int retour = REUSSITE;
+	if (!fichier) return ERREUR_OUVERTURE;
 	//type de l'objet
 	fichier << "cv\n";
 	//caractéristique
@@ -74,7 +80,7 @@ bool EcrireFichier(std::ofstream& fichier, corps_visible& objet)
 	for (int i = 0, taillei = objet.images.size(); i < taillei; i++)
 	{
 		std::string nom = GestionnaireTexture::retrouverNom(objet.images[i].getTexture());
-		if (nom == "")retour = 0;
+		if (nom == "")retour = ERREUR_OUVERTURE_TEXTURE;
 		else
 		{
 			fichier << nom << '\t'

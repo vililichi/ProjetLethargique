@@ -5,11 +5,12 @@
 #include <string>
 /*
 
-bool LireFichier(std::string path, corps_visible& contenant);
-bool EcrireFichier(std::string path, corps_visible& objet);
+int LireFichier(std::string path, corps_visible& contenant);
+int EcrireFichier(std::string path, corps_visible& objet);
 
 prototypes dans Physic.h
 */
+const int REUSSITE = 1, ERREUR_FORMAT = -1, ERREUR_OUVERTURE = -2, ERREUR_OUVERTURE_TEXTURE = -3;
 
 struct textureNommee
 {
