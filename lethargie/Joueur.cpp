@@ -121,8 +121,3 @@ const Float2 grav(0, 500);
 		p_joueur->actionFutur = controlInput;
 	}
 #pragma endregion
-
-
-
-	
-

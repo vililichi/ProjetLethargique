@@ -459,4 +459,3 @@ void corps_visible::resize(Float2 multiplicateur)
 	modif_images = true;
 }
 #pragma endregion fin de corps_visible
-
