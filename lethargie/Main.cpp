@@ -18,30 +18,6 @@ int main()
     int error = LireFichier(ifs, univers);
     std::cout << error<< '\n';
 
-
-    /*
-    corps_visible* p_objet;
-    p_objet = univers.addOfficialStatique("Ressource/MapItem/platform1");
-    p_objet->setPosition(Float2(0, 150));
-    p_objet->resize(Float2(4, 1));
-
-    ifs.open("Ressource/MapItem/platform1");
-    p_objet = univers.addNonOfficialStatique(corps_visible());
-    LireFichier(ifs, *p_objet);
-    p_objet->setPosition(Float2(-200, 400));
-    p_objet->resize(Float2(2, 1));
-    ifs.close();
-
-    p_objet = univers.addOfficialStatique("Ressource/MapItem/platform1");
-    p_objet->setPosition(Float2(200, 150));
-    p_objet->resize(Float2(0.5, 5));
-
-    std::ofstream ofs;
-    ofs.open("Ressource/Map/test");
-    EcrireFichier(ofs, univers);*/
-
-    
-
     sf::View camera;
     camera.setCenter(0, 0);
     camera.setSize(500, 500);

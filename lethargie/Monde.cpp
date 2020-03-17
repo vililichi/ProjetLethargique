@@ -59,6 +59,7 @@ Joueur* Monde::addJoueur()
 {
 	Joueur* p_new_joueur = new Joueur();
 	joueurs.push_back(p_new_joueur);
+	p_new_joueur->setMonde(this);
 	return p_new_joueur;
 }
 void Monde::update()
