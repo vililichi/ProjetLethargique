@@ -3,33 +3,38 @@
 #include <iostream>
 #include <string>
 
-class ATHManager {
-	ATHManager();
-};
-
-class Button {
+class ATHElement {
 public:
 	sf::RenderWindow* window;
 	sf::RectangleShape background;
-	sf::Color
-		backgroundColor,
-		outlineColor;
+	sf::Text contentText, defaultText;
 
-	std::string text, defaultText;
+	int prevKey;
 
-	float posX, posY,
-		sizeX, sizeY,
-		outlineSize;
 	bool toggle;
-	Button(sf::RenderWindow& _window);
-	Button(sf::RenderWindow& _window, float _posX, float _posY, float _sizeX, float _sizeY, sf::Color _backgroundColor = sf::Color::Transparent, float _outlineSize = 0, sf::Color _outlineColor = sf::Color::Transparent);
-	//~Button();
+	ATHElement();
+	ATHElement(sf::RenderWindow& _window);
+	
+	void SetDefaultText(sf::Vector2f _pos, float _size, sf::Color _color, std::string _text, sf::Font &_font);
+	void SetContentText(sf::Vector2f _pos, float _size, sf::Color _color, std::string _text, sf::Font &_font);
+	void SetBackground(sf::Vector2f _pos, sf::Vector2f _size, sf::Color _color, float _outlineSize, sf::Color _outlineColor);
 
 	bool isClicked(int _button, bool _toggle);
+	bool isClicked(sf::Vector2i _mousePos, int _button = 0, bool _toggle = false);
 	bool isHovered();
-	bool isHovered(sf::Vector2f _mousePos);
+	bool isHovered(sf::Vector2i _mousePos);
 
-	void UpdateVar();
+	std::string changeTextByUser(sf::Keyboard::Key sendKey, sf::Keyboard::Key backKey, sf::View& hud);
+
 	void Draw();
 };
 
+//class ATHManager {
+//	sf::RenderWindow* window;
+//	Button buttons[];
+//	int nbButtons;
+//
+//	ATHManager();
+//
+//	void Draw();
+//};
