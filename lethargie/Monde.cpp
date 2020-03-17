@@ -162,7 +162,6 @@ void Monde::update()
 		joueurs[i]->update(deltaT);
 	}
 }
-
 void Monde::afficher(sf::RenderWindow& fenetre)
 {
 	for (int i = 0, taille = statiques.size(); i < taille; i++)

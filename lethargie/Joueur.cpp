@@ -1,7 +1,7 @@
 
 #include "Joueur.h"
 #include "FichierIO.h"
-
+#pragma region constantes
 const int jump = 0;
 const int action1 = 1;
 const int action2 = 2;
@@ -14,7 +14,8 @@ const float puiss = 300;
 const float fren = 10;
 const float fric = 0.5;
 const Float2 grav(0, 500);
-
+#pragma endregion
+#pragma region joueur
 	Joueur::Joueur() : Vivant()
 	{
 		std::ifstream ifs;
@@ -100,8 +101,8 @@ const Float2 grav(0, 500);
 		}
 		return collision;
 	}
-
-
+#pragma endregion
+#pragma region controler
 	Controler::Controler()
 	{
 		p_joueur = NULL;
@@ -119,8 +120,4 @@ const Float2 grav(0, 500);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))controlInput.action2 = true;
 		p_joueur->actionFutur = controlInput;
 	}
-
-
-
-	
-
+#pragma endregion
