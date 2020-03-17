@@ -1,4 +1,5 @@
 #include "Physic.h"
+#pragma region corps
 Float2 doBounce(Float2& v, Float2 normal, float bouncing)
 {
 	float delta = v.angle() - normal.angle();
@@ -13,6 +14,7 @@ Float2 doBounce(Float2& v, Float2 normal, float bouncing)
 }
 corps::corps()
 {
+	size = Float2(1, 1);
 	forme = Concave();
 	worldForme = Concave();
 	approxTaille = 0;
@@ -29,6 +31,7 @@ corps::corps()
 }
 corps::corps(float _masse, Float2 _position, Concave _forme, bool dynamic)
 {
+	size = Float2(1, 1);
 	forme = Concave();
 	worldForme = Concave();
 	old_position = _position;
@@ -238,12 +241,17 @@ void corps::resize(Float2 multiplicateur)
 	{
 		for (int j = 0, taillej = forme.formes[i].size(); j < taillej; j++)
 		{
-			forme.formes[i].sommets[j].x *= multiplicateur.x;
-			forme.formes[i].sommets[j].y *= multiplicateur.y;
+			forme.formes[i].sommets[j].x *= multiplicateur.x / size.x;
+			forme.formes[i].sommets[j].y *= multiplicateur.y / size.y;
 		}
 	}
 	calculApproxTaille();
 	modif = true;
+	size = multiplicateur;
+}
+Float2 corps::getSize()
+{
+	return size;
 }
 void corps::calculApproxTaille()
 {
@@ -389,7 +397,8 @@ collisionSolution solveCollision(Float2 pactu, Float2 pancien, Convexe& forme, F
 	}
 	return retour;
 }
-
+#pragma endregion fin de corps
+#pragma region corps_visible
 corps_visible::corps_visible()
 	:corps()
 {
@@ -444,16 +453,17 @@ void corps_visible::updatePosition(sf::Time deltaT)
 }
 void corps_visible::resize(Float2 multiplicateur)
 {
-	corps::resize(multiplicateur);
+
 	for (int i = 0, taille = images.size(); i < taille; i++)
 	{
 		Float2 scale = images[i].getScale();
-		scale.x *= multiplicateur.x;
-		scale.y *= multiplicateur.y;
+		scale.x *= multiplicateur.x / size.x;
+		scale.y *= multiplicateur.y / size.y;
 		images[i].setScale(scale);
-		images_offet[i].x *= multiplicateur.x;
-		images_offet[i].y *= multiplicateur.y;
+		images_offet[i].x *= multiplicateur.x / size.x;
+		images_offet[i].y *= multiplicateur.y / size.y;
 	}
+	corps::resize(multiplicateur);
 	modif_images = true;
 }
-
+#pragma endregion fin de corps_visible

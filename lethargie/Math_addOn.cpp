@@ -1,5 +1,5 @@
 #include "Math_addOn.h"
-
+#pragma region Float2
 Float2::Float2()
 {
 	x = 0;
@@ -91,7 +91,8 @@ Float2 Float2::operator = (Float2 u)
 	y = u.y;
 	return *this ;
 }
-
+#pragma endregion
+#pragma region Droite
 Droite::Droite()
 {
 	A = 0;
@@ -249,7 +250,8 @@ std::ostream& operator<<(std::ostream& os, const Droite& u)
 	else os << "Y = " << u.A << "X + " << u.B;
 	return os;
 }
-
+#pragma endregion
+#pragma region Convexe
 Convexe::Convexe()
 {
 	sommets.clear();
@@ -342,7 +344,8 @@ infoColl Convexe::operator * (Convexe shape)
 		
 	return information;
 }
-
+#pragma endregion
+#pragma region Concave
 Concave::Concave()
 {
 	formes.clear();
@@ -404,3 +407,4 @@ infoColl operator * (Convexe shape, Concave shape2)
 	}
 	return info;
 }
+#pragma endregion

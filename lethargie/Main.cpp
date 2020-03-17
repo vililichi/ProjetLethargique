@@ -16,29 +16,31 @@ int main()
     Controler mainDivine;
     mainDivine.p_joueur = univers.addJoueur();
 
+    ifs.open("Ressource/Map/test");
+    int error = LireFichier(ifs, univers);
+    std::cout << error<< '\n';
 
+
+    /*
     corps_visible* p_objet;
-    ifs.open("Ressource/MapItem/platform1");
-    p_objet = univers.addStatique(corps_visible());
-    LireFichier(ifs, *p_objet);
+    p_objet = univers.addOfficialStatique("Ressource/MapItem/platform1");
     p_objet->setPosition(Float2(0, 150));
     p_objet->resize(Float2(4, 1));
-    ifs.close();
 
     ifs.open("Ressource/MapItem/platform1");
-    p_objet = univers.addStatique(corps_visible());
+    p_objet = univers.addNonOfficialStatique(corps_visible());
     LireFichier(ifs, *p_objet);
     p_objet->setPosition(Float2(-200, 400));
     p_objet->resize(Float2(2, 1));
     ifs.close();
 
-    ifs.open("Ressource/MapItem/platform1");
-    p_objet = univers.addStatique(corps_visible());
-    LireFichier(ifs, *p_objet);
+    p_objet = univers.addOfficialStatique("Ressource/MapItem/platform1");
     p_objet->setPosition(Float2(200, 150));
     p_objet->resize(Float2(0.5, 5));
-    ifs.close();
 
+    std::ofstream ofs;
+    ofs.open("Ressource/Map/test");
+    EcrireFichier(ofs, univers);*/
 
 
 
