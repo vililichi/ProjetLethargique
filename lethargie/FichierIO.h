@@ -18,6 +18,12 @@ struct textureNommee
 	sf::Texture* texture;
 };
 
+struct fontNommee
+{
+	std::string nom;
+	sf::Font* font;
+};
+
 struct official_corps_visible
 {
 	std::string nom;
@@ -31,6 +37,16 @@ protected:
 public :
 	static sf::Texture* obtenirTexture(std::string nom);
 	static std::string retrouverNom(const sf::Texture* adresse);
+	static void clear();
+};
+
+class GestionnaireFont
+{
+protected:
+	static std::vector<fontNommee> listeFont;
+public:
+	static sf::Font* obtenirFont(std::string nom);
+	static std::string retrouverNom(const sf::Font* adresse);
 	static void clear();
 };
 

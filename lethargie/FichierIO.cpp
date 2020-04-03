@@ -244,6 +244,63 @@ void GestionnaireTexture::clear()
 }
 
 #pragma endregion
+#pragma region GestionnaireFont
+std::vector<fontNommee> GestionnaireFont::listeFont;
+sf::Font* GestionnaireFont::obtenirFont(std::string nom)
+{
+	sf::Font* retour = NULL;
+	for (int i = 0, taille = listeFont.size(); i < taille; i++)
+	{
+		if (listeFont[i].nom == nom)
+		{
+			retour = listeFont[i].font;
+			break;
+		}
+	}
+
+	if (!retour)
+	{
+		unsigned int index = listeFont.size();
+		listeFont.push_back(fontNommee());
+		listeFont[index].font = new sf::Font;
+		if (listeFont[index].font->loadFromFile(nom))
+		{
+			listeFont[index].nom = nom;
+			retour = listeFont[index].font;
+		}
+		else
+		{
+			delete listeFont[index].font;
+			listeFont.pop_back();
+		}
+	}
+	return retour;
+}
+
+std::string GestionnaireFont::retrouverNom(const sf::Font* adresse)
+{
+	std::string retour("");
+	for (int i = 0, taille = listeFont.size(); i < taille; i++)
+	{
+		if (listeFont[i].font == adresse)
+		{
+			retour = listeFont[i].nom;
+			break;
+		}
+	}
+	return retour;
+}
+
+void GestionnaireFont::clear()
+{
+	for (int i = 0, taille = listeFont.size(); i < taille; i++)
+	{
+		delete listeFont[i].font;
+	}
+	listeFont.clear();
+}
+
+#pragma endregion
 #pragma region fichiers monde
 int LireFichier(std::ifstream& fichier, ProtoMonde& contenant)
 {
