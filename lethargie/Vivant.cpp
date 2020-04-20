@@ -5,9 +5,9 @@ Vivant::Vivant(float _lumiereMax, float _ombreMax, float _masse, Float2 _positio
 {
 
 	images_init_offset.clear();
-	for (int i = 0, taille = images_offet.size(); i < taille; i++)
+	for (int i = 0, taille = images_offset.size(); i < taille; i++)
 	{
-		images_init_offset.push_back(images_offet[i]);
+		images_init_offset.push_back(images_offset[i]);
 	}
 	lumiereMax = _lumiereMax;
 	ombreMax = _ombreMax;

@@ -56,7 +56,7 @@ class corps_visible : public corps
 protected:
 	bool modif_images;
 	std::vector<sf::Sprite> images;
-	std::vector<Float2> images_offet;
+	std::vector<Float2> images_offset;
 	
 public:
 	int layer;

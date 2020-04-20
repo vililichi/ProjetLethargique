@@ -2,7 +2,7 @@
 #include "Vivant.h"
 
 const int nbrAction = 5;
-const int nbrAnim = 2;
+const int nbrAnim = 3;
 
 struct controlInfo
 {
@@ -24,11 +24,15 @@ protected:
 	bool actionPret[nbrAction];
 	float animEtat[nbrAnim];
 	bool animActif[nbrAnim];
+	void updateAnim(float sec);
+	bool swap(bool invers);
+	bool isInvers;
+	float tempsChute;
 
 public :
 	Joueur();
 	controlInfo actionFutur;
-	virtual void update(sf::Time deltaT);
+	void update(sf::Time deltaT);
 	bool collideJump(infoColl);
 };
 

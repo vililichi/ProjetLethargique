@@ -5,7 +5,7 @@
 #pragma region constantes
 //id images
 const int bras1 = 0;
-const int corps = 1;
+const int body = 1;
 const int tete = 2;
 const int bras2 = 3;
 const int pied1 = 4;
@@ -19,9 +19,10 @@ const int jumpMem = 4;
 //id animation
 const int idle = 0;
 const int marche = 1;
+const int chute = 2;
 
 const float actionTime[nbrAction] = { 0.3, 0.7,0.7,1,0.2 };
-const float animTime[nbrAnim] = {1,0.5};
+const float animTime[nbrAnim] = {0.5,0.3,0.2};
 
 const float puiss = 300;
 const float fren = 10;
@@ -35,11 +36,13 @@ const Float2 grav(0, 500);
 		ifs.open("Ressource/MapItem/Vivant/perso.txt");
 		LireFichier(ifs, *this);
 		ifs.close();
+		tempsChute = 0;
+		isInvers = 0;
 
 		images_init_offset.clear();
-		for (int i = 0, taille = images_offet.size(); i < taille; i++)
+		for (int i = 0, taille = images_offset.size(); i < taille; i++)
 		{
-			images_init_offset.push_back(images_offet[i]);
+			images_init_offset.push_back(images_offset[i]);
 		}
 	
 		for (int i = 0; i < nbrAction; i++)
@@ -53,18 +56,131 @@ const Float2 grav(0, 500);
 			animEtat[i] = 0;
 		}
 	}
-	void Joueur::update(sf::Time deltaT)
+	void Joueur::updateAnim(float sec)
 	{
-		float sec = deltaT.asSeconds();
-		//aucune action
-		if ((!actionFutur.gauche && !actionFutur.droite)||(actionFutur.gauche && actionFutur.droite))
+		//condition
+		if (actionFutur.gauche && !actionFutur.droite)
 		{
-			animActif[idle] = true;
+			swap(true);
+		}
+		else if (actionFutur.droite)
+		{
+			swap(false);
+		}
+
+		if (vit.y < -10 || vit.y > 10)
+		{
+			if (tempsChute > 0.05)
+			{
+				animActif[chute] = true;
+			}
+			else
+			{
+				tempsChute += sec;
+			}
+		}
+		else tempsChute = 0;
+
+		if(!animActif[chute])
+		{ 
+			if ((!actionFutur.gauche && !actionFutur.droite) || (actionFutur.gauche && actionFutur.droite))
+			{
+				animActif[idle] = true;
+			}
+			else
+			{
+				animActif[marche] = true;
+			}
+		}
+		//mise à jour des états
+		for (int i = 0; i < nbrAnim; i++)
+		{
+			if (animActif[i])
+			{
+				animEtat[i] += sec / animTime[i];
+				if (animEtat[i] > 1)
+				{
+					animEtat[i] = 0;
+					animActif[i] = false;
+				}
+			}
+		}
+
+		//initialisation des positions
+		if (isInvers)
+		{
+			images_offset[tete] = Float2(20-images_init_offset[tete].x, images_init_offset[tete].y);
+			images_offset[body] = Float2(20, images_init_offset[body].y);
+			images_offset[bras1] = Float2(20 - images_init_offset[bras1].x, images_init_offset[bras1].y);
+			images_offset[bras2] = Float2(20 - images_init_offset[bras2].x, images_init_offset[bras2].y);
+			images_offset[pied1] = Float2(20 - images_init_offset[pied1].x, images_init_offset[pied1].y);
+			images_offset[pied2] = Float2(20 - images_init_offset[pied2].x, images_init_offset[pied2].y);
 		}
 		else
 		{
-			animActif[marche] = true;
+			images_offset[tete] = images_init_offset[tete];
+			images_offset[body] = images_init_offset[body];
+			images_offset[bras1] = images_init_offset[bras1];
+			images_offset[bras2] = images_init_offset[bras2];
+			images_offset[pied1] = images_init_offset[pied1];
+			images_offset[pied2] = images_init_offset[pied2];
+
 		}
+		//tete
+		images_offset[tete] += Float2(0, 0.7 * sin(2 * PI * animEtat[idle]));
+
+		//bras1
+		images_offset[bras1] +=
+			Float2(
+				sin(PI * (2 * animEtat[marche] + 1)),
+				sin(PI * (2 * animEtat[idle] + 1)));
+
+		//bras2
+		images_offset[bras2] +=
+			Float2(
+				sin(PI * (2 * animEtat[marche])),
+				sin(PI * (2 * animEtat[idle] + 1)));
+
+		//pied1
+		images_offset[pied1] +=
+			Float2(
+				sin(PI * (4 * animEtat[marche] + 1)),
+				0.5 * sin(PI * (4 * animEtat[marche] + 1)));
+
+		//pied2
+		images_offset[pied2] +=
+			Float2(
+				sin(PI * (4 * animEtat[marche])),
+				0.5 * sin(PI * (4 * animEtat[marche])));
+
+		//chute
+		if (animActif[chute] && tempsChute > 0.05)
+		{
+			if (vit.y < 0)
+			{
+				const float decal = -20 / (-vit.y - 10 / 3) + 3;
+				images_offset[tete].y += decal / 2;
+				images_offset[bras1].y += decal;
+				images_offset[bras2].y += decal;
+				images_offset[pied1].y += decal/2;
+				images_offset[pied2].y += decal/2;
+
+			}
+			else
+			{
+				const float decal = -50 / (vit.y + 20 / 3) + 3;
+				images_offset[tete].y -= decal/2;
+				images_offset[bras1].y -= decal;
+				images_offset[bras2].y -= decal;
+			}
+		}
+
+
+	}
+	void Joueur::update(sf::Time deltaT)
+	{
+		float sec = deltaT.asSeconds();
+		
 
 		//deplacements latéraux
 		Float2 actionForce;
@@ -118,51 +234,9 @@ const Float2 grav(0, 500);
 			}
 		}
 
-		//mise à jour des animations
-		for (int i = 0; i < nbrAnim; i++)
-		{
-			if (animActif[i])
-			{
-				animEtat[i] += sec / animTime[i];
-				if (animEtat[i] > 1)
-				{
-					animEtat[i] = 0;
-					animActif[i] = false;
-				}
-			}
-		}
-
-		//animations
-		//tete
-		images_offet[tete] = images_init_offset[tete] + Float2(0, 0.7*sin(2 * PI * animEtat[idle]));
-
-		//bras1
-		images_offet[bras1] = images_init_offset[bras1] + 
-			Float2(
-				sin(PI * (2 * animEtat[marche] + 1)), 
-				sin(PI*(2 * animEtat[idle] + 1)));
-
-		//bras2
-		images_offet[bras2] = images_init_offset[bras2] + 
-			Float2(
-				sin(PI * (2 * animEtat[marche] )),
-				sin(PI * (2 * animEtat[idle] + 1)));
-		
-		//pied1
-		images_offet[pied1] = images_init_offset[pied1] + 
-			Float2(
-				sin(PI * (2 * animEtat[marche]+1)),
-				0.5 * sin(PI * (2 * animEtat[marche] + 1)));
-
-		//pied2
-		images_offet[pied2] = images_init_offset[pied2] +
-			Float2(
-				sin(PI * (2 * animEtat[marche])),
-				0.5 * sin(PI * (2 * animEtat[marche])));
-
 		//update normale
 		modif_images = true;
-
+		updateAnim(sec);
 		Vivant::update(deltaT);
 	}
 	bool Joueur::collideJump(infoColl collision)
@@ -179,6 +253,30 @@ const Float2 grav(0, 500);
 			return true;
 		}
 		else return false;
+	}
+	bool Joueur::swap(bool invers)
+	{
+		if (invers == isInvers) return false;
+		if (invers)
+		{
+			images[tete].setScale(Float2(-1, 1));
+			images[body].setScale(Float2(-1, 1));
+			images[bras1].setScale(Float2(-1, 1));
+			images[bras2].setScale(Float2(-1, 1));
+			images[pied1].setScale(Float2(-1, 1));
+			images[pied2].setScale(Float2(-1, 1));
+			isInvers = true;
+		}
+		else
+		{
+			images[tete].setScale(Float2(1, 1));
+			images[body].setScale(Float2(1, 1));
+			images[bras1].setScale(Float2(1, 1));
+			images[bras2].setScale(Float2(1, 1));
+			images[pied1].setScale(Float2(1, 1));
+			images[pied2].setScale(Float2(1, 1));
+			isInvers = false;
+		}
 	}
 
 #pragma endregion

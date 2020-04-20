@@ -415,12 +415,12 @@ corps_visible::corps_visible(float _masse, Float2 _position, Concave _forme, boo
 void corps_visible::clear_images()
 {
 	images.clear();
-	images_offet.clear();
+	images_offset.clear();
 }
 void corps_visible::add_images(sf::Sprite image, Float2 offset)
 {
 	images.push_back(image);
-	images_offet.push_back(offset);
+	images_offset.push_back(offset);
 	modif_images = true;
 }
 
@@ -431,7 +431,7 @@ void corps_visible::afficher(sf::RenderWindow& fenetre)
 	{
 		for (int i = 0; i < taille; i++)
 		{
-			images[i].setPosition(position + images_offet[i]);
+			images[i].setPosition(position + images_offset[i]);
 			modif_images = false;
 		}
 	}
@@ -460,8 +460,8 @@ void corps_visible::resize(Float2 multiplicateur)
 		scale.x *= multiplicateur.x / size.x;
 		scale.y *= multiplicateur.y / size.y;
 		images[i].setScale(scale);
-		images_offet[i].x *= multiplicateur.x / size.x;
-		images_offet[i].y *= multiplicateur.y / size.y;
+		images_offset[i].x *= multiplicateur.x / size.x;
+		images_offset[i].y *= multiplicateur.y / size.y;
 	}
 	corps::resize(multiplicateur);
 	modif_images = true;

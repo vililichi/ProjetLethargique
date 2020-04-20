@@ -85,7 +85,7 @@ int EcrireFichier(std::ofstream& fichier, corps_visible& objet)
 			fichier << nom << '\t'
 				<< objet.images[i].getRotation() << '\t'
 				<< (Float2)objet.images[i].getScale() << '\t'
-				<< objet.images_offet[i] << '\n';
+				<< objet.images_offset[i] << '\n';
 
 		}
 	}
