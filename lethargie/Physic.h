@@ -4,7 +4,7 @@
 #include<SFML/System/Clock.hpp>
 #include<SFML/Graphics.hpp>
 
-class corps
+class RigidBody
 {
 protected:
 	bool modif;
@@ -27,8 +27,8 @@ public:
 	Float2 forc;
 
 	bool is_Dynamic;
-	corps();
-	corps(float _masse, Float2 _position, Concave _forme, bool dynamic = 1);
+	RigidBody();
+	RigidBody(float _masse, Float2 _position, Concave _forme, bool dynamic = 1);
 	void setForme(Concave new_forme);
 	Concave getForme() const;
 	Concave getWorldForme();
@@ -36,8 +36,8 @@ public:
 	Float2 getPosition() const;
 	float getApproxTaille() const;
 	virtual void updatePosition(sf::Time deltaT);
-	infoColl testCollision (corps& c);
-	infoColl collide (corps& c);
+	infoColl testCollision (RigidBody& c);
+	infoColl collide (RigidBody& c);
 	virtual void resize(Float2 multiplicateur);
 	Float2 getSize();
 	void setMonde(void* p_newMonde);
@@ -51,7 +51,7 @@ struct collisionSolution
 
 collisionSolution solveCollision(Float2 pactu, Float2 pancien, Convexe& forme, Float2 posConvexe, Float2 posConvexeAncien);
 
-class corps_visible : public corps
+class VisibleBody : public RigidBody
 {
 protected:
 	bool modif_images;
@@ -61,8 +61,8 @@ protected:
 public:
 	int layer;
 
-	corps_visible();
-	corps_visible(float _masse, Float2 _position, Concave _forme, bool dynamic = 1);
+	VisibleBody();
+	VisibleBody(float _masse, Float2 _position, Concave _forme, bool dynamic = 1);
 
 	void clear_images();
 	void add_images(sf::Sprite image,Float2 offset = Float2(0,0));
@@ -73,6 +73,6 @@ public:
 	virtual void updatePosition(sf::Time deltaT);
 	virtual void resize(Float2 multiplicateur);
 
-	friend int LireFichier(std::ifstream& fichier, corps_visible& contenant); //définie dans FichierIO.cpp
-	friend int EcrireFichier(std::ofstream& fichier, corps_visible& objet); //définie dans FichierIO.cpp
+	friend int LireFichier(std::ifstream& fichier, VisibleBody& contenant); //définie dans FichierIO.cpp
+	friend int EcrireFichier(std::ofstream& fichier, VisibleBody& objet); //définie dans FichierIO.cpp
 };

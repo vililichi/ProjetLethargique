@@ -1,7 +1,7 @@
 #include "Vivant.h"
 
 Vivant::Vivant(float _lumiereMax, float _ombreMax, float _masse, Float2 _position, Concave _forme)
-	: corps_visible(_masse, _position, _forme)
+	: VisibleBody(_masse, _position, _forme)
 {
 
 	images_init_offset.clear();

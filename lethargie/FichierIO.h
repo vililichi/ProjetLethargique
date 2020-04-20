@@ -27,7 +27,7 @@ struct fontNommee
 struct official_corps_visible
 {
 	std::string nom;
-	corps_visible corps;
+	VisibleBody corps;
 };
 
 class GestionnaireTexture
@@ -60,13 +60,13 @@ public:
 
 	std::vector<official_corps_visible*> official_dynamiques;
 	std::vector<official_corps_visible*> official_statiques;
-	std::vector<corps_visible*> non_official_dynamiques;
-	std::vector<corps_visible*> non_official_statiques;
+	std::vector<VisibleBody*> non_official_dynamiques;
+	std::vector<VisibleBody*> non_official_statiques;
 
-	corps_visible* addOfficialStatique(std::string nom);
-	corps_visible* addOfficialDynamique(std::string nom);
-	corps_visible* addNonOfficialStatique(corps_visible);
-	corps_visible* addNonOfficialDynamique(corps_visible);
+	VisibleBody* addOfficialStatique(std::string nom);
+	VisibleBody* addOfficialDynamique(std::string nom);
+	VisibleBody* addNonOfficialStatique(VisibleBody);
+	VisibleBody* addNonOfficialDynamique(VisibleBody);
 };
 
 int LireFichier(std::ifstream& fichier, ProtoMonde& contenant);

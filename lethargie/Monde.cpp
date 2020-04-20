@@ -39,17 +39,17 @@ void Monde::clear()
 	dynamiques.clear();
 	joueurs.clear();
 }
-corps_visible* Monde::addStatique(corps_visible new_corps)
+VisibleBody* Monde::addStatique(VisibleBody new_corps)
 {
-	corps_visible* p_new_corps = new corps_visible(new_corps);
+	VisibleBody* p_new_corps = new VisibleBody(new_corps);
 	p_new_corps->is_Dynamic = false;
 	p_new_corps->setMonde(this);
 	statiques.push_back(p_new_corps);
 	return p_new_corps;
 }
-corps_visible* Monde::addDynamique(corps_visible new_corps)
+VisibleBody* Monde::addDynamique(VisibleBody new_corps)
 {
-	corps_visible* p_new_corps = new corps_visible(new_corps);
+	VisibleBody* p_new_corps = new VisibleBody(new_corps);
 	p_new_corps->is_Dynamic = true;
 	p_new_corps->setMonde(this);
 	dynamiques.push_back(p_new_corps);

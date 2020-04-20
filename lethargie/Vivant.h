@@ -16,7 +16,7 @@ struct Damage
 	int glace = 0; // ajoute 1 gel
 };
 
-class Vivant :public corps_visible
+class Vivant :public VisibleBody
 {
 protected:
 	int ombre;
