@@ -25,6 +25,7 @@ protected:
 	int etat[nbrEtat];
 	float stabilisation;
 	float resplendissement;
+	std::vector<Float2> images_init_offset;
 public:
 
 	int ombreMax;

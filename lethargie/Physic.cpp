@@ -103,7 +103,7 @@ void corps::updatePosition(sf::Time deltaT)
 
 
 }
-infoColl corps::operator * (corps& c)
+infoColl corps::testCollision (corps& c)
 {
 	infoColl info;
 	bool col = true;
@@ -121,9 +121,9 @@ infoColl corps::operator * (corps& c)
 
 	return info;
 }
-infoColl corps::operator + (corps& c)
+infoColl corps::collide (corps& c)
 {
-	infoColl collision = *this * c;
+	infoColl collision = testCollision(c);
 	if (collision.taille == 0)return collision;
 
 	corps* firstF = this;

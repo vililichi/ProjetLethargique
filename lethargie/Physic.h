@@ -32,13 +32,13 @@ public:
 	void setForme(Concave new_forme);
 	Concave getForme() const;
 	Concave getWorldForme();
-	void setPosition(Float2 new_position);
+	virtual void setPosition(Float2 new_position);
 	Float2 getPosition() const;
 	float getApproxTaille() const;
-	void updatePosition(sf::Time deltaT);
-	infoColl operator * (corps& c);
-	infoColl operator + (corps& c);
-	void resize(Float2 multiplicateur);
+	virtual void updatePosition(sf::Time deltaT);
+	infoColl testCollision (corps& c);
+	infoColl collide (corps& c);
+	virtual void resize(Float2 multiplicateur);
 	Float2 getSize();
 	void setMonde(void* p_newMonde);
 };

@@ -127,12 +127,12 @@ void Monde::update()
 		//dynamique - dynamique
 		for (int j = i + 1; j < tailleD; j++)
 		{
-			*dynamiques[i] + *dynamiques[j];
+			dynamiques[i]->collide( *dynamiques[j]);
 		}
 		//dynamique - joueur
 		for (int j = 0; j < tailleJ; j++)
 		{
-			*joueurs[j] + *dynamiques[i];
+			joueurs[j]->collide( *dynamiques[i]);
 		}
 	}
 
@@ -142,12 +142,13 @@ void Monde::update()
 		//statique-dynamique
 		for (int j = 0 ; j < tailleD; j++)
 		{
-			*statiques[i] + *dynamiques[j];
+			statiques[i]->collide( *dynamiques[j]);
 		}
 		//statique-joueur
 		for (int j = 0; j < tailleJ; j++)
 		{
-			*joueurs[j] + *statiques[i];
+			infoColl info = joueurs[j]->collide( *statiques[i]);
+			joueurs[j]->collideJump(info);
 		}
 	}
 

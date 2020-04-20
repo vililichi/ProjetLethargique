@@ -3,6 +3,12 @@
 Vivant::Vivant(float _lumiereMax, float _ombreMax, float _masse, Float2 _position, Concave _forme)
 	: corps_visible(_masse, _position, _forme)
 {
+
+	images_init_offset.clear();
+	for (int i = 0, taille = images_offet.size(); i < taille; i++)
+	{
+		images_init_offset.push_back(images_offet[i]);
+	}
 	lumiereMax = _lumiereMax;
 	ombreMax = _ombreMax;
 	for (int i = 0; i < nbrEtat; i++)
@@ -110,7 +116,7 @@ void Vivant::resurection(int puissance )
 	{
 		etat[i] = 0;
 	}
-	if (puissance = 0)
+	if (puissance == 0)
 	{
 		lumiere = 0;
 		ombre = ombreMax;

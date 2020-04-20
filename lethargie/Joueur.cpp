@@ -1,14 +1,27 @@
 
+#include "Physic.h"
 #include "Joueur.h"
 #include "FichierIO.h"
 #pragma region constantes
+//id images
+const int bras1 = 0;
+const int corps = 1;
+const int tete = 2;
+const int bras2 = 3;
+const int pied1 = 4;
+const int pied2 = 5;
+//id action
 const int jump = 0;
 const int action1 = 1;
 const int action2 = 2;
 const int dash = 3;
 const int jumpMem = 4;
+//id animation
+const int idle = 0;
+const int marche = 1;
 
 const float actionTime[nbrAction] = { 0.3, 0.7,0.7,1,0.2 };
+const float animTime[nbrAnim] = {1,0.5};
 
 const float puiss = 300;
 const float fren = 10;
@@ -19,19 +32,39 @@ const Float2 grav(0, 500);
 	Joueur::Joueur() : Vivant()
 	{
 		std::ifstream ifs;
-		ifs.open("perso.txt");
+		ifs.open("Ressource/MapItem/Vivant/perso.txt");
 		LireFichier(ifs, *this);
 		ifs.close();
+
+		images_init_offset.clear();
+		for (int i = 0, taille = images_offet.size(); i < taille; i++)
+		{
+			images_init_offset.push_back(images_offet[i]);
+		}
 	
 		for (int i = 0; i < nbrAction; i++)
 		{
 			actionPret[i] = true;
 			actionTimer[i] = 0;
 		}
+		for (int i = 0; i < nbrAnim; i++)
+		{
+			animActif[i] = false;
+			animEtat[i] = 0;
+		}
 	}
 	void Joueur::update(sf::Time deltaT)
 	{
 		float sec = deltaT.asSeconds();
+		//aucune action
+		if ((!actionFutur.gauche && !actionFutur.droite)||(actionFutur.gauche && actionFutur.droite))
+		{
+			animActif[idle] = true;
+		}
+		else
+		{
+			animActif[marche] = true;
+		}
 
 		//deplacements latéraux
 		Float2 actionForce;
@@ -85,13 +118,55 @@ const Float2 grav(0, 500);
 			}
 		}
 
-		//update normale
-		Vivant::update(deltaT);
+		//mise à jour des animations
+		for (int i = 0; i < nbrAnim; i++)
+		{
+			if (animActif[i])
+			{
+				animEtat[i] += sec / animTime[i];
+				if (animEtat[i] > 1)
+				{
+					animEtat[i] = 0;
+					animActif[i] = false;
+				}
+			}
+		}
 
+		//animations
+		//tete
+		images_offet[tete] = images_init_offset[tete] + Float2(0, 0.7*sin(2 * PI * animEtat[idle]));
+
+		//bras1
+		images_offet[bras1] = images_init_offset[bras1] + 
+			Float2(
+				sin(PI * (2 * animEtat[marche] + 1)), 
+				sin(PI*(2 * animEtat[idle] + 1)));
+
+		//bras2
+		images_offet[bras2] = images_init_offset[bras2] + 
+			Float2(
+				sin(PI * (2 * animEtat[marche] )),
+				sin(PI * (2 * animEtat[idle] + 1)));
+		
+		//pied1
+		images_offet[pied1] = images_init_offset[pied1] + 
+			Float2(
+				sin(PI * (2 * animEtat[marche]+1)),
+				0.5 * sin(PI * (2 * animEtat[marche] + 1)));
+
+		//pied2
+		images_offet[pied2] = images_init_offset[pied2] +
+			Float2(
+				sin(PI * (2 * animEtat[marche])),
+				0.5 * sin(PI * (2 * animEtat[marche])));
+
+		//update normale
+		modif_images = true;
+
+		Vivant::update(deltaT);
 	}
-	infoColl Joueur::operator + (corps& c)
+	bool Joueur::collideJump(infoColl collision)
 	{
-		infoColl collision =  corps::operator +(c) ;
 		if (collision.grounded && actionPret[jumpMem] && actionPret[jump])
 		{
 			actionPret[jumpMem] = false;
@@ -100,10 +175,12 @@ const Float2 grav(0, 500);
 			Float2 normalGrav = ((Monde*)p_monde)->gravity;
 			normalGrav.setNorm(1);
 			Float2 modVit = 2.f * collision.groundDir - normalGrav;
-			vit+= modVit.setNorm(puiss*1.3f);
+			vit += modVit.setNorm(puiss * 1.3f);
+			return true;
 		}
-		return collision;
+		else return false;
 	}
+
 #pragma endregion
 #pragma region controler
 	Controler::Controler()
