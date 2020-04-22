@@ -269,7 +269,7 @@ void RigidBody::calculApproxTaille()
 	}
 	approxTaille = sqrtf(max);
 }
-void RigidBody::setMonde(void* p_newMonde)
+void RigidBody::setMonde(Monde* p_newMonde)
 {
 	p_monde = p_newMonde;
 }

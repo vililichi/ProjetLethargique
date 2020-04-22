@@ -4,6 +4,8 @@
 #include<SFML/System/Clock.hpp>
 #include<SFML/Graphics.hpp>
 
+class Monde;
+
 class RigidBody
 {
 protected:
@@ -17,7 +19,7 @@ protected:
 	Float2 size;
 
 	void calculApproxTaille();
-	void* p_monde;
+	Monde* p_monde;
 
 public:
 	float bounce, friction, masse;
@@ -40,7 +42,7 @@ public:
 	infoColl collide (RigidBody& c);
 	virtual void resize(Float2 multiplicateur);
 	Float2 getSize();
-	void setMonde(void* p_newMonde);
+	void setMonde(Monde* p_newMonde);
 };
 
 struct collisionSolution

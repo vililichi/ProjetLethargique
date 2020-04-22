@@ -1,5 +1,6 @@
 #pragma once
 #include "Vivant.h"
+#include "arme.h"
 
 const int nbrAction = 5;
 const int nbrAnim = 3;
@@ -19,6 +20,7 @@ struct controlInfo
 
 class Joueur : public Vivant
 {
+	friend Competence;
 protected:
 	float actionTimer[nbrAction];
 	bool actionPret[nbrAction];
@@ -34,6 +36,7 @@ public :
 	controlInfo actionFutur;
 	void update(sf::Time deltaT);
 	bool collideJump(infoColl);
+	Competence* arme;
 };
 
 class Controler

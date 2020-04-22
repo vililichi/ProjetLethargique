@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="arme.cpp" />
     <ClCompile Include="FichierIO.cpp" />
     <ClCompile Include="Joueur.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="Vivant.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="arme.h" />
     <ClInclude Include="FichierIO.h" />
     <ClInclude Include="Joueur.h" />
     <ClInclude Include="Math_addOn.h" />
