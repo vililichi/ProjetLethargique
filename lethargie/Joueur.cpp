@@ -22,7 +22,7 @@ const int marche = 1;
 const int chute = 2;
 
 const float actionTime[nbrAction] = { 0.3, 0.7,0.7,1,0.2 };
-const float animTime[nbrAnim] = {0.5,0.3,0.2};
+const float animTime[nbrAnim] = {0.5,0.3,0.3};
 
 const float puiss = 300;
 const float fren = 10;
@@ -144,14 +144,14 @@ const Float2 grav(0, 500);
 		//pied1
 		images_offset[pied1] +=
 			Float2(
-				sin(PI * (4 * animEtat[marche] + 1)),
-				0.5 * sin(PI * (4 * animEtat[marche] + 1)));
+				0.7*sin(PI * (2 * animEtat[marche] + 1)),
+				0.5 * sin(PI * (2 * animEtat[marche] + 1)));
 
 		//pied2
 		images_offset[pied2] +=
 			Float2(
-				sin(PI * (4 * animEtat[marche])),
-				0.5 * sin(PI * (4 * animEtat[marche])));
+				0.7*sin(PI * (2 * animEtat[marche])),
+				0.5 * sin(PI * (2 * animEtat[marche])));
 
 		//chute
 		if (animActif[chute] && tempsChute > 0.05)
