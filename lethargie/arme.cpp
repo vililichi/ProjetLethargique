@@ -1,7 +1,10 @@
 #include "arme.h"
+#include "Joueur.h"
 
 #pragma region base
 //competence
+const int bras1 = 0;
+const int bras2 = 1;
 Competence::Competence()
 {
 	animDuree = 1;
@@ -24,9 +27,16 @@ void Competence::update( float sec)
 		anim(sec);
 	}
 }
+void Competence::activate()
+{
+	animActif = true;
+	position = acteur->getPosition() + acteur->images_offset[bras2];
+	objectif = acteur->actionFutur.pointeur;
+}
 //arme
 Arme::Arme()
 {
+	possesseur = NULL;
 	competence1 = NULL;
 	competence2 = NULL;
 }
@@ -52,6 +62,17 @@ void Arme::setCompetence(Competence* competence, short noCompetence)
 
 void Arme::update(float sec)
 {
+	if (!competence1->animActif && !competence2->animActif)
+	{
+		if (possesseur->actionFutur.action1)
+		{
+			competence1->activate();
+		}
+		else if (possesseur->actionFutur.action2)
+		{
+			competence2->activate();
+		}
+	}
 	if (competence1 != NULL) competence1->update(sec);
 	if (competence2 != NULL) competence2->update(sec);
 }
@@ -63,8 +84,55 @@ void Arme::update(float sec)
 
 #pragma region infusion
 
+void InfusionSphere::anim(float sec)
+{
+	Float2 dir = ((Float2)(objectif - position)).setNorm(1);
+	acteur->images_offset[1] += 5.f*dir*sin(animEtat*PI);
+}
+
+void InfusionDart::anim(float sec)
+{
+	Float2 dir = ((Float2)(objectif - position)).setNorm(1);
+	acteur->images_offset[1] += 5.f * dir * sin(animEtat * PI);
+}
+
+void InfusionNova::anim(float sec)
+{
+	Float2 dir = ((Float2)(objectif - position)).setNorm(1);
+	acteur->images_offset[1] += 5.f * dir * sin(animEtat * PI);
+}
+
+void InfusionExplosion::anim(float sec)
+{
+	Float2 dir = ((Float2)(objectif - position)).setNorm(1);
+	acteur->images_offset[1] += 5.f * dir * sin(animEtat * PI);
+}
+
 #pragma endregion
 
-#pragma redion aiguille
+#pragma region aiguille
+void AiguillePercante::anim(float sec) 
+{
+	Float2 dir = ((Float2)(objectif - position)).setNorm(1);
+	acteur->images_offset[1] += 5.f * dir * sin(animEtat * PI);
+}
+
+void AiguilleTaillante::anim(float sec)
+{
+	Float2 dir = ((Float2)(objectif - position)).setNorm(1);
+	acteur->images_offset[1] += 5.f * dir * sin(animEtat * PI);
+}
+
+void AiguilleCirculaire::anim(float sec)
+{
+	Float2 dir = ((Float2)(objectif - position)).setNorm(1);
+	acteur->images_offset[1] += 5.f * dir * sin(animEtat * PI);
+}
+
+void AiguilleDistante::anim(float sec)
+{
+	Float2 dir = ((Float2)(objectif - position)).setNorm(1);
+	acteur->images_offset[1] += 5.f * dir * sin(animEtat * PI);
+}
 
 #pragma endregion

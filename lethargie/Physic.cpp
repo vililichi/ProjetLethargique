@@ -12,6 +12,15 @@ Float2 doBounce(Float2& v, Float2 normal, float bouncing)
 	}
 	return v;
 }
+Float2 Nulify(Float2& v, Float2 normal)
+{
+	Float2 facteur = v / normal;
+	if (facteur.x * normal.x > 0 || facteur.y * normal.y > 0)
+	{
+		v += facteur;
+	}
+	return v;
+}
 RigidBody::RigidBody()
 {
 	size = Float2(1, 1);
@@ -201,9 +210,9 @@ infoColl RigidBody::collide (RigidBody& c)
 			if (fact.factor <= -1)fact.factor = 1.5;
 			firstF->setPosition(firstF->position + fact.factor * ((Float2)(firstF->old_position - firstF->position)/normal));
 			
-			//normal
+			//force
 
-			doBounce(firstF->forc, normal, 1);
+			Nulify(secondF->forc, normal);
 
 			//vitesse
 			doBounce(firstF->vit, normal, bounce * c.bounce);
@@ -224,7 +233,7 @@ infoColl RigidBody::collide (RigidBody& c)
 			
 		
 			//force
-			doBounce(secondF->forc, normal, 1);
+			Nulify(secondF->forc, normal);
 
 			//vitesse
 			doBounce(secondF->vit, normal, bounce * c.bounce);

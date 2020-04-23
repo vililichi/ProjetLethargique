@@ -58,10 +58,10 @@ class VisibleBody : public RigidBody
 protected:
 	bool modif_images;
 	std::vector<sf::Sprite> images;
-	std::vector<Float2> images_offset;
 	
 public:
 	int layer;
+	std::vector<Float2> images_offset;
 
 	VisibleBody();
 	VisibleBody(float _masse, Float2 _position, Concave _forme, bool dynamic = 1);

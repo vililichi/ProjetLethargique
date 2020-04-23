@@ -285,7 +285,7 @@ const Float2 grav(0, 500);
 	{
 		p_joueur = NULL;
 	}
-	void Controler::creerControl()
+	void Controler::creerControl(sf::RenderWindow& window)
 	{
 		controlInfo controlInput;
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))controlInput.haut = true;
@@ -296,6 +296,7 @@ const Float2 grav(0, 500);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift))controlInput.dash = true;
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))controlInput.action1 = true;
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))controlInput.action2 = true;
+		controlInput.pointeur = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 		p_joueur->actionFutur = controlInput;
 	}
 #pragma endregion

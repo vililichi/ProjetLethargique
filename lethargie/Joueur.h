@@ -15,12 +15,12 @@ struct controlInfo
 	bool dash = false;
 	bool action1 = false;
 	bool action2 = false;
+	Float2 pointeur = Float2(0, 0);
 };
 
 
 class Joueur : public Vivant
 {
-	friend Competence;
 protected:
 	float actionTimer[nbrAction];
 	bool actionPret[nbrAction];
@@ -32,11 +32,12 @@ protected:
 	float tempsChute;
 
 public :
+
 	Joueur();
 	controlInfo actionFutur;
 	void update(sf::Time deltaT);
 	bool collideJump(infoColl);
-	Competence* arme;
+	Arme arme;
 };
 
 class Controler
@@ -45,5 +46,5 @@ public:
 	Joueur* p_joueur;
 
 	Controler();
-	void creerControl();
+	void creerControl(sf::RenderWindow& window);
 };

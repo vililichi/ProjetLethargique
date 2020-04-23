@@ -24,6 +24,7 @@ int main()
 
 
     sf::RenderWindow window(sf::VideoMode(500,500), "SFML works!");
+    window.setVerticalSyncEnabled(true);
 
     timerFPS.restart();
     while (window.isOpen())
@@ -38,7 +39,7 @@ int main()
                 camera.setSize(event.size.width, event.size.height);
         }
 
-        mainDivine.creerControl();
+        mainDivine.creerControl(window);
         univers.update();
 
         camera.setCenter(mainDivine.p_joueur->getPosition());
