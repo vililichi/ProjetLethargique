@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="arme.cpp" />
+    <ClCompile Include="CameraMobile.cpp" />
     <ClCompile Include="FichierIO.cpp" />
     <ClCompile Include="Joueur.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -161,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arme.h" />
+    <ClInclude Include="CameraMobile.h" />
     <ClInclude Include="FichierIO.h" />
     <ClInclude Include="Joueur.h" />
     <ClInclude Include="Math_addOn.h" />

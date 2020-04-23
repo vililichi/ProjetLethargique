@@ -2,6 +2,7 @@
 #include "Monde.h"
 #include "FichierIO.h"
 #include "Joueur.h"
+#include "CameraMobile.h"
 
 int main()
 {
@@ -18,7 +19,7 @@ int main()
     int error = LireFichier(ifs, univers);
     std::cout << error<< '\n';
 
-    sf::View camera;
+    CameraMobile camera;
     camera.setCenter(0, 0);
     camera.setSize(500, 500);
 
@@ -42,7 +43,7 @@ int main()
         mainDivine.creerControl(window);
         univers.update();
 
-        camera.setCenter(mainDivine.p_joueur->getPosition());
+        camera.move(mainDivine.p_joueur->getPosition(),5);
 
         window.clear();
         univers.afficher(window);

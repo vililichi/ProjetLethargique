@@ -136,7 +136,7 @@ void Monde::update()
 		}
 	}
 
-	//statique  //n'étant pas modifier par les colision, l'ordre n'importe pas
+	//statique  //n'étant pas modifier par les collision, l'ordre n'importe pas
 	for (int i = 0; i < tailleS; i++)
 	{
 		//statique-dynamique
