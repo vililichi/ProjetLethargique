@@ -14,6 +14,12 @@ int main()
     
     Controler mainDivine;
     mainDivine.p_joueur = univers.addJoueur();
+    InfusionDart* comp1 = new InfusionDart();
+    InfusionSphere* comp2 = new InfusionSphere();
+    Arme* arme = new Arme();
+    arme->setCompetence(comp1, 1);
+    arme->setCompetence(comp2, 2);
+    mainDivine.p_joueur->equiper(arme);
 
     ifs.open("Ressource/Map/test");
     int error = LireFichier(ifs, univers);
@@ -21,10 +27,10 @@ int main()
 
     CameraMobile camera;
     camera.setCenter(0, 0);
-    camera.setSize(500, 500);
+    camera.setSize(1000, 700);
 
 
-    sf::RenderWindow window(sf::VideoMode(500,500), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(1000,700), "SFML works!");
     window.setVerticalSyncEnabled(true);
 
     timerFPS.restart();
@@ -43,7 +49,7 @@ int main()
         mainDivine.creerControl(window);
         univers.update();
 
-        camera.move(mainDivine.p_joueur->getPosition(),5);
+        camera.move(mainDivine.p_joueur->getPosition(),10);
 
         window.clear();
         univers.afficher(window);
@@ -51,10 +57,10 @@ int main()
         window.setView(camera);
         window.display();
         compteur++;
-        if (compteur == 10000)
+        if (compteur == 180)
         {
             
-            std::cout << 10000 / timerFPS.restart().asSeconds()<<" boucles par seconde" << std::endl;
+            std::cout << 180 / timerFPS.restart().asSeconds()<<" boucles par seconde" << std::endl;
             compteur = 0;
         }
     }

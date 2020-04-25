@@ -237,6 +237,7 @@ const Float2 grav(0, 500);
 		//update normale
 		modif_images = true;
 		updateAnim(sec);
+		if (arme)arme->update(sec);
 		Vivant::update(deltaT);
 	}
 	bool Joueur::collideJump(infoColl collision)
@@ -277,6 +278,11 @@ const Float2 grav(0, 500);
 			images[pied2].setScale(Float2(1, 1));
 			isInvers = false;
 		}
+	}
+	void Joueur::equiper(Arme* _arme)
+	{
+		arme = _arme;
+		arme->bound(this);
 	}
 
 #pragma endregion

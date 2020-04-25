@@ -38,6 +38,7 @@ public:
 
 	void setCompetence(Competence* competence, short noCompetence);
 	void update(float sec);
+	void bound(Joueur* _possesseur);
 };
 
 

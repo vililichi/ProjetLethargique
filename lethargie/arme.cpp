@@ -4,10 +4,10 @@
 #pragma region base
 //competence
 const int bras1 = 0;
-const int bras2 = 1;
+const int bras2 = 3;
 Competence::Competence()
 {
-	animDuree = 1;
+	animDuree = 0.5;
 	animEtat = 0;
 	animActif = false;
 	acteur = NULL;
@@ -52,11 +52,13 @@ void Arme::setCompetence(Competence* competence, short noCompetence)
 	{
 		if (competence1 != NULL) delete competence1;
 		competence1 = competence;
+		if(possesseur) competence1->acteur = possesseur;
 	}
 	else if (noCompetence == 2)
 	{
 		if (competence2 != NULL) delete competence2;
 		competence2 = competence;
+		if (possesseur) competence2->acteur = possesseur;
 	}
 }
 
@@ -77,7 +79,12 @@ void Arme::update(float sec)
 	if (competence2 != NULL) competence2->update(sec);
 }
 
-
+void Arme::bound(Joueur* _possesseur)
+{
+	possesseur = _possesseur;
+	if(competence1) competence1->acteur = possesseur;
+	if(competence2) competence2->acteur = possesseur;
+}
 
 
 #pragma endregion
@@ -87,25 +94,25 @@ void Arme::update(float sec)
 void InfusionSphere::anim(float sec)
 {
 	Float2 dir = ((Float2)(objectif - position)).setNorm(1);
-	acteur->images_offset[1] += 5.f*dir*sin(animEtat*PI);
+	acteur->images_offset[bras2] += 14.f*dir*sin(animEtat*PI);
 }
 
 void InfusionDart::anim(float sec)
 {
 	Float2 dir = ((Float2)(objectif - position)).setNorm(1);
-	acteur->images_offset[1] += 5.f * dir * sin(animEtat * PI);
+	acteur->images_offset[bras2] += 7.f * dir * sin(animEtat * PI);
 }
 
 void InfusionNova::anim(float sec)
 {
 	Float2 dir = ((Float2)(objectif - position)).setNorm(1);
-	acteur->images_offset[1] += 5.f * dir * sin(animEtat * PI);
+	acteur->images_offset[bras2] += 7.f * dir * sin(animEtat * PI);
 }
 
 void InfusionExplosion::anim(float sec)
 {
 	Float2 dir = ((Float2)(objectif - position)).setNorm(1);
-	acteur->images_offset[1] += 5.f * dir * sin(animEtat * PI);
+	acteur->images_offset[bras2] += 7.f * dir * sin(animEtat * PI);
 }
 
 #pragma endregion
@@ -114,25 +121,25 @@ void InfusionExplosion::anim(float sec)
 void AiguillePercante::anim(float sec) 
 {
 	Float2 dir = ((Float2)(objectif - position)).setNorm(1);
-	acteur->images_offset[1] += 5.f * dir * sin(animEtat * PI);
+	acteur->images_offset[bras2] += 5.f * dir * sin(animEtat * PI);
 }
 
 void AiguilleTaillante::anim(float sec)
 {
 	Float2 dir = ((Float2)(objectif - position)).setNorm(1);
-	acteur->images_offset[1] += 5.f * dir * sin(animEtat * PI);
+	acteur->images_offset[bras2] += 5.f * dir * sin(animEtat * PI);
 }
 
 void AiguilleCirculaire::anim(float sec)
 {
 	Float2 dir = ((Float2)(objectif - position)).setNorm(1);
-	acteur->images_offset[1] += 5.f * dir * sin(animEtat * PI);
+	acteur->images_offset[bras2] += 5.f * dir * sin(animEtat * PI);
 }
 
 void AiguilleDistante::anim(float sec)
 {
 	Float2 dir = ((Float2)(objectif - position)).setNorm(1);
-	acteur->images_offset[1] += 5.f * dir * sin(animEtat * PI);
+	acteur->images_offset[bras2] += 5.f * dir * sin(animEtat * PI);
 }
 
 #pragma endregion

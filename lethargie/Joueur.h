@@ -30,6 +30,7 @@ protected:
 	bool swap(bool invers);
 	bool isInvers;
 	float tempsChute;
+	Arme* arme;
 
 public :
 
@@ -37,7 +38,8 @@ public :
 	controlInfo actionFutur;
 	void update(sf::Time deltaT);
 	bool collideJump(infoColl);
-	Arme arme;
+	void equiper(Arme* _arme);
+
 };
 
 class Controler
