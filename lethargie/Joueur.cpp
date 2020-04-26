@@ -21,7 +21,7 @@ const int idle = 0;
 const int marche = 1;
 const int chute = 2;
 
-const float actionTime[nbrAction] = { 0.3, 0.7,0.7,1,0.2 };
+const float actionTime[nbrAction] = { 0.2, 0.7,0.7,1,0.2 };
 const float animTime[nbrAnim] = {0.5,0.3,0.3};
 
 const float puiss = 300;

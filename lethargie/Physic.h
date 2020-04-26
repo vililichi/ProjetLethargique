@@ -48,7 +48,7 @@ public:
 struct collisionSolution
 {
 	Float2 normal = Float2(0, 1);
-	float factor = -2;
+	float factor = NAN;
 };
 
 collisionSolution solveCollision(Float2 pactu, Float2 pancien, Convexe& forme, Float2 posConvexe, Float2 posConvexeAncien);

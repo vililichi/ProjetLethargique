@@ -147,7 +147,7 @@ void Monde::update()
 		//statique-joueur
 		for (int j = 0; j < tailleJ; j++)
 		{
-			infoColl info = joueurs[j]->collide( *statiques[i]);
+			infoColl info = joueurs[j]->collide(*statiques[i]);
 			joueurs[j]->collideJump(info);
 		}
 	}

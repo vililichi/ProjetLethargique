@@ -171,7 +171,7 @@ infoColl RigidBody::collide (RigidBody& c)
 
 		collisionSolution factT = solveCollision(collision.point[i], collision.point[i] - pactu + pancien, formeCol, pactu2, pancien2);
 			
-		if (factT.factor > fact.factor)
+		if (factT.factor > fact.factor || isnan(fact.factor))
 		{
 			fact = factT;
 			firstF = first;
@@ -207,7 +207,6 @@ infoColl RigidBody::collide (RigidBody& c)
 			Float2 normal = fact.normal;
 			//position
 			
-			if (fact.factor <= -1)fact.factor = 1.5;
 			firstF->setPosition(firstF->position + fact.factor * ((Float2)(firstF->old_position - firstF->position)/normal));
 			
 			//force
@@ -228,8 +227,7 @@ infoColl RigidBody::collide (RigidBody& c)
 
 			//position
 			
-			if (fact.factor <= -1)fact.factor = 1.5;
-			secondF->setPosition(secondF->position + fact.factor * ((Float2)(firstF->old_position - firstF->position) / normal));
+			secondF->setPosition(secondF->position + fact.factor * ((Float2)(secondF->old_position - secondF->position) / normal));
 			
 		
 			//force
@@ -291,8 +289,7 @@ collisionSolution solveCollision(Float2 pactu, Float2 pancien, Convexe& forme, F
 	const Float2 V = pancien - pactu;
 	const Float2 VD = posConvexeAncien - posConvexe;
 	
-	short taille = forme.size();
-	for (short i = 0; i < taille; i++)
+	for (short i = 0, taille = forme.size(); i < taille; i++)
 	{
 		Float2 sommets[2];
 		sommets[0] = forme.sommets[i];
@@ -303,11 +300,11 @@ collisionSolution solveCollision(Float2 pactu, Float2 pancien, Convexe& forme, F
 		if (isnan(D.A))
 		{
 			const float denom = V.x - VD.x;
-			if (denom > 0.000001 || denom < 0.000001)
+			if (denom > 0.0000001 || denom < 0.0000001)
 			{
 				const float num = D.B - pactu.x;
 				const float fact = num / denom;
-				if (fact > retour.factor && fact < 1.2)
+				if ( abs(fact - 1) < abs(retour.factor - 1)  || (isnan(retour.factor)))//&& fact < 1.2
 				{
 					Float2 borneMin = sommets[0];
 					Float2 borneMax = sommets[1];
@@ -347,11 +344,11 @@ collisionSolution solveCollision(Float2 pactu, Float2 pancien, Convexe& forme, F
 		else
 		{
 			const float denom = V.y - VD.y + D.A * (VD.x - V.x);
-			if (denom > 0.000001 || denom < 0.000001)
+			if (denom > 0.0000001 || denom < 0.0000001)
 			{
 				const float num = sommets[0].y - pactu.y + D.A * (pactu.x - sommets[0].x);
 				const float fact = num / denom;
-				if (fact > retour.factor && fact < 2)
+				if (abs(fact - 1) < abs(retour.factor - 1)  || isnan(retour.factor))//&& fact < 1.2
 				{
 					
 					Float2 borneMin = sommets[0];
@@ -390,19 +387,22 @@ collisionSolution solveCollision(Float2 pactu, Float2 pancien, Convexe& forme, F
 			}
 		}
 	}
-	if (!normalSet)
+	if (isnan(retour.factor))
 	{
-		retour.factor = 0;
+     		retour.factor = 0;
 		Float2 normal;
-		int taille = forme.size();
-		for (int i = 0; i < taille; i++)
+		for (short i = 0, taille = forme.size(); i < taille; i++)
 		{
 			normal += forme.sommets[i];
 		}
-		normal /= (float)taille;
+		normal /= (float)forme.size();
 		normal = pancien - normal;
 		normal.setNorm(1);
 		retour.normal = normal;
+	}
+	if (retour.factor > 1 || retour.factor < 0)
+	{
+		std::cout<<"surcompensation"<<std::endl;
 	}
 	return retour;
 }
