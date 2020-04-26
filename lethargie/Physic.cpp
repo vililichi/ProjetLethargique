@@ -400,9 +400,13 @@ collisionSolution solveCollision(Float2 pactu, Float2 pancien, Convexe& forme, F
 		normal.setNorm(1);
 		retour.normal = normal;
 	}
-	if (retour.factor > 1 || retour.factor < 0)
+	if (retour.factor > 1)
 	{
-		std::cout<<"surcompensation"<<std::endl;
+		std::cout<<"SURCOMPENSATION"<<std::endl;
+	}
+	if (retour.factor < 0)
+	{
+		std::cout << "COMPENSATION INVERSE" << std::endl;
 	}
 	return retour;
 }

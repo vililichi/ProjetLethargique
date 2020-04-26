@@ -105,17 +105,14 @@ void Monde::update()
 		else i++;
 	}
 //gravité
-	if (temps.getElapsedTime().asSeconds() < 0.1)
-	{
 
-		for (int i = 0; i < tailleD; i++)
-		{
-			dynamiques[i]->forc += gravity * dynamiques[i]->masse;
-		}
-		for (int i = 0; i < tailleJ; i++)
-		{
-			joueurs[i]->forc += gravity * joueurs[i]->masse;
-		}
+	for (int i = 0; i < tailleD; i++)
+	{
+		dynamiques[i]->forc += gravity * dynamiques[i]->masse;
+	}
+	for (int i = 0; i < tailleJ; i++)
+	{
+		joueurs[i]->forc += gravity * joueurs[i]->masse;
 	}
 
 
@@ -154,6 +151,10 @@ void Monde::update()
 
 //mise à jour des position en fonction du temps
 	sf::Time deltaT = temps.restart();
+	if (deltaT.asSeconds() > 0.02)
+	{
+		deltaT = sf::Time::Zero;
+	}
 
 	for (int i = 0; i < tailleD; i++)
 	{

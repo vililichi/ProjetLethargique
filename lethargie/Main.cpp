@@ -6,6 +6,7 @@
 
 int main()
 {
+    int itt = 0;
     sf::Clock timerFPS;
     int compteur = 0;
     Monde univers;
@@ -49,18 +50,22 @@ int main()
         mainDivine.creerControl(window);
         univers.update();
 
-        camera.move(mainDivine.p_joueur->getPosition(),10);
+        if (itt >= 3)
+        {
+            camera.move(mainDivine.p_joueur->getPosition(), 10);
+            window.clear();
+            univers.afficher(window);
 
-        window.clear();
-        univers.afficher(window);
-
-        window.setView(camera);
-        window.display();
+            window.setView(camera);
+            window.display();
+            itt = 0;
+        }
+        else itt++;
         compteur++;
-        if (compteur == 180)
+        if (compteur == 600)
         {
             
-            std::cout << 180 / timerFPS.restart().asSeconds()<<" boucles par seconde" << std::endl;
+            std::cout << 600 / timerFPS.restart().asSeconds()<<" boucles par seconde" << std::endl;
             compteur = 0;
         }
     }
