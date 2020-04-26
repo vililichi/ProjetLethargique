@@ -7,9 +7,9 @@
 const int bras1 = 0;
 const int body = 1;
 const int tete = 2;
-const int bras2 = 3;
-const int pied1 = 4;
-const int pied2 = 5;
+const int bras2 = 5;
+const int pied1 = 3;
+const int pied2 = 4;
 //id action
 const int jump = 0;
 const int action1 = 1;

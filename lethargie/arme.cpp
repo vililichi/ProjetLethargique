@@ -4,7 +4,7 @@
 #pragma region base
 //competence
 const int bras1 = 0;
-const int bras2 = 3;
+const int bras2 = 5;
 Competence::Competence()
 {
 	animDuree = 0.5;
@@ -99,20 +99,37 @@ void InfusionSphere::anim(float sec)
 
 void InfusionDart::anim(float sec)
 {
+
 	Float2 dir = ((Float2)(objectif - position)).setNorm(1);
-	acteur->images_offset[bras2] += 7.f * dir * sin(animEtat * PI);
+	if (animEtat < 0.2)
+	{
+		dir.setAngle(dir.angle() - PI/6);
+		acteur->images_offset[bras2] += 14.f * dir * (float)sin(animEtat * (float)PI / 0.4f);
+	}
+	else if (animEtat < 0.8)
+	{
+		dir.setAngle(dir.angle() - PI/6 + PI/3 * sin((animEtat-0.2f)* (float)PI/1.2f));
+		acteur->images_offset[bras2] += 14.f * dir;
+	}
+	else
+	{
+		dir.setAngle(dir.angle() + PI / 6);
+		acteur->images_offset[bras2] += 14.f * dir * (float)sin(-1.f*(animEtat-0.8f) * (float)PI / 0.4f + (float)PI/2.f);
+	}
+	
 }
 
 void InfusionNova::anim(float sec)
 {
-	Float2 dir = ((Float2)(objectif - position)).setNorm(1);
-	acteur->images_offset[bras2] += 7.f * dir * sin(animEtat * PI);
+	Float2 offset = Float2(0, -14) * sin(animEtat * 2 * PI) * sin((-1* animEtat / 2 * PI) + PI/2);
+	acteur->images_offset[bras1] += offset;
+	acteur->images_offset[bras2] += offset;
 }
 
 void InfusionExplosion::anim(float sec)
 {
 	Float2 dir = ((Float2)(objectif - position)).setNorm(1);
-	acteur->images_offset[bras2] += 7.f * dir * sin(animEtat * PI);
+	acteur->images_offset[bras2] += 14.f * dir * sin(animEtat * PI);
 }
 
 #pragma endregion

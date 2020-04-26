@@ -15,8 +15,8 @@ int main()
     
     Controler mainDivine;
     mainDivine.p_joueur = univers.addJoueur();
-    InfusionDart* comp1 = new InfusionDart();
-    InfusionSphere* comp2 = new InfusionSphere();
+    InfusionNova* comp1 = new InfusionNova();
+    InfusionDart* comp2 = new InfusionDart();
     Arme* arme = new Arme();
     arme->setCompetence(comp1, 1);
     arme->setCompetence(comp2, 2);
