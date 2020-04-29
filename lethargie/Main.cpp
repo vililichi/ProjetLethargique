@@ -2,10 +2,11 @@
 #include "Monde.h"
 #include "FichierIO.h"
 #include "Joueur.h"
-#include "ATH.h"
+#include "CameraMobile.h"
 
 int main()
 {
+    int itt = 0;
 
     sf::Clock timerFPS;
     int compteur = 0;
@@ -15,17 +16,24 @@ int main()
     
     Controler mainDivine;
     mainDivine.p_joueur = univers.addJoueur();
+    InfusionDart* comp1 = new InfusionDart();
+    InfusionSphere* comp2 = new InfusionSphere();
+    Arme* arme = new Arme();
+    arme->setCompetence(comp1, 1);
+    arme->setCompetence(comp2, 2);
+    mainDivine.p_joueur->equiper(arme);
 
     ifs.open("Ressource/Map/test");
     int error = LireFichier(ifs, univers);
     std::cout << error<< '\n';
 
-    sf::View camera;
+    CameraMobile camera;
     camera.setCenter(0, 0);
-    camera.setSize(500, 500);
+    camera.setSize(1000, 700);
 
 
-    sf::RenderWindow window(sf::VideoMode(500,500), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(1000,700), "SFML works!");
+    window.setVerticalSyncEnabled(true);
 
     //interface
     sf::View hud;
@@ -47,25 +55,26 @@ int main()
                 camera.setSize(event.size.width, event.size.height);
         }
 
-        mainDivine.creerControl();
+        mainDivine.creerControl(window);
         univers.update();
 
-        camera.setCenter(mainDivine.p_joueur->getPosition());
+        if (itt >= 3)
+        {
+            camera.move(mainDivine.p_joueur->getPosition(), 10);
+            window.clear();
+            univers.afficher(window);
 
-        window.clear();
-        univers.afficher(window);
+            window.setView(camera);
+            window.display();
+            itt = 0;
+        }
+        else itt++;
 
-        //interface
-        window.setView(hud);
-        bouton.Draw();
-
-        window.setView(camera);
-        window.display();
         compteur++;
-        if (compteur == 10000)
+        if (compteur == 600)
         {
             
-            std::cout << 10000 / timerFPS.restart().asSeconds()<<" boucles par seconde" << std::endl;
+            std::cout << 600 / timerFPS.restart().asSeconds()<<" boucles par seconde" << std::endl;
             compteur = 0;
         }
     }

@@ -39,17 +39,17 @@ void Monde::clear()
 	dynamiques.clear();
 	joueurs.clear();
 }
-corps_visible* Monde::addStatique(corps_visible new_corps)
+VisibleBody* Monde::addStatique(VisibleBody new_corps)
 {
-	corps_visible* p_new_corps = new corps_visible(new_corps);
+	VisibleBody* p_new_corps = new VisibleBody(new_corps);
 	p_new_corps->is_Dynamic = false;
 	p_new_corps->setMonde(this);
 	statiques.push_back(p_new_corps);
 	return p_new_corps;
 }
-corps_visible* Monde::addDynamique(corps_visible new_corps)
+VisibleBody* Monde::addDynamique(VisibleBody new_corps)
 {
-	corps_visible* p_new_corps = new corps_visible(new_corps);
+	VisibleBody* p_new_corps = new VisibleBody(new_corps);
 	p_new_corps->is_Dynamic = true;
 	p_new_corps->setMonde(this);
 	dynamiques.push_back(p_new_corps);
@@ -105,17 +105,14 @@ void Monde::update()
 		else i++;
 	}
 //gravité
-	if (temps.getElapsedTime().asSeconds() < 0.1)
-	{
 
-		for (int i = 0; i < tailleD; i++)
-		{
-			dynamiques[i]->forc += gravity * dynamiques[i]->masse;
-		}
-		for (int i = 0; i < tailleJ; i++)
-		{
-			joueurs[i]->forc += gravity * joueurs[i]->masse;
-		}
+	for (int i = 0; i < tailleD; i++)
+	{
+		dynamiques[i]->forc += gravity * dynamiques[i]->masse;
+	}
+	for (int i = 0; i < tailleJ; i++)
+	{
+		joueurs[i]->forc += gravity * joueurs[i]->masse;
 	}
 
 
@@ -127,32 +124,37 @@ void Monde::update()
 		//dynamique - dynamique
 		for (int j = i + 1; j < tailleD; j++)
 		{
-			*dynamiques[i] + *dynamiques[j];
+			dynamiques[i]->collide( *dynamiques[j]);
 		}
 		//dynamique - joueur
 		for (int j = 0; j < tailleJ; j++)
 		{
-			*joueurs[j] + *dynamiques[i];
+			joueurs[j]->collide( *dynamiques[i]);
 		}
 	}
 
-	//statique  //n'étant pas modifier par les colision, l'ordre n'importe pas
+	//statique  //n'étant pas modifier par les collision, l'ordre n'importe pas
 	for (int i = 0; i < tailleS; i++)
 	{
 		//statique-dynamique
 		for (int j = 0 ; j < tailleD; j++)
 		{
-			*statiques[i] + *dynamiques[j];
+			statiques[i]->collide( *dynamiques[j]);
 		}
 		//statique-joueur
 		for (int j = 0; j < tailleJ; j++)
 		{
-			*joueurs[j] + *statiques[i];
+			infoColl info = joueurs[j]->collide(*statiques[i]);
+			joueurs[j]->collideJump(info);
 		}
 	}
 
 //mise à jour des position en fonction du temps
 	sf::Time deltaT = temps.restart();
+	if (deltaT.asSeconds() > 0.02)
+	{
+		deltaT = sf::Time::Zero;
+	}
 
 	for (int i = 0; i < tailleD; i++)
 	{

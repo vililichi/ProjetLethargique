@@ -8,8 +8,8 @@ class Monde
 protected:
 	sf::Clock temps;
 public:
-	std::vector<corps_visible*> dynamiques;
-	std::vector<corps_visible*> statiques;
+	std::vector<VisibleBody*> dynamiques;
+	std::vector<VisibleBody*> statiques;
 	std::vector<Joueur*> joueurs;
 
 	Float2 gravity;
@@ -17,8 +17,8 @@ public:
 	Monde();
 	~Monde();
 	void clear();
-	corps_visible* addStatique(corps_visible);
-	corps_visible* addDynamique(corps_visible);
+	VisibleBody* addStatique(VisibleBody);
+	VisibleBody* addDynamique(VisibleBody);
 	Joueur* addJoueur();
 
 	void update();
