@@ -7,6 +7,7 @@
 int main()
 {
     int itt = 0;
+
     sf::Clock timerFPS;
     int compteur = 0;
     Monde univers;
@@ -33,6 +34,13 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode(1000,700), "SFML works!");
     window.setVerticalSyncEnabled(true);
+
+    //interface
+    sf::View hud;
+    hud.setCenter(0, 0);
+    hud.setSize(500, 500);
+
+    Button bouton(window, 0, 0, 100, 40, 5);
 
     timerFPS.restart();
     while (window.isOpen())
@@ -61,6 +69,7 @@ int main()
             itt = 0;
         }
         else itt++;
+
         compteur++;
         if (compteur == 600)
         {

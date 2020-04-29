@@ -41,6 +41,7 @@
     </ClCompile>
     <ClCompile Include="CameraMobile.cpp">
       <Filter>Fichiers de ressources</Filter>
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +67,7 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="CameraMobile.h">
+
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
