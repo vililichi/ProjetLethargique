@@ -15,9 +15,10 @@ struct Damage
 	int feux = 0; //ajoute 1 immolation
 	int glace = 0; // ajoute 1 gel
 };
-
+class Competence;
 class Vivant :public VisibleBody
 {
+	friend Competence;
 protected:
 	int ombre;
 	int lumiere;
@@ -35,7 +36,7 @@ public:
 
 
 	Vivant(float _lumiereMax = 10, float _ombreMax = 10,float _masse = 1, Float2 _position = Float2(0,0), Concave _forme = Concave() );
-	void update(sf::Time deltaT);
+	void update(float sec);
 	void attack(Damage description);
 	int getOmbre();
 	int getLumiere();

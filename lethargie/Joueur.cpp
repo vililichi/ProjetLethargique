@@ -177,9 +177,8 @@ const Float2 grav(0, 500);
 
 
 	}
-	void Joueur::update(sf::Time deltaT)
+	void Joueur::update(float sec)
 	{
-		float sec = deltaT.asSeconds();
 		
 
 		//deplacements latéraux
@@ -238,7 +237,7 @@ const Float2 grav(0, 500);
 		modif_images = true;
 		updateAnim(sec);
 		if (arme)arme->update(sec);
-		Vivant::update(deltaT);
+		Vivant::update(sec);
 	}
 	bool Joueur::collideJump(infoColl collision)
 	{

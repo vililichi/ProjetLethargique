@@ -36,7 +36,7 @@ public :
 
 	Joueur();
 	controlInfo actionFutur;
-	void update(sf::Time deltaT);
+	void update(float sec);
 	bool collideJump(infoColl);
 	void equiper(Arme* _arme);
 

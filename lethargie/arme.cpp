@@ -1,5 +1,7 @@
 #include "arme.h"
 #include "Joueur.h"
+#include "Monde.h"
+#include "FichierIO.h"
 
 #pragma region base
 //competence
@@ -7,6 +9,7 @@ const int bras1 = 0;
 const int bras2 = 5;
 Competence::Competence()
 {
+	etape = 0;
 	animDuree = 0.5;
 	animEtat = 0;
 	animActif = false;
@@ -23,6 +26,7 @@ void Competence::update( float sec)
 		{
 			animActif = false;
 			animEtat = 0;
+			etape = 0;
 		}
 		anim(sec);
 	}
@@ -124,6 +128,22 @@ void InfusionNova::anim(float sec)
 	Float2 offset = Float2(0, -14) * sin(animEtat * 2 * PI) * sin((-1* animEtat / 2 * PI) + PI/2);
 	acteur->images_offset[bras1] += offset;
 	acteur->images_offset[bras2] += offset;
+	if (etape < 1 && animEtat > 0.5)
+	{
+		etape = 1;
+		Sort* nova = new Sort;
+		std::ifstream f;
+		f.open("Ressource/Sort/nova.txt");
+		LireFichier(f, *nova);
+		nova->is_Dynamic = false;
+		nova->percing = true;
+		nova->spectral = true;
+		nova->set_lifeTime(0.3);
+		nova->blacklist.push_back(acteur);
+		nova->setPosition(acteur->getPosition()+Float2(8,10));
+		nova->resize(Float2(3, 3));
+		acteur->p_monde->addSort(nova);
+	}
 }
 
 void InfusionExplosion::anim(float sec)

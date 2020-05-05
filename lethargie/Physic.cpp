@@ -23,6 +23,7 @@ Float2 Nulify(Float2& v, Float2 normal)
 }
 RigidBody::RigidBody()
 {
+	to_destroy = false;
 	size = Float2(1, 1);
 	forme = Concave();
 	worldForme = Concave();
@@ -40,6 +41,7 @@ RigidBody::RigidBody()
 }
 RigidBody::RigidBody(float _masse, Float2 _position, Concave _forme, bool dynamic)
 {
+	to_destroy = false;
 	size = Float2(1, 1);
 	forme = Concave();
 	worldForme = Concave();
@@ -98,10 +100,9 @@ float RigidBody::getApproxTaille() const
 	return approxTaille;
 
 }
-void RigidBody::updatePosition(sf::Time deltaT)
+void RigidBody::updatePosition(float sec)
 {
 	old_position = position;
-	float sec = deltaT.asSeconds();
 		modif = true;
 		acc += forc  / masse;
 		position += (acc * sec * sec * 0.5f) + vit * sec;
@@ -109,8 +110,6 @@ void RigidBody::updatePosition(sf::Time deltaT)
 
 		acc = Float2(0, 0);
 		forc = Float2(0, 0);
-
-
 }
 infoColl RigidBody::testCollision (RigidBody& c)
 {
@@ -459,9 +458,9 @@ void VisibleBody::setPosition(Float2 new_position)
 	modif_images = true;
 	RigidBody::setPosition(new_position);
 }
-void VisibleBody::updatePosition(sf::Time deltaT)
+void VisibleBody::updatePosition(float sec)
 {
-	RigidBody::updatePosition(deltaT);
+	RigidBody::updatePosition(sec);
 	modif_images = true;
 }
 void VisibleBody::resize(Float2 multiplicateur)

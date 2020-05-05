@@ -5,7 +5,6 @@
 #include<SFML/Graphics.hpp>
 
 class Monde;
-
 class RigidBody
 {
 protected:
@@ -19,14 +18,15 @@ protected:
 	Float2 size;
 
 	void calculApproxTaille();
-	Monde* p_monde;
 
 public:
+	bool to_destroy;
 	float bounce, friction, masse;
 
 	Float2 vit;
 	Float2 acc;
 	Float2 forc;
+	Monde* p_monde;
 
 	bool is_Dynamic;
 	RigidBody();
@@ -37,7 +37,7 @@ public:
 	virtual void setPosition(Float2 new_position);
 	Float2 getPosition() const;
 	float getApproxTaille() const;
-	virtual void updatePosition(sf::Time deltaT);
+	virtual void updatePosition(float sec);
 	infoColl testCollision (RigidBody& c);
 	infoColl collide (RigidBody& c);
 	virtual void resize(Float2 multiplicateur);
@@ -72,7 +72,7 @@ public:
 	void afficher( sf::RenderWindow& fenetre);
 
 	virtual void setPosition(Float2 new_position);
-	virtual void updatePosition(sf::Time deltaT);
+	virtual void updatePosition(float sec);
 	virtual void resize(Float2 multiplicateur);
 
 	friend int LireFichier(std::ifstream& fichier, VisibleBody& contenant); //définie dans FichierIO.cpp

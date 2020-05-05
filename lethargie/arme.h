@@ -10,6 +10,7 @@ class Competence
 protected:
 	Joueur* acteur;
 	Float2 position, objectif;
+	int etape;
 public:
 	Competence();
 

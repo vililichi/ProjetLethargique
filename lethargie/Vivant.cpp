@@ -23,10 +23,9 @@ Vivant::Vivant(float _lumiereMax, float _ombreMax, float _masse, Float2 _positio
 	ombre = ombreMax;
 	vivant = true;
 }
-void Vivant::update(sf::Time deltaT)
+void Vivant::update(float sec)
 {
-	updatePosition(deltaT);
-	const float sec = deltaT.asSeconds();
+	updatePosition(sec);
 	resplendissement += sec * resplendissance;
 	stabilisation += sec * stabilite;
 	if (resplendissement >= 1)
