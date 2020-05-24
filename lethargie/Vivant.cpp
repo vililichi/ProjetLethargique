@@ -1,6 +1,6 @@
 #include "Vivant.h"
 
-Vivant::Vivant(float _lumiereMax, float _ombreMax, float _masse, Float2 _position, Concave _forme)
+Vivant::Vivant(int _lumiereMax, int _ombreMax, float _masse, Float2 _position, Concave _forme)
 	: VisibleBody(_masse, _position, _forme)
 {
 

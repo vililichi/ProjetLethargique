@@ -10,6 +10,8 @@ protected:
 	bool end;
 	float endAnim;
 	virtual void ending(float sec);
+	std::vector<float> alpha0;
+	bool alpha0Set;
 
 
 public:

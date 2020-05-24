@@ -35,7 +35,7 @@ public:
 	float resplendissance;
 
 
-	Vivant(float _lumiereMax = 10, float _ombreMax = 10,float _masse = 1, Float2 _position = Float2(0,0), Concave _forme = Concave() );
+	Vivant(int _lumiereMax = 10, int _ombreMax = 10,float _masse = 1, Float2 _position = Float2(0,0), Concave _forme = Concave() );
 	void update(float sec);
 	void attack(Damage description);
 	int getOmbre();

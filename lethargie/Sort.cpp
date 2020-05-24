@@ -5,12 +5,17 @@ Sort::Sort() : VisibleBody()
 {
 	lifeTime = 0;
 	has_lifeTime = false;
+
 	whiteliste_only = false;
+
 	percing = false;
 	spectral = false;
+	floating = false;
+
 	end = false;
-	endAnim = 0;
-	endTime = 10;
+	alpha0Set = false;
+	endAnim = 0.f;
+	endTime = 0.2f;
 }
 float Sort::get_lifeTime()
 {
@@ -39,10 +44,16 @@ void Sort::ending(float sec)
 	endAnim += sec / endTime;
 	for (int i = 0, taille = images.size(); i < taille; i++)
 	{
+		
 		sf::Color Couleur = images[i].getColor();
-		Couleur.a = Couleur.a - Couleur.a * sec / (endTime * (1 - endAnim));
+
+		if (!alpha0Set)alpha0.push_back(Couleur.a);
+		
+
+		Couleur.a = (sf::Uint8)(alpha0[i] - alpha0[i] * endAnim);
 		images[i].setColor(Couleur);
 	}
+	alpha0Set = true;
 	if (endAnim >= 1)
 	{
 		to_destroy = true;

@@ -73,6 +73,7 @@ public:
 	void afficher( sf::RenderWindow& fenetre);
 
 	virtual void setPosition(Float2 new_position);
+	virtual void rotate(float angle);
 	virtual void updatePosition(float sec);
 	virtual void resize(Float2 multiplicateur);
 

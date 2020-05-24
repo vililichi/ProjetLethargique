@@ -21,8 +21,8 @@ const int idle = 0;
 const int marche = 1;
 const int chute = 2;
 
-const float actionTime[nbrAction] = { 0.2, 0.7,0.7,1,0.2 };
-const float animTime[nbrAnim] = {0.5,0.3,0.3};
+const float actionTime[nbrAction] = { 0.2f, 0.7f,0.7f,1.f,0.2f };
+const float animTime[nbrAnim] = {0.5f,0.3f,0.3f};
 
 const float puiss = 300;
 const float fren = 10;
@@ -32,6 +32,7 @@ const Float2 grav(0, 500);
 #pragma region joueur
 	Joueur::Joueur() : Vivant()
 	{
+		arme = NULL;
 		std::ifstream ifs;
 		ifs.open("Ressource/MapItem/Vivant/perso.txt");
 		LireFichier(ifs, *this);
@@ -127,7 +128,7 @@ const Float2 grav(0, 500);
 
 		}
 		//tete
-		images_offset[tete] += Float2(0, 0.7 * sin(2 * PI * animEtat[idle]));
+		images_offset[tete] += Float2(0, 0.7f * sin(2 * PI * animEtat[idle]));
 
 		//bras1
 		images_offset[bras1] +=
@@ -144,14 +145,14 @@ const Float2 grav(0, 500);
 		//pied1
 		images_offset[pied1] +=
 			Float2(
-				0.7*sin(PI * (2 * animEtat[marche] + 1)),
-				0.5 * sin(PI * (2 * animEtat[marche] + 1)));
+				0.7f *sin(PI * (2 * animEtat[marche] + 1)),
+				0.5f * sin(PI * (2 * animEtat[marche] + 1)));
 
 		//pied2
 		images_offset[pied2] +=
 			Float2(
-				0.7*sin(PI * (2 * animEtat[marche])),
-				0.5 * sin(PI * (2 * animEtat[marche])));
+				0.7f*sin(PI * (2 * animEtat[marche])),
+				0.5f * sin(PI * (2 * animEtat[marche])));
 
 		//chute
 		if (animActif[chute] && tempsChute > 0.05)
@@ -277,6 +278,7 @@ const Float2 grav(0, 500);
 			images[pied2].setScale(Float2(1, 1));
 			isInvers = false;
 		}
+		return true;
 	}
 	void Joueur::equiper(Arme* _arme)
 	{

@@ -92,7 +92,27 @@ void Arme::bound(Joueur* _possesseur)
 
 
 #pragma endregion
-
+#pragma region fonctions
+Sort* importSort(std::string path,float life_time = -1,bool is_floating = false, bool is_spectral = false, bool has_percing = false, bool is_dynamic = true)
+{
+	Sort* p_sort = new Sort;
+	std::ifstream f;
+	f.open(path);
+	LireFichier(f, *p_sort);
+	p_sort->is_Dynamic = is_dynamic;
+	p_sort->percing = has_percing;
+	p_sort->spectral = is_spectral;
+	p_sort->floating = is_floating;
+	if(life_time > 0) p_sort->set_lifeTime(life_time);
+	return p_sort;
+}
+Sort* SetActorAndWorld(Sort* p_sort, Joueur* acteur, bool blacklist_player = true)
+{
+	if(blacklist_player == true)p_sort->blacklist.push_back(acteur);
+	acteur->p_monde->addSort(p_sort);
+	return p_sort;
+}
+#pragma endregion
 #pragma region infusion
 
 void InfusionSphere::anim(float sec)
@@ -103,22 +123,52 @@ void InfusionSphere::anim(float sec)
 
 void InfusionDart::anim(float sec)
 {
-
-	Float2 dir = ((Float2)(objectif - position)).setNorm(1);
+	Float2 objDir = ((Float2)(objectif - position)).setNorm(1);
+	Float2 dir = objDir;
+	const float travelAngle = PI / 3; 
+	const float vit_sort = 300;
 	if (animEtat < 0.2)
 	{
-		dir.setAngle(dir.angle() - PI/6);
+		dir.setAngle(dir.angle() - travelAngle/2);
 		acteur->images_offset[bras2] += 14.f * dir * (float)sin(animEtat * (float)PI / 0.4f);
 	}
 	else if (animEtat < 0.8)
 	{
-		dir.setAngle(dir.angle() - PI/6 + PI/3 * sin((animEtat-0.2f)* (float)PI/1.2f));
+		dir.setAngle(dir.angle() - travelAngle/2 + travelAngle * sin((animEtat-0.2f)* (float)PI/1.2f));
 		acteur->images_offset[bras2] += 14.f * dir;
 	}
 	else
 	{
-		dir.setAngle(dir.angle() + PI / 6);
+		dir.setAngle(dir.angle() + travelAngle/2);
 		acteur->images_offset[bras2] += 14.f * dir * (float)sin(-1.f*(animEtat-0.8f) * (float)PI / 0.4f + (float)PI/2.f);
+	}
+
+	if (etape < 1 && animEtat > 0.2)
+	{
+		etape = 1;
+		Sort* dart = importSort("Ressource/Sort/dart.txt", 1,true, false, true);
+		SetActorAndWorld(dart, acteur);
+		dart->setPosition(acteur->getPosition() +acteur->images_offset[bras2] + 2.f*dir);
+		dart->rotate(objDir.angle());
+		dart->vit = acteur->vit + objDir * vit_sort;
+	}
+	if (etape < 2 && animEtat > 0.5)
+	{
+		etape = 2;
+		Sort* dart = importSort("Ressource/Sort/dart.txt", 1, true, false, true);
+		SetActorAndWorld(dart, acteur);
+		dart->setPosition(acteur->getPosition() + acteur->images_offset[bras2] + 2.f * dir);
+		dart->rotate(objDir.angle());
+		dart->vit = acteur->vit + objDir * vit_sort;
+	}
+	if (etape < 3 && animEtat > 0.8)
+	{
+		etape = 3;
+		Sort* dart = importSort("Ressource/Sort/dart.txt", 1, true, false, true);
+		SetActorAndWorld(dart, acteur);
+		dart->setPosition(acteur->getPosition() + acteur->images_offset[bras2] + 2.f * dir);
+		dart->rotate(objDir.angle());
+		dart->vit = acteur->vit + objDir * vit_sort;
 	}
 	
 }
@@ -131,18 +181,10 @@ void InfusionNova::anim(float sec)
 	if (etape < 1 && animEtat > 0.5)
 	{
 		etape = 1;
-		Sort* nova = new Sort;
-		std::ifstream f;
-		f.open("Ressource/Sort/nova.txt");
-		LireFichier(f, *nova);
-		nova->is_Dynamic = false;
-		nova->percing = true;
-		nova->spectral = true;
-		nova->set_lifeTime(0.3);
-		nova->blacklist.push_back(acteur);
+		Sort* nova = importSort("Ressource/Sort/nova.txt", 0.3,true,true,true,false);
+		SetActorAndWorld(nova, acteur);
 		nova->setPosition(acteur->getPosition()+Float2(8,10));
 		nova->resize(Float2(3, 3));
-		acteur->p_monde->addSort(nova);
 	}
 }
 

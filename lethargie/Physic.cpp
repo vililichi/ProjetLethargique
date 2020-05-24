@@ -93,7 +93,14 @@ void RigidBody::setPosition(Float2 new_position)
 }
 void RigidBody::rotate(float angle)
 {
-	;
+	for (int i = 0, taille = forme.formes.size(); i < taille; i++)
+	{
+		for (int j = 0, tailleJ = forme.formes[i].sommets.size(); j < tailleJ; j++)
+		{
+			forme.formes[i].sommets[j].setAngle(forme.formes[i].sommets[j].angle() + angle);
+		}
+	}
+	modif = true;
 }
 Float2 RigidBody::getPosition() const 
 {
@@ -121,7 +128,7 @@ infoColl RigidBody::testCollision (RigidBody& c)
 	bool col = true;
 	Float2 dir = position - c.getPosition();
 	float dist = dir.norm2();
-	float tailleSqrt = (approxTaille + c.getApproxTaille())*1.1;
+	float tailleSqrt = (approxTaille + c.getApproxTaille())*1.1f;
 	tailleSqrt *= tailleSqrt;
 	if (dist > tailleSqrt) {
 		col = false;
@@ -448,6 +455,16 @@ void VisibleBody::setPosition(Float2 new_position)
 {
 	modif_images = true;
 	RigidBody::setPosition(new_position);
+}
+void VisibleBody::rotate(float angle)
+{
+	RigidBody::rotate(angle);
+	for (int i = 0, taille = images.size(); i < taille; i++)
+	{
+		images[i].rotate(angle*180/PI);
+		images_offset[i].setAngle(images_offset[i].angle() + angle);
+	}
+	modif_images = true;
 }
 void VisibleBody::updatePosition(float sec)
 {

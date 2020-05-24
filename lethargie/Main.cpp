@@ -29,6 +29,7 @@ int main()
     CameraMobile camera;
     camera.setCenter(0, 0);
     camera.setSize(1000, 700);
+    camera.zoom(0.75);
 
 
     sf::RenderWindow window(sf::VideoMode(1000,700), "Lethargie");
@@ -44,7 +45,12 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
             if (event.type == sf::Event::Resized)
-                camera.setSize(event.size.width, event.size.height);
+            {
+                camera.setSize((float)event.size.width, (float)event.size.height);
+                float factor = (float)event.size.width * (float)event.size.width + (float)event.size.height * (float)event.size.height;
+                const float normal = 1700000.f;
+                camera.zoom( normal/factor);
+            }
         }
 
         mainDivine.creerControl(window);
