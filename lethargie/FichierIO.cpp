@@ -209,6 +209,7 @@ sf::Texture* GestionnaireTexture::obtenirTexture(std::string nom)
 		if (listeTexture[index].texture->loadFromFile(nom))
 		{
 			listeTexture[index].nom = nom;
+			//listeTexture[index].texture->setSmooth(true);
 			retour = listeTexture[index].texture;
 		}
 		else

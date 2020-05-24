@@ -91,6 +91,10 @@ void RigidBody::setPosition(Float2 new_position)
 	if (!is_Dynamic)old_position = new_position;
 	modif = true;
 }
+void RigidBody::rotate(float angle)
+{
+	;
+}
 Float2 RigidBody::getPosition() const 
 {
 	return position;
@@ -117,7 +121,7 @@ infoColl RigidBody::testCollision (RigidBody& c)
 	bool col = true;
 	Float2 dir = position - c.getPosition();
 	float dist = dir.norm2();
-	float tailleSqrt = approxTaille + c.getApproxTaille();
+	float tailleSqrt = (approxTaille + c.getApproxTaille())*1.1;
 	tailleSqrt *= tailleSqrt;
 	if (dist > tailleSqrt) {
 		col = false;
@@ -200,44 +204,31 @@ infoColl RigidBody::collide (RigidBody& c)
 
 
 		}
-		else if (firstF->is_Dynamic)
+		else
 		{
-			//normal
+			RigidBody* Dynamic = firstF;
 			Float2 normal = fact.normal;
+			if (secondF->is_Dynamic)
+			{
+				Dynamic = secondF;
+				normal = normal * -1.f;
+			}
+
+			
 			//position
-			
-			firstF->setPosition(firstF->position + fact.factor * ((Float2)(firstF->old_position - firstF->position)/normal));
-			
+			Dynamic->setPosition(Dynamic->position + fact.factor * ((Float2)(Dynamic->old_position - Dynamic->position) / normal));
+	
 			//force
 
-			Nulify(secondF->forc, normal);
+			Nulify(Dynamic->forc, normal);
 
 			//vitesse
-			doBounce(firstF->vit, normal, bounce * c.bounce);
+			doBounce(Dynamic->vit, normal, bounce * c.bounce);
 
 			//ground
 			collision.grounded = true;
 			collision.groundDir = normal;
-		}
-		else if (secondF->is_Dynamic)
-		{
-			//normal
-			Float2 normal = -fact.normal;
 
-			//position
-			
-			secondF->setPosition(secondF->position + fact.factor * ((Float2)(secondF->old_position - secondF->position) / normal));
-			
-		
-			//force
-			Nulify(secondF->forc, normal);
-
-			//vitesse
-			doBounce(secondF->vit, normal, bounce * c.bounce);
-
-			//ground
-			collision.grounded = true;
-			collision.groundDir = normal;
 		}
 	return collision;
 }

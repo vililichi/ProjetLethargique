@@ -31,7 +31,7 @@ int main()
     camera.setSize(1000, 700);
 
 
-    sf::RenderWindow window(sf::VideoMode(1000,700), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(1000,700), "Lethargie");
     window.setVerticalSyncEnabled(true);
 
     timerFPS.restart();

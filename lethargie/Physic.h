@@ -35,6 +35,7 @@ public:
 	Concave getForme() const;
 	Concave getWorldForme();
 	virtual void setPosition(Float2 new_position);
+	virtual void rotate(float angle);
 	Float2 getPosition() const;
 	float getApproxTaille() const;
 	virtual void updatePosition(float sec);
