@@ -7,7 +7,8 @@ struct Menu_Creator {
 	sf::Vector2i _deltaMousePos, _oldMousePos,_mousePos;
 
 	ATHElement globalBackground;
-	ATHManager menuCreator, menu16x9;
+	ATHElement menuCreator;
+	ATHManager menu16x9;
 
 	int selectedElement;
 

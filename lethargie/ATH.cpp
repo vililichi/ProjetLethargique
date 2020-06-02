@@ -1,13 +1,22 @@
 #include "ATH.h"
 
-///////////////////////////////////////////////Button/////////////////////////////////////////////
-ATHElement::ATHElement(std::string _name) : window(), background(), contentText(), defaultText(), name(_name) {
+///////////////////////////////////////////////ATHElement - Child-Parent System/////////////////////////////////////////////
+///////////////////////////Self///////////////////////////
+ATHElement::ATHElement(std::string _name) : window(), background(), contentText(), defaultText(), name(_name), childs() {
 	toggle = false;
 	isChangingTextByUser = false;
 	prevKey = -1;
 }
 
-ATHElement::ATHElement(sf::RenderWindow& _window, std::string _name) : background(), contentText(), defaultText(), name(_name) {
+//ATHElement::ATHElement(sf::RenderWindow& _window, std::string _name) : background(), contentText(), defaultText(), name(_name) {
+//	window = &_window;
+//	toggle = false;
+//	isChangingTextByUser = false;
+//	prevKey = -1;
+//}
+
+ATHElement::ATHElement(sf::RenderWindow& _window, std::string _name, sf::Vector2f _pos, sf::Vector2f _size) : 
+	background(), contentText(), defaultText(), name(_name), view(_pos, _size) {
 	window = &_window;
 	toggle = false;
 	isChangingTextByUser = false;
@@ -129,7 +138,7 @@ bool ATHElement::isHovered(sf::Vector2i _mousePos) {
 	return false;
 }
 
-void ATHElement::Draw()
+void ATHElement::DrawSelf()
 {
 	if (window != NULL) {
 		std::string _text = contentText.getString(), _defaultText = defaultText.getString();
@@ -239,7 +248,7 @@ int GetKeyPressed() {
 	return _keyPressed;
 }
 
-void ATHElement::Save(std::string _path) {
+void ATHElement::SaveSelf(std::string _path) {
 	std::ofstream _file(_path);
 
 
@@ -272,7 +281,7 @@ void ATHElement::Save(std::string _path) {
 	_file.close();
 }
 
-void ATHElement::Save(std::ofstream* _file) {
+void ATHElement::SaveSelf(std::ofstream* _file) {
 	*_file
 		<< "Background :" << std::endl
 		<< ToString(background.getPosition()) << std::endl
@@ -299,7 +308,7 @@ void ATHElement::Save(std::ofstream* _file) {
 		<< name << std::endl;
 }
 
-void ATHElement::Load(std::string _path) {
+void ATHElement::LoadSelf(std::string _path) {
 
 	std::ifstream _file;
 	_file.open(_path);
@@ -325,7 +334,7 @@ void ATHElement::Load(std::string _path) {
 	_file.close();
 }
 
-void ATHElement::Load(std::ifstream* _file) {
+void ATHElement::LoadSelf(std::ifstream* _file) {
 	ReadSkipTitle(_file);	//Skip Element #
 
 	//Background
@@ -344,6 +353,137 @@ void ATHElement::Load(std::ifstream* _file) {
 	std::string _name = ReadString(_file, 0);
 	name = _name;
 }
+
+///////////////////////////Self-Child///////////////////////////
+
+
+void ATHElement::Draw() {
+	window->setView(view);
+	DrawSelf();
+
+	for (int i = 0; i < childs.size(); i++) {
+		childs[i].DrawSelf();
+	}
+}
+
+void ATHElement::Clear() {
+	childs.clear();
+}
+
+void ATHElement::AddElement() {
+	childs.push_back(ATHElement(*window));
+}
+
+void ATHElement::AddElement(ATHElement _element) {
+	_element.window = window;
+	childs.push_back(_element);
+}
+
+void ATHElement::Load(std::string _path) {
+	std::ifstream _file;
+	_file.open(_path);
+
+	//Get the number of elements in the file
+	const int nbElements = ReadInt(&_file);
+	childs.resize(nbElements, ATHElement(*window));
+
+	const sf::Vector2f _scales = ReadVector2f(&_file);
+	//view.setSize(ReadVector2f(&_file));
+
+	for (int i = 0; i < childs.size(); i++) {
+		childs[i].LoadSelf(&_file);
+	}
+
+	//view.setSize(_scales);
+
+	_file.close();
+}
+
+void ATHElement::Save(std::string _path) {
+	std::ofstream _file;
+	_file.open(_path);
+
+	_file << childs.size() << std::endl;
+
+	for (int i = 0; i < childs.size(); i++) {
+		_file << "----- Element " << i << " : " << childs[i].name << " -----" << std::endl;
+		childs[i].SaveSelf(&_file);
+		_file << std::endl << std::endl;
+	}
+
+
+	_file.close();
+}
+
+ATHElement* ATHElement::FindElement(std::string _name) {
+	for (int i = 0; i < childs.size(); i++) {
+		if (childs[i].name == _name) {
+			return &childs[i];
+		}
+	}
+	std::cout << "ATHElement ATHElement::FindElement(std::string _name)_" << _name << "_Not_Found" << std::endl;
+	return NULL;
+}
+
+void ATHElement::SetPosition(sf::Vector2f _pos) {
+	view.setCenter(_pos);
+}
+void ATHElement::SetPosition(int _posX, int _posY) {
+	view.setCenter(_posX, _posY);
+}
+
+void ATHElement::Move(sf::Vector2f _move) {
+	view.move(_move);
+}
+void ATHElement::Move(int _moveX, int _moveY) {
+	view.move(_moveX, -_moveY);
+}
+
+void ATHElement::Resize(sf::Vector2f _newSize) {
+	sf::Vector2f _scale(sf::Vector2f(_newSize.x / view.getSize().x, _newSize.y / view.getSize().y));
+	view.setSize(_newSize.x, _newSize.y);
+
+	for (ATHElement& child : childs) {
+		child.background.scale(_scale);
+		child.defaultText.scale(_scale);
+		child.contentText.scale(_scale);
+
+		child.background.setPosition(sf::Vector2f(child.background.getPosition().x * _scale.x, child.background.getPosition().y * _scale.y));
+		child.defaultText.setPosition(sf::Vector2f(child.defaultText.getPosition().x * _scale.x, child.defaultText.getPosition().y * _scale.y));
+		child.contentText.setPosition(sf::Vector2f(child.contentText.getPosition().x * _scale.x, child.contentText.getPosition().y * _scale.y));
+	}
+}
+
+void ATHElement::Resize(unsigned int _newSizeX, unsigned int _newsizeY) {
+	sf::Vector2f _scale(sf::Vector2f(_newSizeX / view.getSize().x, _newsizeY / view.getSize().y));
+	view.setSize(_newSizeX, _newsizeY);
+
+	for (ATHElement& child : childs) {
+		child.background.scale(_scale);
+		child.defaultText.scale(_scale);
+		child.contentText.scale(_scale);
+
+		child.background.setPosition(sf::Vector2f(child.background.getPosition().x * _scale.x, child.background.getPosition().y * _scale.y));
+		child.defaultText.setPosition(sf::Vector2f(child.defaultText.getPosition().x * _scale.x, child.defaultText.getPosition().y * _scale.y));
+		child.contentText.setPosition(sf::Vector2f(child.contentText.getPosition().x * _scale.x, child.contentText.getPosition().y * _scale.y));
+	}
+}
+
+void ATHElement::Scale(float _scale) {
+	const sf::Vector2f _scale2f = sf::Vector2f(_scale, _scale);
+	//view.zoom(_scale);
+
+	for (ATHElement& child : childs) {
+		child.background.scale(_scale2f);
+		child.defaultText.scale(_scale2f);
+		child.contentText.scale(_scale2f);
+
+		child.background.setPosition(sf::Vector2f(child.background.getPosition().x * _scale, child.background.getPosition().y * _scale));
+		child.defaultText.setPosition(sf::Vector2f(child.defaultText.getPosition().x * _scale, child.defaultText.getPosition().y * _scale));
+		child.contentText.setPosition(sf::Vector2f(child.contentText.getPosition().x * _scale, child.contentText.getPosition().y * _scale));
+	}
+}
+
 
 ////////////////////////////////////////////////////////////////////////ATH Manager/////////////////////////////////////////////
 
@@ -384,7 +524,7 @@ void ATHManager::Load(std::string _path) {
 	//view.setSize(ReadVector2f(&_file));
 
 	for (int i = 0; i < elements.size(); i++) {
-		elements[i].Load(&_file);
+		elements[i].LoadSelf(&_file);
 	}
 
 	//view.setSize(_scales);
@@ -400,7 +540,7 @@ void ATHManager::Save(std::string _path) {
 
 	for (int i = 0; i < elements.size(); i++) {
 		_file << "----- Element " << i << " : " << elements[i].name << " -----" << std::endl;
-		elements[i].Save(&_file);
+		elements[i].SaveSelf(&_file);
 		_file << std::endl << std::endl;
 	}
 

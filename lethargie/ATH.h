@@ -8,20 +8,32 @@
 
 class ATHElement {
 public:
+	////Var
+
+	//Render
 	sf::RenderWindow* window;
+	sf::View view; //position and scale of the entire ATH
+
+	//Children-Parent Relation
+	std::vector<ATHElement> childs;
+	//ATHElement* parent;
+
+	//Visual
 	sf::RectangleShape background;
 	sf::Text contentText, defaultText;
 
+	//Identification
 	std::string name;
-	//std::vector<ATHElement> childs; 
-	//*ATHElement parent;
 
 	int prevKey;
 
 	bool toggle, isChangingTextByUser;
+
+	///Function
 	ATHElement(std::string _name = "");
-	ATHElement(sf::RenderWindow& _window, std::string _name = "");
+	ATHElement(sf::RenderWindow& _window, std::string _name = "", sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _size = sf::Vector2f(0.0f, 0.0f));
 	
+	//Self Function
 	void SetDefaultText(sf::Vector2f _pos, float _size, sf::Color _color, std::string _text, sf::Font &_font);
 	void LoadDefaultText(std::ifstream* _file);
 
@@ -40,12 +52,35 @@ public:
 	void ChangeTextByUser(sf::Vector2i _mousePos, int _mouseButton = 0, bool _toggle = false, int _sendKey = sf::Keyboard::Enter);
 	std::string WriteText();
 
-	void Draw();
+	void DrawSelf();
+
+	void SaveSelf(std::string _path);
+	void SaveSelf(std::ofstream *_file);
+	void LoadSelf(std::string _path);
+	void LoadSelf(std::ifstream *_file);
+
+	//Self-Child Function
+	void Clear();
+	void AddElement();
+	void AddElement(ATHElement _element);
 
 	void Save(std::string _path);
-	void Save(std::ofstream *_file);
 	void Load(std::string _path);
-	void Load(std::ifstream *_file);
+
+	ATHElement* FindElement(std::string _name);
+
+	void SetPosition(sf::Vector2f _pos);
+	void SetPosition(int _posX, int _posY);
+
+	void Move(sf::Vector2f _move);
+	void Move(int _moveX, int _moveY);
+
+	void Resize(sf::Vector2f _newSize);
+	void Resize(unsigned int _sizeX, unsigned int _sizeY);
+
+	void Scale(float _scale);
+
+	void Draw();
 };
 
 class ATHManager {
