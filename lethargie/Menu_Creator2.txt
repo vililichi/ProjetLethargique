@@ -1,0 +1,1537 @@
+59
+1900 900
+
+----- Element 0 : Background -----
+Background :
+650.000000	-450.000000
+300.000000	900.000000
+25	25	50	255
+0
+0	0	0	0
+
+Default Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Background
+
+
+----- Element 1 : 16x9Area -----
+Background :
+-950.000000	-450.000000
+1600.000000	900.000000
+0	0	0	0
+5
+50	50	50	255
+
+Default Text :
+530.000000	430.000000
+15
+50	50	50	255
+1600x900
+Pixeled.ttf
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+16x9Area
+
+
+----- Element 2 : 4x3Area -----
+Background :
+-750.000000	-450.000000
+1200.000000	900.000000
+0	0	0	0
+5
+0	50	0	255
+
+Default Text :
+330.000000	430.000000
+15
+0	50	0	255
+1200x900
+Pixeled.ttf
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+4x3Area
+
+
+----- Element 3 : Background Title -----
+Background :
+685.000000	-410.000000
+245.000000	5.000000
+120	120	120	255
+0
+0	0	0	0
+
+Default Text :
+685.000000	-440.000000
+25
+200	200	200	255
+Background
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Background Title
+
+
+----- Element 4 : Background Pos Title -----
+Background :
+0.000000	-40.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	-390.000000
+15
+200	200	200	255
+Position:
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Background Pos Title
+
+
+----- Element 5 : Background Pos X -----
+Background :
+795.000000	-392.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	-388.000000
+12
+200	200	200	255
+X
+Pixeled.ttf
+
+Content Text :
+805.000000	-388.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Background Pos X
+
+
+----- Element 6 : Background Pos Y -----
+Background :
+835.000000	-392.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+845.000000	-388.000000
+12
+200	200	200	255
+Y
+Pixeled.ttf
+
+Content Text :
+845.000000	-388.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Background Pos Y
+
+
+----- Element 7 : Background Size Title -----
+Background :
+0.000000	-40.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	-360.000000
+15
+200	200	200	255
+Size:
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Background Size Title
+
+
+----- Element 8 : Background Size X -----
+Background :
+795.000000	-362.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	-358.000000
+12
+200	200	200	255
+X
+Pixeled.ttf
+
+Content Text :
+805.000000	-358.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Background Size X
+
+
+----- Element 9 : Background Size Y -----
+Background :
+835.000000	-362.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+845.000000	-358.000000
+12
+200	200	200	255
+Y
+Pixeled.ttf
+
+Content Text :
+845.000000	-358.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Background Size Y
+
+
+----- Element 10 : Background Color Title -----
+Background :
+0.000000	-40.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	-330.000000
+15
+200	200	200	255
+Color:
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Background Color Title
+
+
+----- Element 11 : Background Color r -----
+Background :
+795.000000	-332.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	-328.000000
+12
+200	200	200	255
+r
+Pixeled.ttf
+
+Content Text :
+805.000000	-328.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Background Color r
+
+
+----- Element 12 : Background Color g -----
+Background :
+835.000000	-332.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+845.000000	-328.000000
+12
+200	200	200	255
+g
+Pixeled.ttf
+
+Content Text :
+845.000000	-328.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Background Color g
+
+
+----- Element 13 : Background Color b -----
+Background :
+875.000000	-332.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+885.000000	-328.000000
+12
+200	200	200	255
+b
+Pixeled.ttf
+
+Content Text :
+885.000000	-328.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Background Color b
+
+
+----- Element 14 : Background Color a -----
+Background :
+915.000000	-332.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+925.000000	-328.000000
+12
+200	200	200	255
+a
+Pixeled.ttf
+
+Content Text :
+925.000000	-328.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Background Color a
+
+
+----- Element 15 : Outline Title -----
+Background :
+685.000000	-240.000000
+245.000000	5.000000
+120	120	120	255
+0
+0	0	0	0
+
+Default Text :
+685.000000	-270.000000
+25
+200	200	200	255
+Outline
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Outline Title
+
+
+----- Element 16 : Outline Size Title -----
+Background :
+0.000000	-40.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	-220.000000
+15
+200	200	200	255
+Size:
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Outline Size Title
+
+
+----- Element 17 : Outline Size -----
+Background :
+795.000000	-222.000000
+57.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	-218.000000
+12
+200	200	200	255
+size
+Pixeled.ttf
+
+Content Text :
+805.000000	-218.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Outline Size
+
+
+----- Element 18 : Outline Color Title -----
+Background :
+0.000000	-40.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	-190.000000
+15
+200	200	200	255
+Color:
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Outline Color Title
+
+
+----- Element 19 : Outline Color r -----
+Background :
+795.000000	-192.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	-188.000000
+12
+200	200	200	255
+r
+Pixeled.ttf
+
+Content Text :
+805.000000	-188.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Outline Color r
+
+
+----- Element 20 : Outline Color g -----
+Background :
+835.000000	-192.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+845.000000	-188.000000
+12
+200	200	200	255
+g
+Pixeled.ttf
+
+Content Text :
+845.000000	-188.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Outline Color g
+
+
+----- Element 21 : Outline Color b -----
+Background :
+875.000000	-192.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+885.000000	-188.000000
+12
+200	200	200	255
+b
+Pixeled.ttf
+
+Content Text :
+885.000000	-188.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Outline Color b
+
+
+----- Element 22 : Outline Color a -----
+Background :
+915.000000	-192.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+925.000000	-188.000000
+12
+200	200	200	255
+a
+Pixeled.ttf
+
+Content Text :
+925.000000	-188.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Outline Color a
+
+
+----- Element 23 : Default Text Title -----
+Background :
+685.000000	-100.000000
+245.000000	5.000000
+120	120	120	255
+0
+0	0	0	0
+
+Default Text :
+685.000000	-130.000000
+22
+200	200	200	255
+Patate Douce
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Default Text Title
+
+
+----- Element 24 : Default Text Pos Title -----
+Background :
+0.000000	-40.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	-80.000000
+15
+200	200	200	255
+Position:
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Default Text Pos Title
+
+
+----- Element 25 : Default Text Pos X -----
+Background :
+795.000000	-82.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	-78.000000
+12
+200	200	200	255
+X
+Pixeled.ttf
+
+Content Text :
+805.000000	-78.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Default Text Pos X
+
+
+----- Element 26 : Default Text Pos Y -----
+Background :
+835.000000	-82.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+845.000000	-78.000000
+12
+200	200	200	255
+Y
+Pixeled.ttf
+
+Content Text :
+845.000000	-78.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Default Text Pos Y
+
+
+----- Element 27 : Default Text Size Title -----
+Background :
+0.000000	-40.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	-50.000000
+15
+200	200	200	255
+Size:
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Default Text Size Title
+
+
+----- Element 28 : Default Text Size -----
+Background :
+795.000000	-52.000000
+57.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	-48.000000
+12
+200	200	200	255
+size
+Pixeled.ttf
+
+Content Text :
+805.000000	-48.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Default Text Size
+
+
+----- Element 29 : Default Text Color Title -----
+Background :
+0.000000	-40.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	-20.000000
+15
+200	200	200	255
+Color:
+Pixeled.ttf
+
+Content Text :
+685.000000	-20.000000
+15
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Default Text Color Title
+
+
+----- Element 30 : Default Text Color r -----
+Background :
+795.000000	-22.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	-18.000000
+12
+200	200	200	255
+r
+Pixeled.ttf
+
+Content Text :
+805.000000	-18.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Default Text Color r
+
+
+----- Element 31 : Default Text Color g -----
+Background :
+835.000000	-22.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+845.000000	-18.000000
+12
+200	200	200	255
+g
+Pixeled.ttf
+
+Content Text :
+845.000000	-18.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Default Text Color g
+
+
+----- Element 32 : Default Text Color b -----
+Background :
+875.000000	-22.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+885.000000	-18.000000
+12
+200	200	200	255
+b
+Pixeled.ttf
+
+Content Text :
+885.000000	-18.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Default Text Color b
+
+
+----- Element 33 : Default Text Color a -----
+Background :
+915.000000	-22.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+925.000000	-18.000000
+12
+200	200	200	255
+a
+Pixeled.ttf
+
+Content Text :
+925.000000	-18.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Default Text Color a
+
+
+----- Element 34 : Default Text Text Title -----
+Background :
+0.000000	-40.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	10.000000
+15
+200	200	200	255
+Text:
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Default Text Text Title
+
+
+----- Element 35 : Default Text Text -----
+Background :
+795.000000	8.000000
+150.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	12.000000
+12
+200	200	200	255
+text...
+Pixeled.ttf
+
+Content Text :
+805.000000	12.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Default Text Text
+
+
+----- Element 36 : Content Text Title -----
+Background :
+685.000000	100.000000
+245.000000	5.000000
+120	120	120	255
+0
+0	0	0	0
+
+Default Text :
+685.000000	70.000000
+21
+200	200	200	255
+Content Text
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Content Text Title
+
+
+----- Element 37 : Content Text Pos Title -----
+Background :
+0.000000	-40.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	120.000000
+15
+200	200	200	255
+Position:
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Content Text Pos Title
+
+
+----- Element 38 : Content Text Pos X -----
+Background :
+795.000000	118.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	122.000000
+12
+200	200	200	255
+X
+Pixeled.ttf
+
+Content Text :
+805.000000	122.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Content Text Pos X
+
+
+----- Element 39 : Content Text Pos Y -----
+Background :
+835.000000	118.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+845.000000	122.000000
+12
+200	200	200	255
+Y
+Pixeled.ttf
+
+Content Text :
+845.000000	122.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Content Text Pos Y
+
+
+----- Element 40 : Content Text Size Title -----
+Background :
+0.000000	-40.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	150.000000
+15
+200	200	200	255
+Size:
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Content Text Size Title
+
+
+----- Element 41 : Content Text Size -----
+Background :
+795.000000	148.000000
+57.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	152.000000
+12
+200	200	200	255
+size
+Pixeled.ttf
+
+Content Text :
+805.000000	152.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Content Text Size
+
+
+----- Element 42 : Content Text Color Title -----
+Background :
+0.000000	-40.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	180.000000
+15
+200	200	200	255
+Color:
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Content Text Color Title
+
+
+----- Element 43 : Content Text Color r -----
+Background :
+795.000000	178.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	182.000000
+12
+200	200	200	255
+r
+Pixeled.ttf
+
+Content Text :
+805.000000	182.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Content Text Color r
+
+
+----- Element 44 : Content Text Color g -----
+Background :
+835.000000	178.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+845.000000	182.000000
+12
+200	200	200	255
+g
+Pixeled.ttf
+
+Content Text :
+845.000000	182.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Content Text Color g
+
+
+----- Element 45 : Content Text Color b -----
+Background :
+875.000000	178.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+885.000000	182.000000
+12
+200	200	200	255
+b
+Pixeled.ttf
+
+Content Text :
+885.000000	182.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Content Text Color b
+
+
+----- Element 46 : Content Text Color a -----
+Background :
+915.000000	178.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+925.000000	182.000000
+12
+200	200	200	255
+a
+Pixeled.ttf
+
+Content Text :
+925.000000	182.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Content Text Color a
+
+
+----- Element 47 : Content Text Text Title -----
+Background :
+0.000000	-40.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	210.000000
+15
+200	200	200	255
+Text:
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Content Text Text Title
+
+
+----- Element 48 : Content Text Text -----
+Background :
+795.000000	208.000000
+150.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	212.000000
+12
+200	200	200	255
+text...
+Pixeled.ttf
+
+Content Text :
+805.000000	212.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Content Text Text
+
+
+----- Element 49 : Name Title -----
+Background :
+0.000000	-40.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	260.000000
+15
+200	200	200	255
+Name:
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Name Title
+
+
+----- Element 50 : Name Text -----
+Background :
+795.000000	258.000000
+150.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	262.000000
+12
+200	200	200	255
+text...
+Pixeled.ttf
+
+Content Text :
+805.000000	262.000000
+12
+200	200	200	255
+
+Pixeled.ttf
+
+Name :
+Name Text
+
+
+----- Element 51 : Prev -----
+Background :
+685.000000	308.000000
+66.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+695.000000	312.000000
+12
+200	200	200	255
+Prev
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Prev
+
+
+----- Element 52 : Element # -----
+Background :
+795.000000	308.000000
+41.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	312.000000
+12
+200	200	200	255
+00
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Element #
+
+
+----- Element 53 : Next -----
+Background :
+880.000000	308.000000
+66.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+890.000000	312.000000
+12
+200	200	200	255
+Next
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Next
+
+
+----- Element 54 : Add -----
+Background :
+789.000000	338.000000
+54.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+799.000000	342.000000
+12
+200	200	200	255
+Add
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Add
+
+
+----- Element 55 : File Title -----
+Background :
+0.000000	0.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	380.000000
+15
+200	200	200	255
+Path:
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+File Title
+
+
+----- Element 56 : File Text -----
+Background :
+795.000000	378.000000
+150.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	382.000000
+12
+200	200	200	255
+text...
+Pixeled.ttf
+
+Content Text :
+805.000000	382.000000
+12
+200	200	200	255
+Menu_Creator.txt
+Pixeled.ttf
+
+Name :
+File Text
+
+
+----- Element 57 : Save -----
+Background :
+685.000000	408.000000
+66.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+695.000000	412.000000
+12
+200	200	200	255
+Save
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Save
+
+
+----- Element 58 : Load -----
+Background :
+880.000000	408.000000
+66.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+890.000000	412.000000
+12
+200	200	200	255
+Load
+Pixeled.ttf
+
+Content Text :
+0.000000	-40.000000
+0
+0	0	0	0
+
+Pixeled.ttf
+
+Name :
+Load
+
+

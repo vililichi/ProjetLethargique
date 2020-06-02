@@ -1,0 +1,97 @@
+4
+----- Element 0 : Element 1 Name -----
+Background :
+0.000000	0.000000
+30.000000	30.000000
+255	1	1	255
+10
+255	1	1	125
+
+Default Text :
+0.000000	0.000000
+30
+255	1	1	255
+Element 1
+
+Content Text :
+0.000000	0.000000
+30
+255	1	1	255
+
+
+Name :
+Element 1 Name
+
+
+----- Element 1 : Element 2 Name -----
+Background :
+400.000000	0.000000
+30.000000	30.000000
+1	255	1	255
+10
+1	255	1	125
+
+Default Text :
+400.000000	0.000000
+30
+255	1	1	255
+Element 2
+
+Content Text :
+400.000000	0.000000
+30
+255	1	1	255
+
+
+Name :
+Element 2 Name
+
+
+----- Element 2 : Element 3 Name -----
+Background :
+0.000000	400.000000
+30.000000	30.000000
+1	1	255	255
+10
+1	1	255	125
+
+Default Text :
+0.000000	400.000000
+30
+255	1	1	255
+Element 3
+
+Content Text :
+0.000000	400.000000
+30
+255	1	1	255
+
+
+Name :
+Element 3 Name
+
+
+----- Element 3 : Element 4 Name -----
+Background :
+400.000000	400.000000
+30.000000	30.000000
+255	1	255	255
+10
+255	1	255	125
+
+Default Text :
+400.000000	400.000000
+30
+255	1	1	255
+Element 4
+
+Content Text :
+400.000000	400.000000
+30
+255	1	1	255
+
+
+Name :
+Element 4 Name
+
+

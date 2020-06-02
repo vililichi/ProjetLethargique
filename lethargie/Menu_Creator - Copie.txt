@@ -1,0 +1,1171 @@
+49
+----- Element 0 : Background -----
+Background :
+-950.000000	-450.000000
+1900.000000	900.000000
+25	25	50	255
+0
+0	0	0	0
+
+Default Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Background
+
+
+----- Element 1 : 16x9Area -----
+Background :
+-950.000000	-450.000000
+1600.000000	900.000000
+0	0	0	0
+5
+50	50	50	255
+
+Default Text :
+530.000000	430.000000
+15
+50	50	50	255
+16:9 Ratio
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+16x9Area
+
+
+----- Element 2 : 4x3Area -----
+Background :
+-950.000000	-450.000000
+1200.000000	900.000000
+0	0	0	0
+5
+0	50	0	255
+
+Default Text :
+135.000000	430.000000
+15
+0	50	0	255
+4:3 Ratio
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+4x3Area
+
+
+----- Element 3 : Background Title -----
+Background :
+685.000000	-370.000000
+245.000000	5.000000
+120	120	120	255
+0
+0	0	0	0
+
+Default Text :
+685.000000	-400.000000
+25
+200	200	200	255
+Background
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Background Title
+
+
+----- Element 4 : Background Pos Title -----
+Background :
+0.000000	0.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	-350.000000
+15
+200	200	200	255
+Position:
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Background Pos Title
+
+
+----- Element 5 : Background Pos X -----
+Background :
+795.000000	-352.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	-348.000000
+12
+200	200	200	255
+X
+
+Content Text :
+805.000000	-348.000000
+12
+200	200	200	255
+
+
+Name :
+Background Pos X
+
+
+----- Element 6 : Background Pos Y -----
+Background :
+835.000000	-352.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+845.000000	-348.000000
+12
+200	200	200	255
+Y
+
+Content Text :
+845.000000	-348.000000
+12
+200	200	200	255
+
+
+Name :
+Background Pos Y
+
+
+----- Element 7 : Background Size Title -----
+Background :
+0.000000	0.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	-320.000000
+15
+200	200	200	255
+Size:
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Background Size Title
+
+
+----- Element 8 : Background Size X -----
+Background :
+795.000000	-322.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	-318.000000
+12
+200	200	200	255
+X
+
+Content Text :
+805.000000	-318.000000
+12
+200	200	200	255
+
+
+Name :
+Background Size X
+
+
+----- Element 9 : Background Size Y -----
+Background :
+835.000000	-322.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+845.000000	-318.000000
+12
+200	200	200	255
+Y
+
+Content Text :
+845.000000	-318.000000
+12
+200	200	200	255
+
+
+Name :
+Background Size Y
+
+
+----- Element 10 : Background Color Title -----
+Background :
+0.000000	0.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	-290.000000
+15
+200	200	200	255
+Color:
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Background Color Title
+
+
+----- Element 11 : Background Color r -----
+Background :
+795.000000	-292.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	-288.000000
+12
+200	200	200	255
+r
+
+Content Text :
+805.000000	-288.000000
+12
+200	200	200	255
+
+
+Name :
+Background Color r
+
+
+----- Element 12 : Background Color g -----
+Background :
+835.000000	-292.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+845.000000	-288.000000
+12
+200	200	200	255
+g
+
+Content Text :
+845.000000	-288.000000
+12
+200	200	200	255
+
+
+Name :
+Background Color g
+
+
+----- Element 13 : Background Color b -----
+Background :
+875.000000	-292.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+885.000000	-288.000000
+12
+200	200	200	255
+b
+
+Content Text :
+885.000000	-288.000000
+12
+200	200	200	255
+
+
+Name :
+Background Color b
+
+
+----- Element 14 : Background Color a -----
+Background :
+915.000000	-292.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+925.000000	-288.000000
+12
+200	200	200	255
+a
+
+Content Text :
+925.000000	-288.000000
+12
+200	200	200	255
+
+
+Name :
+Background Color a
+
+
+----- Element 15 : Outline Title -----
+Background :
+685.000000	-200.000000
+245.000000	5.000000
+120	120	120	255
+0
+0	0	0	0
+
+Default Text :
+685.000000	-230.000000
+25
+200	200	200	255
+Outline
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Outline Title
+
+
+----- Element 16 : Outline Size Title -----
+Background :
+0.000000	0.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	-180.000000
+15
+200	200	200	255
+Size:
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Outline Size Title
+
+
+----- Element 17 : Outline Size -----
+Background :
+795.000000	-182.000000
+57.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	-178.000000
+12
+200	200	200	255
+size
+
+Content Text :
+805.000000	-178.000000
+12
+200	200	200	255
+
+
+Name :
+Outline Size
+
+
+----- Element 18 : Outline Color Title -----
+Background :
+0.000000	0.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	-150.000000
+15
+200	200	200	255
+Color:
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Outline Color Title
+
+
+----- Element 19 : Outline Color r -----
+Background :
+795.000000	-152.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	-148.000000
+12
+200	200	200	255
+r
+
+Content Text :
+805.000000	-148.000000
+12
+200	200	200	255
+
+
+Name :
+Outline Color r
+
+
+----- Element 20 : Outline Color g -----
+Background :
+835.000000	-152.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+845.000000	-148.000000
+12
+200	200	200	255
+g
+
+Content Text :
+845.000000	-148.000000
+12
+200	200	200	255
+
+
+Name :
+Outline Color g
+
+
+----- Element 21 : Outline Color b -----
+Background :
+875.000000	-152.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+885.000000	-148.000000
+12
+200	200	200	255
+b
+
+Content Text :
+885.000000	-148.000000
+12
+200	200	200	255
+
+
+Name :
+Outline Color b
+
+
+----- Element 22 : Outline Color a -----
+Background :
+915.000000	-152.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+925.000000	-148.000000
+12
+200	200	200	255
+a
+
+Content Text :
+925.000000	-148.000000
+12
+200	200	200	255
+
+
+Name :
+Outline Color a
+
+
+----- Element 23 : Default Text Title -----
+Background :
+685.000000	-60.000000
+245.000000	5.000000
+120	120	120	255
+0
+0	0	0	0
+
+Default Text :
+685.000000	-90.000000
+22
+200	200	200	255
+Default Text
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Default Text Title
+
+
+----- Element 24 : Default Text Pos Title -----
+Background :
+0.000000	0.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	-40.000000
+15
+200	200	200	255
+Position:
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Default Text Pos Title
+
+
+----- Element 25 : Default Text Pos X -----
+Background :
+795.000000	-42.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	-38.000000
+12
+200	200	200	255
+X
+
+Content Text :
+805.000000	-38.000000
+12
+200	200	200	255
+
+
+Name :
+Default Text Pos X
+
+
+----- Element 26 : Default Text Pos Y -----
+Background :
+835.000000	-42.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+845.000000	-38.000000
+12
+200	200	200	255
+Y
+
+Content Text :
+845.000000	-38.000000
+12
+200	200	200	255
+
+
+Name :
+Default Text Pos Y
+
+
+----- Element 27 : Default Text Size Title -----
+Background :
+0.000000	0.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	-10.000000
+15
+200	200	200	255
+Size:
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Default Text Size Title
+
+
+----- Element 28 : Default Text Size -----
+Background :
+795.000000	-12.000000
+57.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	-8.000000
+12
+200	200	200	255
+size
+
+Content Text :
+805.000000	-8.000000
+12
+200	200	200	255
+
+
+Name :
+Default Text Size
+
+
+----- Element 29 : Default Text Color Title -----
+Background :
+0.000000	0.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	20.000000
+15
+200	200	200	255
+Color:
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Default Text Color Title
+
+
+----- Element 30 : Default Text Color r -----
+Background :
+795.000000	18.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	22.000000
+12
+200	200	200	255
+r
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Default Text Color r
+
+
+----- Element 31 : Default Text Color g -----
+Background :
+835.000000	18.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+845.000000	22.000000
+12
+200	200	200	255
+g
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Default Text Color g
+
+
+----- Element 32 : Default Text Color b -----
+Background :
+875.000000	18.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+885.000000	22.000000
+12
+200	200	200	255
+b
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Default Text Color b
+
+
+----- Element 33 : Default Text Color a -----
+Background :
+915.000000	18.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+925.000000	22.000000
+12
+200	200	200	255
+a
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Default Text Color a
+
+----- Element 34 : Default Text Text Title -----
+Background :
+0.000000	0.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	50.000000
+15
+200	200	200	255
+Text:
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Default Text Text Title
+
+
+----- Element 35 : Default Text Text -----
+Background :
+795.000000	48.000000
+150.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	52.000000
+12
+200	200	200	255
+text...
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Default Text Text
+
+----- Element 36 : Content Text Title -----
+Background :
+685.000000	140.000000
+245.000000	5.000000
+120	120	120	255
+0
+0	0	0	0
+
+Default Text :
+685.000000	110.000000
+21
+200	200	200	255
+Content Text
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Content Text Title
+
+----- Element 37 : Content Text Pos Title -----
+Background :
+0.000000	0.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	160.000000
+15
+200	200	200	255
+Position:
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Content Text Pos Title
+
+
+----- Element 38 : Content Text Pos X -----
+Background :
+795.000000	158.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	162.000000
+12
+200	200	200	255
+X
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Content Text Pos X
+
+
+----- Element 39 : Content Text Pos Y -----
+Background :
+835.000000	158.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+845.000000	162.000000
+12
+200	200	200	255
+Y
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Content Text Pos Y
+
+
+----- Element 40 : Content Text Size Title -----
+Background :
+0.000000	0.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	190.000000
+15
+200	200	200	255
+Size:
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Content Text Size Title
+
+
+----- Element 41 : Content Text Size -----
+Background :
+795.000000	188.000000
+57.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	192.000000
+12
+200	200	200	255
+size
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Content Text Size
+
+
+----- Element 42 : Content Text Color Title -----
+Background :
+0.000000	0.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	220.000000
+15
+200	200	200	255
+Color:
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Content Text Color Title
+
+
+----- Element 43 : Content Text Color r -----
+Background :
+795.000000	218.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	222.000000
+12
+200	200	200	255
+r
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Content Text Color r
+
+
+----- Element 44 : Content Text Color g -----
+Background :
+835.000000	218.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+845.000000	222.000000
+12
+200	200	200	255
+g
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Content Text Color g
+
+
+----- Element 45 : Content Text Color b -----
+Background :
+875.000000	218.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+885.000000	222.000000
+12
+200	200	200	255
+b
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Content Text Color b
+
+
+----- Element 46 : Content Text Color a -----
+Background :
+915.000000	218.000000
+30.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+925.000000	222.000000
+12
+200	200	200	255
+a
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Content Text Color a
+
+----- Element 47 : Content Text Text Title -----
+Background :
+0.000000	0.000000
+0.000000	0.000000
+0	0	0	0
+0
+0	0	0	0
+
+Default Text :
+685.000000	250.000000
+15
+200	200	200	255
+Text:
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Content Text Text Title
+
+
+----- Element 48 : Content Text Text -----
+Background :
+795.000000	248.000000
+150.000000	17.000000
+120	120	120	255
+2
+50	50	50	255
+
+Default Text :
+805.000000	252.000000
+12
+200	200	200	255
+text...
+
+Content Text :
+0.000000	0.000000
+0
+0	0	0	0
+
+
+Name :
+Content Text Text

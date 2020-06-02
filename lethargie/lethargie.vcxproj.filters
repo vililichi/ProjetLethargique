@@ -37,7 +37,13 @@
       <Filter>Fichiers de ressources</Filter>
     </ClCompile>
     <ClCompile Include="ATH.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers de ressources</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu_Creator.cpp">
+      <Filter>Fichiers de ressources</Filter>
+    </ClCompile>
+    <ClCompile Include="ConversionD.cpp">
+      <Filter>Fichiers de ressources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,5 +68,19 @@
     <ClInclude Include="ATH.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="Menu_Creator.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="ConversionD.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="lethargie.rc">
+      <Filter>Fichiers de ressources</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
