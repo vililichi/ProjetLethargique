@@ -3,12 +3,15 @@
 
 struct Menu_Creator {
 	sf::RenderWindow* window;
+	sf::View view;
 
 	sf::Vector2i _deltaMousePos, _oldMousePos,_mousePos;
 
-	ATHElement globalBackground;
-	ATHElement menuCreator;
-	ATHElement menu16x9;
+	ATHElement menu_Creator_Origin;
+
+	ATHElement &globalBackground;
+	ATHElement &menuCreator;
+	ATHElement &menu16x9;
 
 	int selectedElement;
 
@@ -22,7 +25,7 @@ struct Menu_Creator {
 	void Resize(unsigned int _newSizeX, unsigned int _newSizeY);
 	//void Scale(float _scaleX, float _scaleY);
 
-	void mouseWheel(int _mouseWheelDelta);
+	void mouseWheel(float _mouseWheelDelta);
 };
 
 float ToFloat(std::string _string);

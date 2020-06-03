@@ -14,11 +14,11 @@ public:
 
 	//Render
 	sf::RenderWindow* window;
-	sf::View view; //position and scale of the entire ATH
+	sf::View* view; //position and scale of the entire ATH
 
 	//Children-Parent Relation
 	std::vector<ATHElement> childs;
-	//ATHElement* parent;
+	ATHElement* parent;
 
 	//Visual
 	sf::RectangleShape background;
@@ -31,9 +31,15 @@ public:
 
 	bool toggle, isChangingTextByUser;
 
-	///Function
-	ATHElement(std::string _name = "");
-	ATHElement(sf::RenderWindow& _window, std::string _name = "", sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _size = sf::Vector2f(0.0f, 0.0f));
+	///Constructor
+	//Empty - Cant be draw cause no windows and view
+	ATHElement(std::string _name = "", sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _size = sf::Vector2f(0.0f, 0.0f));
+
+	//child - Cant work without a parent who have a window and a view 
+	ATHElement(ATHElement& _parent, std::string _name = "", sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _size = sf::Vector2f(0.0f, 0.0f));
+
+	//parent - Work alone
+	ATHElement(sf::RenderWindow& _window, sf::View& _view, std::string _name = "", sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _size = sf::Vector2f(0.0f, 0.0f));
 	
 	//Self Function
 	void SetDefaultText(sf::Vector2f _pos, float _size, sf::Color _color, std::string _text, sf::Font &_font);
@@ -63,8 +69,9 @@ public:
 
 	//Self-Child Function
 	void Clear();
-	void AddElement();
-	void AddElement(ATHElement _element);
+	//ATHElement* AddElement();
+	ATHElement& AddElement(ATHElement _element);
+	ATHElement& AddElement(std::string _name = "", sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _size = sf::Vector2f(0.0f, 0.0f));
 
 	void Save(std::string _path);
 	void Load(std::string _path);
@@ -75,7 +82,7 @@ public:
 	void SetPosition(float _newPosX, float _newPosY);
 
 	void Move(sf::Vector2f _move);
-	void Move(int _moveX, int _moveY);
+	void Move(float _moveX, float _moveY);
 
 	//Deprecated use Scale instead
 	//void Resize(sf::Vector2f _newSize);

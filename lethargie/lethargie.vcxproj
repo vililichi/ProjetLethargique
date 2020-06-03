@@ -151,7 +151,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ATH.cpp" />
-    <ClCompile Include="ConversionD.cpp" />
     <ClCompile Include="FichierIO.cpp" />
     <ClCompile Include="Joueur.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -163,7 +162,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ATH.h" />
-    <ClInclude Include="ConversionD.h" />
     <ClInclude Include="FichierIO.h" />
     <ClInclude Include="Joueur.h" />
     <ClInclude Include="Math_addOn.h" />

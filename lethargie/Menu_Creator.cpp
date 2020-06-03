@@ -1,20 +1,28 @@
 #include "Menu_Creator.h"
 void Menu_Creator::Start(sf::RenderWindow* _window) {
 	window = _window;
-
+	view = sf::View(sf::Vector2f(0, 0), sf::Vector2f(1900, 900));
 	//hud.setCenter(0, 0);
 	//hud.setSize(1900, 900);
 	////hud.setCenter(hud.getSize() * 0.5f);
 
 	//cam16x9.setCenter(150, 0);
 	//cam16x9.setSize(1600, 900);
-	globalBackground = ATHElement(*window);
+
+	menu_Creator_Origin = ATHElement(*window, view, "", sf::Vector2f(0, 0), sf::Vector2f(1900, 900));
+	globalBackground = menu_Creator_Origin.AddElement();
+	menuCreator = menu_Creator_Origin.AddElement("", sf::Vector2f(0, 0), sf::Vector2f(1900, 900));
+	menu16x9 = menu_Creator_Origin.AddElement();
+
+	//globalBackground = ATHElement(*window, view);
 	globalBackground.SetBackground(sf::Vector2f(-950, -450), sf::Vector2f(1900, 900), sf::Color(20, 0, 20, 255), 0, sf::Color::Transparent);
 
-	menuCreator = ATHElement(*window, "", sf::Vector2f(0, 0), sf::Vector2f(1900, 900));
+	//menuCreator = ATHElement(*window, view, "", sf::Vector2f(0, 0), sf::Vector2f(1900, 900));
+	//menuCreator.AddElement("", sf::Vector2f(0, 0), sf::Vector2f(1900, 900));
 
 	//menu16x9 = ATHManager(*window, sf::Vector2f(150, 0), sf::Vector2f(1600, 900));
-	menu16x9 = ATHElement(*window, "", sf::Vector2f(0, 0), sf::Vector2f(1900, 900));
+	//menu16x9 = ATHElement(*window, "", sf::Vector2f(0, 0), sf::Vector2f(1900, 900));
+	//menu16x9 = menuCreator.childs[0];
 
 	menuCreator.Load("Menu_Creator.txt");
 	menu16x9.AddElement();
@@ -51,7 +59,7 @@ void Menu_Creator::Update() {
 	else if (menuCreator.childs[52].isClicked(0, true)) {//# Element	
 	}
 	else if (menuCreator.childs[53].isClicked(0, true)) {//Next
-		if (selectedElement + 1 < menu16x9.childs.size()) {
+		if (selectedElement != menu16x9.childs.size() - 1) {
 			selectedElement++;
 			LoadFromATHElement(selectedElement);
 			if (selectedElement < 10) {
@@ -79,12 +87,12 @@ void Menu_Creator::Update() {
 	}
 
 	if (menuCreator.childs[1].isClicked(0, false)) {//Move the canvas
-		menu16x9.view.move(-_deltaMousePos.x, -_deltaMousePos.y);
+		menu16x9.view->move(-_deltaMousePos.x, -_deltaMousePos.y);
 	}
 }
 
 void Menu_Creator::Draw() {
-	window->setView(menuCreator.view);
+	//window->setView(menuCreator.view);
 	globalBackground.Draw();
 	menu16x9.Draw();
 	menuCreator.Draw();
@@ -100,9 +108,9 @@ void Menu_Creator::Draw() {
 //
 
 void Menu_Creator::Resize(unsigned int _newSizeX, unsigned int _newSizeY) {
-	menuCreator.Scale((float)_newSizeX / menuCreator.view.getSize().x, (float)_newSizeY / menuCreator.view.getSize().y);
+	menuCreator.Scale((float)_newSizeX / menuCreator.view->getSize().x, (float)_newSizeY / menuCreator.view->getSize().y);
 
-	menuCreator.view.setSize(_newSizeX, _newSizeY);
+	menuCreator.view->setSize(_newSizeX, _newSizeY);
 
 	//le Scale influence les constantes (Offset 300 et 700)
 	menuCreator.childs[1].defaultText.setString(std::to_string(_newSizeX - 300) + "x" + std::to_string(_newSizeY));
@@ -117,8 +125,8 @@ void Menu_Creator::Resize(unsigned int _newSizeX, unsigned int _newSizeY) {
 //}
 
 
-void Menu_Creator::mouseWheel(int _mouseWheelDelta) {//Zoom in Zoom out Canvas
-	menu16x9.view.zoom(1 + _mouseWheelDelta * 0.05f);
+void Menu_Creator::mouseWheel(float _mouseWheelDelta) {//Zoom in Zoom out Canvas
+	menu16x9.view->zoom(1 + _mouseWheelDelta * 0.05f);
 }
 
 
