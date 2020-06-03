@@ -2,10 +2,12 @@
 
 ///////////////////////////////////////////////ATHElement - Child-Parent System/////////////////////////////////////////////
 ///////////////////////////Self///////////////////////////
-ATHElement::ATHElement(std::string _name) : window(), background(), contentText(), defaultText(), name(_name), childs() {
+ATHElement::ATHElement(std::string _name) : 
+	window(), background(), contentText(), defaultText(), name(_name), childs() {
 	toggle = false;
 	isChangingTextByUser = false;
 	prevKey = -1;
+	pos = sf::Vector2f(0, 0);
 }
 
 //ATHElement::ATHElement(sf::RenderWindow& _window, std::string _name) : background(), contentText(), defaultText(), name(_name) {
@@ -21,6 +23,7 @@ ATHElement::ATHElement(sf::RenderWindow& _window, std::string _name, sf::Vector2
 	toggle = false;
 	isChangingTextByUser = false;
 	prevKey = -1;
+	pos = sf::Vector2f(0, 0);
 }
 
 void ATHElement::SetDefaultText(sf::Vector2f _pos, float _size, sf::Color _color, std::string _text, sf::Font& _font) {
@@ -359,9 +362,9 @@ void ATHElement::LoadSelf(std::ifstream* _file) {
 
 void ATHElement::Draw() {
 	window->setView(view);
-	DrawSelf();
+	//DrawSelf();
 
-	for (int i = 0; i < childs.size(); i++) {
+	for (unsigned int i = 0; i < childs.size(); i++) {
 		childs[i].DrawSelf();
 	}
 }
@@ -390,7 +393,7 @@ void ATHElement::Load(std::string _path) {
 	const sf::Vector2f _scales = ReadVector2f(&_file);
 	//view.setSize(ReadVector2f(&_file));
 
-	for (int i = 0; i < childs.size(); i++) {
+	for (unsigned int i = 0; i < childs.size(); i++) {
 		childs[i].LoadSelf(&_file);
 	}
 
@@ -405,7 +408,7 @@ void ATHElement::Save(std::string _path) {
 
 	_file << childs.size() << std::endl;
 
-	for (int i = 0; i < childs.size(); i++) {
+	for (unsigned int i = 0; i < childs.size(); i++) {
 		_file << "----- Element " << i << " : " << childs[i].name << " -----" << std::endl;
 		childs[i].SaveSelf(&_file);
 		_file << std::endl << std::endl;
@@ -416,7 +419,7 @@ void ATHElement::Save(std::string _path) {
 }
 
 ATHElement* ATHElement::FindElement(std::string _name) {
-	for (int i = 0; i < childs.size(); i++) {
+	for (unsigned int i = 0; i < childs.size(); i++) {
 		if (childs[i].name == _name) {
 			return &childs[i];
 		}
@@ -425,197 +428,211 @@ ATHElement* ATHElement::FindElement(std::string _name) {
 	return NULL;
 }
 
-void ATHElement::SetPosition(sf::Vector2f _pos) {
-	view.setCenter(_pos);
+void ATHElement::SetPosition(sf::Vector2f _newPos) {
+	const sf::Vector2f deltaPos = _newPos - pos;
+
+	background.setPosition(_newPos);
+	defaultText.setPosition(_newPos);
+	contentText.setPosition(_newPos);
+
+	for (ATHElement& child : childs) {
+		child.Move(deltaPos);
+	}
+
+	pos = _newPos;
 }
-void ATHElement::SetPosition(int _posX, int _posY) {
-	view.setCenter(_posX, _posY);
+void ATHElement::SetPosition(float _newPosX, float _newPosY) {
+	SetPosition(sf::Vector2f(_newPosX, _newPosY));
 }
 
 void ATHElement::Move(sf::Vector2f _move) {
-	view.move(_move);
+	SetPosition(pos + _move);
 }
 void ATHElement::Move(int _moveX, int _moveY) {
-	view.move(_moveX, -_moveY);
+	Move(sf::Vector2f(_moveX, _moveY));
 }
 
-void ATHElement::Resize(sf::Vector2f _newSize) {
-	sf::Vector2f _scale(sf::Vector2f(_newSize.x / view.getSize().x, _newSize.y / view.getSize().y));
-	view.setSize(_newSize.x, _newSize.y);
+//Deprecated use Scale instead
+//void ATHElement::Resize(sf::Vector2f _newSize) {
+//	sf::Vector2f _scale(sf::Vector2f(_newSize.x / view.getSize().x, _newSize.y / view.getSize().y));
+//	view.setSize(_newSize.x, _newSize.y);
+//
+//	for (ATHElement& child : childs) {
+//		child.background.scale(_scale);
+//		child.defaultText.scale(_scale);
+//		child.contentText.scale(_scale);
+//
+//		child.background.setPosition(sf::Vector2f(child.background.getPosition().x * _scale.x, child.background.getPosition().y * _scale.y));
+//		child.defaultText.setPosition(sf::Vector2f(child.defaultText.getPosition().x * _scale.x, child.defaultText.getPosition().y * _scale.y));
+//		child.contentText.setPosition(sf::Vector2f(child.contentText.getPosition().x * _scale.x, child.contentText.getPosition().y * _scale.y));
+//	}
+//}
+
+//Deprecated use Scale instead
+//void ATHElement::Resize(unsigned int _newSizeX, unsigned int _newsizeY) {
+//	sf::Vector2f _scale(sf::Vector2f(_newSizeX / view.getSize().x, _newsizeY / view.getSize().y));
+//	view.setSize(_newSizeX, _newsizeY);
+//
+//	for (ATHElement& child : childs) {
+//		child.background.scale(_scale);
+//		child.defaultText.scale(_scale);
+//		child.contentText.scale(_scale);
+//
+//		child.background.setPosition(sf::Vector2f(child.background.getPosition().x * _scale.x, child.background.getPosition().y * _scale.y));
+//		child.defaultText.setPosition(sf::Vector2f(child.defaultText.getPosition().x * _scale.x, child.defaultText.getPosition().y * _scale.y));
+//		child.contentText.setPosition(sf::Vector2f(child.contentText.getPosition().x * _scale.x, child.contentText.getPosition().y * _scale.y));
+//	}
+//}
+
+//New way of Resizing (SCALE)
+void ATHElement::Scale(float _scaleX, float _scaleY) {	
+	background.scale(_scaleX, _scaleY);
+	defaultText.scale(_scaleX, _scaleY);
+	contentText.scale(_scaleX, _scaleY);
+
+	background.setPosition(sf::Vector2f(background.getPosition().x * _scaleX, background.getPosition().y * _scaleY));
+	defaultText.setPosition(sf::Vector2f(defaultText.getPosition().x * _scaleX, defaultText.getPosition().y * _scaleY));
+	contentText.setPosition(sf::Vector2f(contentText.getPosition().x * _scaleX, contentText.getPosition().y * _scaleY));
 
 	for (ATHElement& child : childs) {
-		child.background.scale(_scale);
-		child.defaultText.scale(_scale);
-		child.contentText.scale(_scale);
-
-		child.background.setPosition(sf::Vector2f(child.background.getPosition().x * _scale.x, child.background.getPosition().y * _scale.y));
-		child.defaultText.setPosition(sf::Vector2f(child.defaultText.getPosition().x * _scale.x, child.defaultText.getPosition().y * _scale.y));
-		child.contentText.setPosition(sf::Vector2f(child.contentText.getPosition().x * _scale.x, child.contentText.getPosition().y * _scale.y));
+		child.Scale(_scaleX, _scaleY);
 	}
 }
 
-void ATHElement::Resize(unsigned int _newSizeX, unsigned int _newsizeY) {
-	sf::Vector2f _scale(sf::Vector2f(_newSizeX / view.getSize().x, _newsizeY / view.getSize().y));
-	view.setSize(_newSizeX, _newsizeY);
-
-	for (ATHElement& child : childs) {
-		child.background.scale(_scale);
-		child.defaultText.scale(_scale);
-		child.contentText.scale(_scale);
-
-		child.background.setPosition(sf::Vector2f(child.background.getPosition().x * _scale.x, child.background.getPosition().y * _scale.y));
-		child.defaultText.setPosition(sf::Vector2f(child.defaultText.getPosition().x * _scale.x, child.defaultText.getPosition().y * _scale.y));
-		child.contentText.setPosition(sf::Vector2f(child.contentText.getPosition().x * _scale.x, child.contentText.getPosition().y * _scale.y));
-	}
-}
-
-void ATHElement::Scale(float _scale) {
-	const sf::Vector2f _scale2f = sf::Vector2f(_scale, _scale);
-	//view.zoom(_scale);
-
-	for (ATHElement& child : childs) {
-		child.background.scale(_scale2f);
-		child.defaultText.scale(_scale2f);
-		child.contentText.scale(_scale2f);
-
-		child.background.setPosition(sf::Vector2f(child.background.getPosition().x * _scale, child.background.getPosition().y * _scale));
-		child.defaultText.setPosition(sf::Vector2f(child.defaultText.getPosition().x * _scale, child.defaultText.getPosition().y * _scale));
-		child.contentText.setPosition(sf::Vector2f(child.contentText.getPosition().x * _scale, child.contentText.getPosition().y * _scale));
-	}
-}
-
-
+/*ATHManager is Deprecated
+	Use ATHElement as Origin instead
+*/
 ////////////////////////////////////////////////////////////////////////ATH Manager/////////////////////////////////////////////
-
-ATHManager::ATHManager() : window() {}
-
-ATHManager::ATHManager(sf::RenderWindow& _window, sf::Vector2f _pos, sf::Vector2f _size) :
-	window(&_window), view(_pos, _size) {}
-
-void ATHManager::Draw() {
-	window->setView(view);
-	for (int i = 0; i < elements.size(); i++) {
-		elements[i].Draw();
-	}
-}
-
-void ATHManager::Clear() {
-	elements.clear();
-}
-
-void ATHManager::AddElement() {
-	elements.push_back(ATHElement(*window));
-}
-
-void ATHManager::AddElement(ATHElement _element) {
-	_element.window = window;
-	elements.push_back(_element);
-}
-
-void ATHManager::Load(std::string _path) {
-	std::ifstream _file;
-	_file.open(_path);
-
-	//Get the number of elements in the file
-	const int nbElements = ReadInt(&_file);
-	elements.resize(nbElements, ATHElement(*window));
-
-	const sf::Vector2f _scales = ReadVector2f(&_file);
-	//view.setSize(ReadVector2f(&_file));
-
-	for (int i = 0; i < elements.size(); i++) {
-		elements[i].LoadSelf(&_file);
-	}
-
-	//view.setSize(_scales);
-
-	_file.close();
-}
-
-void ATHManager::Save(std::string _path) {
-	std::ofstream _file;
-	_file.open(_path);
-
-	_file << elements.size() << std::endl;
-
-	for (int i = 0; i < elements.size(); i++) {
-		_file << "----- Element " << i << " : " << elements[i].name << " -----" << std::endl;
-		elements[i].SaveSelf(&_file);
-		_file << std::endl << std::endl;
-	}
-
-
-	_file.close();
-}
-
-ATHElement* ATHManager::FindElement(std::string _name) {
-	for (int i = 0; i < elements.size(); i++) {
-		if (elements[i].name == _name) {
-			return &elements[i];
-		}
-	}
-	std::cout << "ATHElement ATHManager::FindElement(std::string _name)_" << _name << "_Not_Found" << std::endl;
-	return NULL;
-}
-
-void ATHManager::SetPosition(sf::Vector2f _pos) {
-	view.setCenter(_pos);
-}
-void ATHManager::SetPosition(int _posX, int _posY) {
-	view.setCenter(_posX, _posY);
-}
-
-void ATHManager::Move(sf::Vector2f _move) {
-	view.move(_move);
-}
-void ATHManager::Move(int _moveX, int _moveY) {
-	view.move(_moveX, -_moveY);
-}
-
-void ATHManager::Resize(sf::Vector2f _newSize) {
-	sf::Vector2f _scale(sf::Vector2f(_newSize.x / view.getSize().x, _newSize.y / view.getSize().y));
-	view.setSize(_newSize.x, _newSize.y);
-
-	for (ATHElement& element : elements) {
-		element.background.scale(_scale);
-		element.defaultText.scale(_scale);
-		element.contentText.scale(_scale);
-
-		element.background.setPosition(sf::Vector2f(element.background.getPosition().x * _scale.x, element.background.getPosition().y * _scale.y));
-		element.defaultText.setPosition(sf::Vector2f(element.defaultText.getPosition().x * _scale.x, element.defaultText.getPosition().y * _scale.y));
-		element.contentText.setPosition(sf::Vector2f(element.contentText.getPosition().x * _scale.x, element.contentText.getPosition().y * _scale.y));
-	}
-}
-
-void ATHManager::Resize(unsigned int _newSizeX, unsigned int _newsizeY) {
-	sf::Vector2f _scale(sf::Vector2f(_newSizeX / view.getSize().x, _newsizeY / view.getSize().y));
-	view.setSize(_newSizeX, _newsizeY);
-
-	for (ATHElement& element : elements) {
-		element.background.scale(_scale);
-		element.defaultText.scale(_scale);
-		element.contentText.scale(_scale);
-
-		element.background.setPosition(sf::Vector2f(element.background.getPosition().x * _scale.x, element.background.getPosition().y * _scale.y));
-		element.defaultText.setPosition(sf::Vector2f(element.defaultText.getPosition().x * _scale.x, element.defaultText.getPosition().y * _scale.y));
-		element.contentText.setPosition(sf::Vector2f(element.contentText.getPosition().x * _scale.x, element.contentText.getPosition().y * _scale.y));
-	}
-}
-
-void ATHManager::Scale(float _scale) {
-	const sf::Vector2f _scale2f = sf::Vector2f(_scale, _scale);
-	//view.zoom(_scale);
-
-	for (ATHElement& element : elements) {
-		element.background.scale(_scale2f);
-		element.defaultText.scale(_scale2f);
-		element.contentText.scale(_scale2f);
-
-		element.background.setPosition(sf::Vector2f(element.background.getPosition().x * _scale, element.background.getPosition().y * _scale));
-		element.defaultText.setPosition(sf::Vector2f(element.defaultText.getPosition().x * _scale, element.defaultText.getPosition().y * _scale));
-		element.contentText.setPosition(sf::Vector2f(element.contentText.getPosition().x * _scale, element.contentText.getPosition().y * _scale));
-	}
-}
+//
+//ATHManager::ATHManager() : window() {}
+//
+//ATHManager::ATHManager(sf::RenderWindow& _window, sf::Vector2f _pos, sf::Vector2f _size) :
+//	window(&_window), view(_pos, _size) {}
+//
+//void ATHManager::Draw() {
+//	window->setView(view);
+//	for (int i = 0; i < elements.size(); i++) {
+//		elements[i].DrawSelf();
+//	}
+//}
+//
+//void ATHManager::Clear() {
+//	elements.clear();
+//}
+//
+//void ATHManager::AddElement() {
+//	elements.push_back(ATHElement(*window));
+//}
+//
+//void ATHManager::AddElement(ATHElement _element) {
+//	_element.window = window;
+//	elements.push_back(_element);
+//}
+//
+//void ATHManager::Load(std::string _path) {
+//	std::ifstream _file;
+//	_file.open(_path);
+//
+//	//Get the number of elements in the file
+//	const int nbElements = ReadInt(&_file);
+//	elements.resize(nbElements, ATHElement(*window));
+//
+//	const sf::Vector2f _scales = ReadVector2f(&_file);
+//	//view.setSize(ReadVector2f(&_file));
+//
+//	for (int i = 0; i < elements.size(); i++) {
+//		elements[i].LoadSelf(&_file);
+//	}
+//
+//	//view.setSize(_scales);
+//
+//	_file.close();
+//}
+//
+//void ATHManager::Save(std::string _path) {
+//	std::ofstream _file;
+//	_file.open(_path);
+//
+//	_file << elements.size() << std::endl;
+//
+//	for (int i = 0; i < elements.size(); i++) {
+//		_file << "----- Element " << i << " : " << elements[i].name << " -----" << std::endl;
+//		elements[i].SaveSelf(&_file);
+//		_file << std::endl << std::endl;
+//	}
+//
+//
+//	_file.close();
+//}
+//
+//ATHElement* ATHManager::FindElement(std::string _name) {
+//	for (int i = 0; i < elements.size(); i++) {
+//		if (elements[i].name == _name) {
+//			return &elements[i];
+//		}
+//	}
+//	std::cout << "ATHElement ATHManager::FindElement(std::string _name)_" << _name << "_Not_Found" << std::endl;
+//	return NULL;
+//}
+//
+//void ATHManager::SetPosition(sf::Vector2f _pos) {
+//	view.setCenter(_pos);
+//}
+//void ATHManager::SetPosition(int _posX, int _posY) {
+//	view.setCenter(_posX, _posY);
+//}
+//
+//void ATHManager::Move(sf::Vector2f _move) {
+//	view.move(_move);
+//}
+//void ATHManager::Move(int _moveX, int _moveY) {
+//	view.move(_moveX, -_moveY);
+//}
+//
+//void ATHManager::Resize(sf::Vector2f _newSize) {
+//	sf::Vector2f _scale(sf::Vector2f(_newSize.x / view.getSize().x, _newSize.y / view.getSize().y));
+//	view.setSize(_newSize.x, _newSize.y);
+//
+//	for (ATHElement& element : elements) {
+//		element.background.scale(_scale);
+//		element.defaultText.scale(_scale);
+//		element.contentText.scale(_scale);
+//
+//		element.background.setPosition(sf::Vector2f(element.background.getPosition().x * _scale.x, element.background.getPosition().y * _scale.y));
+//		element.defaultText.setPosition(sf::Vector2f(element.defaultText.getPosition().x * _scale.x, element.defaultText.getPosition().y * _scale.y));
+//		element.contentText.setPosition(sf::Vector2f(element.contentText.getPosition().x * _scale.x, element.contentText.getPosition().y * _scale.y));
+//	}
+//}
+//
+//void ATHManager::Resize(unsigned int _newSizeX, unsigned int _newsizeY) {
+//	sf::Vector2f _scale(sf::Vector2f(_newSizeX / view.getSize().x, _newsizeY / view.getSize().y));
+//	view.setSize(_newSizeX, _newsizeY);
+//
+//	for (ATHElement& element : elements) {
+//		element.background.scale(_scale);
+//		element.defaultText.scale(_scale);
+//		element.contentText.scale(_scale);
+//
+//		element.background.setPosition(sf::Vector2f(element.background.getPosition().x * _scale.x, element.background.getPosition().y * _scale.y));
+//		element.defaultText.setPosition(sf::Vector2f(element.defaultText.getPosition().x * _scale.x, element.defaultText.getPosition().y * _scale.y));
+//		element.contentText.setPosition(sf::Vector2f(element.contentText.getPosition().x * _scale.x, element.contentText.getPosition().y * _scale.y));
+//	}
+//}
+//
+//void ATHManager::Scale(float _scale) {
+//	const sf::Vector2f _scale2f = sf::Vector2f(_scale, _scale);
+//	//view.zoom(_scale);
+//
+//	for (ATHElement& element : elements) {
+//		element.background.scale(_scale2f);
+//		element.defaultText.scale(_scale2f);
+//		element.contentText.scale(_scale2f);
+//
+//		element.background.setPosition(sf::Vector2f(element.background.getPosition().x * _scale, element.background.getPosition().y * _scale));
+//		element.defaultText.setPosition(sf::Vector2f(element.defaultText.getPosition().x * _scale, element.defaultText.getPosition().y * _scale));
+//		element.contentText.setPosition(sf::Vector2f(element.contentText.getPosition().x * _scale, element.contentText.getPosition().y * _scale));
+//	}
+//}
 
 ////////////////////////////////////////////////////////Global Function ///////////////////////////////////////////
 

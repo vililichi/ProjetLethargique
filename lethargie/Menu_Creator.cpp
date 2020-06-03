@@ -12,9 +12,9 @@ void Menu_Creator::Start(sf::RenderWindow* _window) {
 	globalBackground.SetBackground(sf::Vector2f(-950, -450), sf::Vector2f(1900, 900), sf::Color(20, 0, 20, 255), 0, sf::Color::Transparent);
 
 	menuCreator = ATHElement(*window, "", sf::Vector2f(0, 0), sf::Vector2f(1900, 900));
-	menuCreator.SetBackground(sf::Vector2f(-950, -450), sf::Vector2f(1900, 900), sf::Color(20, 255, 20, 255), 0, sf::Color::Transparent);
+
 	//menu16x9 = ATHManager(*window, sf::Vector2f(150, 0), sf::Vector2f(1600, 900));
-	menu16x9 = ATHManager(*window, sf::Vector2f(0, 0), sf::Vector2f(1900, 900));
+	menu16x9 = ATHElement(*window, "", sf::Vector2f(0, 0), sf::Vector2f(1900, 900));
 
 	menuCreator.Load("Menu_Creator.txt");
 	menu16x9.AddElement();
@@ -32,9 +32,9 @@ void Menu_Creator::Update() {
 		menuCreator.childs[i].ChangeTextByUser(_mousePos, 0, true);
 	}
 
-	menu16x9.elements[selectedElement].SetBackground(ToVector2f(menuCreator.childs, 5), ToVector2f(menuCreator.childs, 8), ToColor(menuCreator.childs, 11), ToFloat(menuCreator.childs[17].contentText.getString()), ToColor(menuCreator.childs, 19));
-	menu16x9.elements[selectedElement].SetDefaultText(ToVector2f(menuCreator.childs, 25), ToFloat(menuCreator.childs[28].contentText.getString()), ToColor(menuCreator.childs, 30), menuCreator.childs[35].contentText.getString(), *GestionnaireFont::obtenirFont("Pixeled.ttf"));
-	menu16x9.elements[selectedElement].SetContentText(ToVector2f(menuCreator.childs, 38), ToFloat(menuCreator.childs[41].contentText.getString()), ToColor(menuCreator.childs, 43), menuCreator.childs[48].contentText.getString(), *GestionnaireFont::obtenirFont("Pixeled.ttf"));
+	menu16x9.childs[selectedElement].SetBackground(ToVector2f(menuCreator.childs, 5), ToVector2f(menuCreator.childs, 8), ToColor(menuCreator.childs, 11), ToFloat(menuCreator.childs[17].contentText.getString()), ToColor(menuCreator.childs, 19));
+	menu16x9.childs[selectedElement].SetDefaultText(ToVector2f(menuCreator.childs, 25), ToFloat(menuCreator.childs[28].contentText.getString()), ToColor(menuCreator.childs, 30), menuCreator.childs[35].contentText.getString(), *GestionnaireFont::obtenirFont("Pixeled.ttf"));
+	menu16x9.childs[selectedElement].SetContentText(ToVector2f(menuCreator.childs, 38), ToFloat(menuCreator.childs[41].contentText.getString()), ToColor(menuCreator.childs, 43), menuCreator.childs[48].contentText.getString(), *GestionnaireFont::obtenirFont("Pixeled.ttf"));
 
 	if (menuCreator.childs[51].isClicked(0, true)) {//Prev
 		if (selectedElement != 0) {
@@ -51,7 +51,7 @@ void Menu_Creator::Update() {
 	else if (menuCreator.childs[52].isClicked(0, true)) {//# Element	
 	}
 	else if (menuCreator.childs[53].isClicked(0, true)) {//Next
-		if (selectedElement + 1 < menu16x9.elements.size()) {
+		if (selectedElement + 1 < menu16x9.childs.size()) {
 			selectedElement++;
 			LoadFromATHElement(selectedElement);
 			if (selectedElement < 10) {
@@ -73,7 +73,7 @@ void Menu_Creator::Update() {
 
 		selectedElement = 0;
 
-		if (menu16x9.elements.size() > 0) {
+		if (menu16x9.childs.size() > 0) {
 			LoadFromATHElement(selectedElement);
 		}
 	}
@@ -90,26 +90,31 @@ void Menu_Creator::Draw() {
 	menuCreator.Draw();
 }
 
-void Menu_Creator::Resize(sf::Vector2f _newSize) {
-	menuCreator.Resize(_newSize);
-
-	menuCreator.childs[1].defaultText.setString(std::to_string(_newSize.x - 300) + "x" + std::to_string(_newSize.y));
-	menuCreator.childs[2].defaultText.setString(std::to_string(_newSize.x - 700) + "x" + std::to_string(_newSize.y));
-}
+//Deprecated use Scale instead
+//void Menu_Creator::Resize(sf::Vector2f _newSize) {
+//	menuCreator.Resize(_newSize);
+//
+//	menuCreator.childs[1].defaultText.setString(std::to_string(_newSize.x - 300) + "x" + std::to_string(_newSize.y));
+//	menuCreator.childs[2].defaultText.setString(std::to_string(_newSize.x - 700) + "x" + std::to_string(_newSize.y));
+//}
+//
 
 void Menu_Creator::Resize(unsigned int _newSizeX, unsigned int _newSizeY) {
-	menuCreator.Resize(_newSizeX, _newSizeY);
+	menuCreator.Scale((float)_newSizeX / menuCreator.view.getSize().x, (float)_newSizeY / menuCreator.view.getSize().y);
 
+	menuCreator.view.setSize(_newSizeX, _newSizeY);
+
+	//le Scale influence les constantes (Offset 300 et 700)
 	menuCreator.childs[1].defaultText.setString(std::to_string(_newSizeX - 300) + "x" + std::to_string(_newSizeY));
 	menuCreator.childs[2].defaultText.setString(std::to_string(_newSizeX - 700) + "x" + std::to_string(_newSizeY));
 }
 
-void Menu_Creator::Scale(unsigned int _scale) {
-	menuCreator.Scale(_scale);
-
-	menuCreator.childs[1].defaultText.setString(std::to_string(menuCreator.view.getSize().x - 300) + "x" + std::to_string(menuCreator.view.getSize().y));
-	menuCreator.childs[2].defaultText.setString(std::to_string(menuCreator.view.getSize().x - 700) + "x" + std::to_string(menuCreator.view.getSize().y));
-}
+//void Menu_Creator::Scale(float _scaleX, float _scaleY) {
+//	menuCreator.Scale(_scaleX, _scaleY);
+//
+//	menuCreator.childs[1].defaultText.setString(std::to_string(menuCreator.view.getSize().x - 300) + "x" + std::to_string(menuCreator.view.getSize().y));
+//	menuCreator.childs[2].defaultText.setString(std::to_string(menuCreator.view.getSize().x - 700) + "x" + std::to_string(menuCreator.view.getSize().y));
+//}
 
 
 void Menu_Creator::mouseWheel(int _mouseWheelDelta) {//Zoom in Zoom out Canvas
@@ -123,47 +128,47 @@ float ToFloat(std::string _string) {
 }
 
 ////////// VECTOR2F //////////
-sf::Vector2f ToVector2f(std::vector<ATHElement> _elements, int _firstElement) {
-	return sf::Vector2f(ToFloat(_elements[_firstElement].contentText.getString()), ToFloat(_elements[_firstElement + 1].contentText.getString()));
+sf::Vector2f ToVector2f(std::vector<ATHElement> _childs, int _firstElement) {
+	return sf::Vector2f(ToFloat(_childs[_firstElement].contentText.getString()), ToFloat(_childs[_firstElement + 1].contentText.getString()));
 }
 
 ////////// COLOR //////////
-sf::Color ToColor(std::vector<ATHElement> _elements, int _firstElement) {
-	return sf::Color(ToFloat(_elements[_firstElement].contentText.getString()), ToFloat(_elements[_firstElement + 1].contentText.getString()), ToFloat(_elements[_firstElement + 2].contentText.getString()), ToFloat(_elements[_firstElement + 3].contentText.getString()));
+sf::Color ToColor(std::vector<ATHElement> _childs, int _firstElement) {
+	return sf::Color(ToFloat(_childs[_firstElement].contentText.getString()), ToFloat(_childs[_firstElement + 1].contentText.getString()), ToFloat(_childs[_firstElement + 2].contentText.getString()), ToFloat(_childs[_firstElement + 3].contentText.getString()));
 }
 
 
-void Menu_Creator::LoadFromATHElement(int _element) {
-	FillContentText(menu16x9.elements[_element].background.getPosition(), menuCreator.childs, 5);				//Fill content text with Background position
-	FillContentText(menu16x9.elements[_element].background.getSize(), menuCreator.childs, 8);					//Fill content text with Background size
-	FillContentText(menu16x9.elements[_element].background.getFillColor(), menuCreator.childs, 11);			//Fill content text with Background color
+void Menu_Creator::LoadFromATHElement(int _child) {
+	FillContentText(menu16x9.childs[_child].background.getPosition(), menuCreator.childs, 5);				//Fill content text with Background position
+	FillContentText(menu16x9.childs[_child].background.getSize(), menuCreator.childs, 8);					//Fill content text with Background size
+	FillContentText(menu16x9.childs[_child].background.getFillColor(), menuCreator.childs, 11);			//Fill content text with Background color
 
-	FillContentText(menu16x9.elements[_element].background.getOutlineThickness(), menuCreator.childs[17]);	//Fill content text with Outline size
-	FillContentText(menu16x9.elements[_element].background.getOutlineColor(), menuCreator.childs, 19);		//Fill content text with Outline Color
+	FillContentText(menu16x9.childs[_child].background.getOutlineThickness(), menuCreator.childs[17]);	//Fill content text with Outline size
+	FillContentText(menu16x9.childs[_child].background.getOutlineColor(), menuCreator.childs, 19);		//Fill content text with Outline Color
 
-	FillContentText(menu16x9.elements[_element].defaultText.getPosition(), menuCreator.childs, 25);			//Fill content text with Default Text position
-	FillContentText(menu16x9.elements[_element].defaultText.getCharacterSize(), menuCreator.childs[28]);		//Fill content text with Default Text size
-	FillContentText(menu16x9.elements[_element].defaultText.getFillColor(), menuCreator.childs, 30);			//Fill content text with Default Text color
-	FillContentText(menu16x9.elements[_element].defaultText.getString(), menuCreator.childs[35]);				//Fill content text with Default Text Text
+	FillContentText(menu16x9.childs[_child].defaultText.getPosition(), menuCreator.childs, 25);			//Fill content text with Default Text position
+	FillContentText(menu16x9.childs[_child].defaultText.getCharacterSize(), menuCreator.childs[28]);		//Fill content text with Default Text size
+	FillContentText(menu16x9.childs[_child].defaultText.getFillColor(), menuCreator.childs, 30);			//Fill content text with Default Text color
+	FillContentText(menu16x9.childs[_child].defaultText.getString(), menuCreator.childs[35]);				//Fill content text with Default Text Text
 
-	FillContentText(menu16x9.elements[_element].contentText.getPosition(), menuCreator.childs, 38);			//Fill content text with Content Text position
-	FillContentText(menu16x9.elements[_element].contentText.getCharacterSize(), menuCreator.childs[41]);		//Fill content text with Content Text size
-	FillContentText(menu16x9.elements[_element].contentText.getFillColor(), menuCreator.childs, 43);			//Fill content text with Content Text color
-	FillContentText(menu16x9.elements[_element].contentText.getString(), menuCreator.childs[48]);				//Fill content text with Content Text Text
+	FillContentText(menu16x9.childs[_child].contentText.getPosition(), menuCreator.childs, 38);			//Fill content text with Content Text position
+	FillContentText(menu16x9.childs[_child].contentText.getCharacterSize(), menuCreator.childs[41]);		//Fill content text with Content Text size
+	FillContentText(menu16x9.childs[_child].contentText.getFillColor(), menuCreator.childs, 43);			//Fill content text with Content Text color
+	FillContentText(menu16x9.childs[_child].contentText.getString(), menuCreator.childs[48]);				//Fill content text with Content Text Text
 
-	menuCreator.childs[50].contentText.setString(menu16x9.elements[_element].name);
+	menuCreator.childs[50].contentText.setString(menu16x9.childs[_child].name);
 }
 
-void FillContentText(sf::Vector2f _vector2f, std::vector<ATHElement> &_toElements, int _firstElement) {
-	_toElements[_firstElement].contentText.setString(std::to_string(_vector2f.x));
-	_toElements[_firstElement + 1].contentText.setString(std::to_string(_vector2f.y));
+void FillContentText(sf::Vector2f _vector2f, std::vector<ATHElement> &_tochilds, int _firstElement) {
+	_tochilds[_firstElement].contentText.setString(std::to_string(_vector2f.x));
+	_tochilds[_firstElement + 1].contentText.setString(std::to_string(_vector2f.y));
 }
 
-void FillContentText(sf::Color _color, std::vector<ATHElement> &_toElements, int _firstElement) {
-	_toElements[_firstElement].contentText.setString(std::to_string(_color.r));
-	_toElements[_firstElement + 1].contentText.setString(std::to_string(_color.g));
-	_toElements[_firstElement + 2].contentText.setString(std::to_string(_color.b));
-	_toElements[_firstElement + 3].contentText.setString(std::to_string(_color.a));
+void FillContentText(sf::Color _color, std::vector<ATHElement> &_tochilds, int _firstElement) {
+	_tochilds[_firstElement].contentText.setString(std::to_string(_color.r));
+	_tochilds[_firstElement + 1].contentText.setString(std::to_string(_color.g));
+	_tochilds[_firstElement + 2].contentText.setString(std::to_string(_color.b));
+	_tochilds[_firstElement + 3].contentText.setString(std::to_string(_color.a));
 }
 
 void FillContentText(float _float, ATHElement& _toElement) {

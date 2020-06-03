@@ -10,6 +10,8 @@ class ATHElement {
 public:
 	////Var
 
+	sf::Vector2f pos;
+
 	//Render
 	sf::RenderWindow* window;
 	sf::View view; //position and scale of the entire ATH
@@ -69,52 +71,55 @@ public:
 
 	ATHElement* FindElement(std::string _name);
 
-	void SetPosition(sf::Vector2f _pos);
-	void SetPosition(int _posX, int _posY);
+	void SetPosition(sf::Vector2f _newPos);
+	void SetPosition(float _newPosX, float _newPosY);
 
 	void Move(sf::Vector2f _move);
 	void Move(int _moveX, int _moveY);
 
-	void Resize(sf::Vector2f _newSize);
-	void Resize(unsigned int _sizeX, unsigned int _sizeY);
+	//Deprecated use Scale instead
+	//void Resize(sf::Vector2f _newSize);
+	//void Resize(unsigned int _sizeX, unsigned int _sizeY);
 
-	void Scale(float _scale);
-
-	void Draw();
-};
-
-class ATHManager {
-public:
-	sf::RenderWindow* window;
-	sf::View view; //position and scale of the entire ATH
-
-	std::vector<ATHElement> elements;
-
-	ATHManager();
-	ATHManager(sf::RenderWindow& _window, sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _size = sf::Vector2f(0.0f, 0.0f));
-
-	void Clear();
-	void AddElement();
-	void AddElement(ATHElement _element);
-
-	void Save(std::string _path);
-	void Load(std::string _path);
-
-	ATHElement *FindElement(std::string _name);
-
-	void SetPosition(sf::Vector2f _pos);
-	void SetPosition(int _posX, int _posY);
-
-	void Move(sf::Vector2f _move);
-	void Move(int _moveX, int _moveY);
-
-	void Resize(sf::Vector2f _newSize);
-	void Resize(unsigned int _sizeX, unsigned int _sizeY);
-
-	void Scale(float _scale);
+	void Scale(float _scaleX, float _scaleY);
 
 	void Draw();
 };
+/*ATHManager is Deprecated
+	Use ATHElement as Origin instead
+*/
+//class ATHManager {
+//public:
+//	sf::RenderWindow* window;
+//	sf::View view; //position and scale of the entire ATH
+//
+//	std::vector<ATHElement> elements;
+//
+//	ATHManager();
+//	ATHManager(sf::RenderWindow& _window, sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _size = sf::Vector2f(0.0f, 0.0f));
+//
+//	void Clear();
+//	void AddElement();
+//	void AddElement(ATHElement _element);
+//
+//	void Save(std::string _path);
+//	void Load(std::string _path);
+//
+//	ATHElement *FindElement(std::string _name);
+//
+//	void SetPosition(sf::Vector2f _pos);
+//	void SetPosition(int _posX, int _posY);
+//
+//	void Move(sf::Vector2f _move);
+//	void Move(int _moveX, int _moveY);
+//
+//	void Resize(sf::Vector2f _newSize);
+//	void Resize(unsigned int _sizeX, unsigned int _sizeY);
+//
+//	void Scale(float _scale);
+//
+//	void Draw();
+//};
 
 
 static std::string ToString(sf::Color _color, char _insertChar = '\t');

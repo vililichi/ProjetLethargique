@@ -8,7 +8,7 @@ struct Menu_Creator {
 
 	ATHElement globalBackground;
 	ATHElement menuCreator;
-	ATHManager menu16x9;
+	ATHElement menu16x9;
 
 	int selectedElement;
 
@@ -17,9 +17,10 @@ struct Menu_Creator {
 	void Draw();
 	void LoadFromATHElement(int _element);
 
-	void Resize(sf::Vector2f _newSize);
+	
+	//void Resize(sf::Vector2f _newSize);
 	void Resize(unsigned int _newSizeX, unsigned int _newSizeY);
-	void Scale(unsigned int _scale);
+	//void Scale(float _scaleX, float _scaleY);
 
 	void mouseWheel(int _mouseWheelDelta);
 };
