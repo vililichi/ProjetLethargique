@@ -12,21 +12,14 @@ sf::View view(sf::Vector2f(0, 0), sf::Vector2f(1900, 900));
 
 sf::Vector2i _deltaMousePos, _oldMousePos, _mousePos;
 
-ATHElement menu_Creator_Origin(window, view, "", sf::Vector2f(0, 0), sf::Vector2f(1900, 900));
-//ATHElement globalBackground(window, view, "", sf::Vector2f(0, 0), sf::Vector2f(1900, 900));
-//ATHElement menuCreator(window, view, "", sf::Vector2f(0, 0), sf::Vector2f(1900, 900));
-//ATHElement menu16x9(window, view, "", sf::Vector2f(0, 0), sf::Vector2f(1900, 900));
-
-ATHElement *globalBackground, *menuCreator, *menu16x9;// = &menu_Creator_Origin.AddElement();
-//ATHElement& menuCreator(menu_Creator_Origin.AddElement("", sf::Vector2f(0, 0), sf::Vector2f(1900, 900)));
-//ATHElement& menu16x9(menu_Creator_Origin.AddElement());
+ATHElement menu_Creator_Origin(window, view, "");
+ATHElement *globalBackground, *menuCreator, *menu16x9;
 
 int selectedElement = 0;
 
 void Draw();
 void Resize(unsigned int _newSizeX, unsigned int _newSizeY);
 void LoadFromATHElement(int _child);
-void mouseWheel(float _mouseWheelDelta);
 
 float ToFloat(std::string _string);
 sf::Vector2f ToVector2f(std::vector<ATHElement> _childs, int _firstElement);
@@ -61,9 +54,7 @@ int main()
 	camera.setSize(500, 500);
 
 	//menu_Creator_Origin.AddElement();
-	menu_Creator_Origin.AddElement();
-	menu_Creator_Origin.AddElement();
-	menu_Creator_Origin.AddElement();
+	menu_Creator_Origin.AddElement("", 3);
 
 	globalBackground = &menu_Creator_Origin.childs[0];
 	menuCreator = &menu_Creator_Origin.childs[1];
@@ -161,7 +152,7 @@ int main()
 		}
 
 		if (menuCreator->childs[1].isClicked(0, false)) {//Move the canvas
-			menu16x9->Move(-_deltaMousePos.x, -_deltaMousePos.y);
+			menu16x9->Move(_deltaMousePos.x * menu_Creator_Origin.scale.x, _deltaMousePos.y * menu_Creator_Origin.scale.y);
 		}
 
 
@@ -197,10 +188,6 @@ void Resize(unsigned int _newSizeX, unsigned int _newSizeY) {
 	//le Scale influence les constantes (Offset 300 et 700)
 	menuCreator->childs[1].defaultText.setString(std::to_string(_newSizeX - 300) + "x" + std::to_string(_newSizeY));
 	menuCreator->childs[2].defaultText.setString(std::to_string(_newSizeX - 700) + "x" + std::to_string(_newSizeY));
-}
-
-void mouseWheel(float _mouseWheelDelta) {//Zoom in Zoom out Canvas
-	menu16x9->view->zoom(1 + _mouseWheelDelta * 0.05f);
 }
 
 
