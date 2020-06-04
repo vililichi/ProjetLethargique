@@ -88,6 +88,7 @@ public:
 	//void Resize(sf::Vector2f _newSize);
 	//void Resize(unsigned int _sizeX, unsigned int _sizeY);
 
+	void Scale(sf::Vector2f _scale);
 	void Scale(float _scaleX, float _scaleY);
 
 	void Draw();

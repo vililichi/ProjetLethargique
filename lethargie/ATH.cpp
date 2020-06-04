@@ -129,21 +129,23 @@ bool ATHElement::isClicked(sf::Vector2i _mousePos, int _button, bool _toggle) {
 
 bool ATHElement::isHovered() {
 	sf::Vector2i _mousePos = sf::Mouse::getPosition(*window) - (sf::Vector2i)window->getSize() / 2;
+	
+	/*sf::Vector2f _pos = background.getPosition(), size = background.getSize();
 
-	sf::Vector2f pos = background.getPosition(), size = background.getSize();
-
-	if (_mousePos.x > pos.x && _mousePos.x < pos.x + size.x && _mousePos.y > pos.y && _mousePos.y < pos.y + size.y) {
+	if (_mousePos.x > _pos.x && _mousePos.x < _pos.x + size.x && _mousePos.y > _pos.y && _mousePos.y < _pos.y + size.y) {
 		return true;
-	}
+	}*/
 
-	return false;
+	return isHovered(_mousePos);;
 }
 
 bool ATHElement::isHovered(sf::Vector2i _mousePos) {
-	sf::Vector2f pos = background.getPosition(),
-		size = background.getSize();
+	sf::Vector2f _pos = background.getPosition(),
+		_size = background.getSize(),
+		_scale = background.getScale();
+	
 
-	if (_mousePos.x > pos.x && _mousePos.x < pos.x + size.x && _mousePos.y > pos.y && _mousePos.y < pos.y + size.y) {
+	if (_mousePos.x > _pos.x * _scale.x && _mousePos.x < (_pos.x + _size.x) * _scale.x && _mousePos.y > _pos.y * _scale.y && _mousePos.y < (_pos.y + _size.y) * _scale.y) {
 		return true;
 	}
 
@@ -154,19 +156,22 @@ void ATHElement::DrawSelf()
 {
 	if (window != NULL) {
 		std::string _text = contentText.getString(), _defaultText = defaultText.getString();
-		background.setPosition(background.getPosition() + pos);
+		sf::Vector2f oldBackgroundPos = background.getPosition();
+		background.setPosition(oldBackgroundPos.x * background.getScale().x + pos.x, oldBackgroundPos.y * background.getScale().y + pos.y);
 		window->draw(background);
-		background.setPosition(background.getPosition() - pos);
+		background.setPosition(oldBackgroundPos);
 
 		if (_text != "") {
-			contentText.setPosition(contentText.getPosition() + pos);
+			sf::Vector2f oldContentTextPos(contentText.getPosition());
+			contentText.setPosition(oldContentTextPos.x * contentText.getScale().x + pos.x, oldContentTextPos.y * contentText.getScale().y + pos.y);
 			window->draw(contentText);
-			contentText.setPosition(contentText.getPosition() + pos);
+			contentText.setPosition(oldContentTextPos);
 		}
 		else {
-			defaultText.setPosition(defaultText.getPosition() + pos);
+			sf::Vector2f oldDefaultTextPos(defaultText.getPosition());
+			defaultText.setPosition(oldDefaultTextPos.x * defaultText.getScale().x + pos.x, oldDefaultTextPos.y * defaultText.getScale().y + pos.y);
 			window->draw(defaultText);
-			defaultText.setPosition(defaultText.getPosition() - pos);
+			defaultText.setPosition(oldDefaultTextPos);
 		}
 	}
 	else {
@@ -379,15 +384,15 @@ void ATHElement::LoadSelf(std::ifstream* _file) {
 void ATHElement::Draw() {
 	window->setView(*view);
 
-	background.setPosition(background.getPosition() + pos);
+	/*background.setPosition(background.getPosition() + pos);
 	defaultText.setPosition(defaultText.getPosition() + pos);
-	contentText.setPosition(contentText.getPosition() + pos);
+	contentText.setPosition(contentText.getPosition() + pos);*/
 
 	DrawSelf();
 
-	background.setPosition(background.getPosition() - pos);
+	/*background.setPosition(background.getPosition() - pos);
 	defaultText.setPosition(defaultText.getPosition() - pos);
-	contentText.setPosition(contentText.getPosition() - pos);
+	contentText.setPosition(contentText.getPosition() - pos);*/
 
 	for (unsigned int i = 0; i < childs.size(); i++) {
 		childs[i].Draw();
@@ -488,14 +493,18 @@ void ATHElement::Move(float _moveX, float _moveY) {
 	Move(sf::Vector2f(_moveX, _moveY));
 }
 
+void ATHElement::Scale(sf::Vector2f _scale) {
+	Scale(_scale.x, _scale.y);
+}
+
 void ATHElement::Scale(float _scaleX, float _scaleY) {	
 	background.scale(_scaleX, _scaleY);
 	defaultText.scale(_scaleX, _scaleY);
 	contentText.scale(_scaleX, _scaleY);
 
-	background.setPosition(sf::Vector2f(background.getPosition().x * _scaleX, background.getPosition().y * _scaleY));
-	defaultText.setPosition(sf::Vector2f(defaultText.getPosition().x * _scaleX, defaultText.getPosition().y * _scaleY));
-	contentText.setPosition(sf::Vector2f(contentText.getPosition().x * _scaleX, contentText.getPosition().y * _scaleY));
+	//background.setPosition(sf::Vector2f(background.getPosition().x * _scaleX, background.getPosition().y * _scaleY));
+	//defaultText.setPosition(sf::Vector2f(defaultText.getPosition().x * _scaleX, defaultText.getPosition().y * _scaleY));
+	//contentText.setPosition(sf::Vector2f(contentText.getPosition().x * _scaleX, contentText.getPosition().y * _scaleY));
 
 	for (ATHElement& child : childs) {
 		child.Scale(_scaleX, _scaleY);
