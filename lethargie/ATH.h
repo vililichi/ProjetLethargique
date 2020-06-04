@@ -10,7 +10,7 @@ class ATHElement {
 public:
 	////Var
 
-	sf::Vector2f pos;
+	sf::Vector2f pos, scale;
 
 	//Render
 	sf::RenderWindow* window;
@@ -33,13 +33,14 @@ public:
 
 	///Constructor
 	//Empty - Cant be draw cause no windows and view
-	ATHElement(std::string _name = "", sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _size = sf::Vector2f(0.0f, 0.0f));
+	ATHElement(std::string _name = "", sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _scale = sf::Vector2f(1, 1));
 
 	//child - Cant work without a parent who have a window and a view 
-	ATHElement(ATHElement& _parent, std::string _name, sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _size = sf::Vector2f(0.0f, 0.0f));
+	ATHElement(ATHElement& _parent, std::string _name, sf::Vector2f _pos);
+	ATHElement(ATHElement& _parent, std::string _name);
 
 	//parent - Work alone
-	ATHElement(sf::RenderWindow& _window, sf::View& _view, std::string _name = "", sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _size = sf::Vector2f(0.0f, 0.0f));
+	ATHElement(sf::RenderWindow& _window, sf::View& _view, std::string _name = "", sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _scale = sf::Vector2f(1, 1));
 	
 	//Self Function
 	void SetDefaultText(sf::Vector2f _pos, float _size, sf::Color _color, std::string _text, sf::Font &_font);
@@ -69,9 +70,9 @@ public:
 
 	//Self-Child Function
 	void Clear();
-	//ATHElement* AddElement();
-	ATHElement* AddElement(ATHElement _element);
-	ATHElement* AddElement(std::string _name = "", sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _size = sf::Vector2f(0.0f, 0.0f));
+	ATHElement* AddElement(ATHElement _element, unsigned int _num = 1);
+	ATHElement* AddElement(std::string _name = "", unsigned int _num = 1);
+	ATHElement* AddElement(std::string _name, sf::Vector2f _pos, unsigned int _num = 1);
 
 	void Save(std::string _path);
 	void Load(std::string _path);

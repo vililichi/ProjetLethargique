@@ -3,29 +3,48 @@
 ///////////////////////////////////////////////ATHElement - Child-Parent System/////////////////////////////////////////////
 ///////////////////////////Self///////////////////////////
 
-ATHElement::ATHElement(std::string _name, sf::Vector2f _pos, sf::Vector2f _size) :
-	parent(), window(), view(), background(), contentText(), defaultText(), name(_name), childs() {
+ATHElement::ATHElement(std::string _name, sf::Vector2f _pos, sf::Vector2f _scale) :
+	parent(), window(), view(), background(), contentText(), defaultText(), name(_name), childs(){
+	pos = _pos;
+	scale = _scale;
+
 	toggle = false;
 	isChangingTextByUser = false;
 	prevKey = -1;
-	pos = _pos;
 }
 
-ATHElement::ATHElement(ATHElement& _parent, std::string _name, sf::Vector2f _pos, sf::Vector2f _size) :
+ATHElement::ATHElement(ATHElement& _parent, std::string _name, sf::Vector2f _pos) :
 	background(), contentText(), defaultText(), name(_name), childs() {
 	parent = &_parent;
 
 	window = parent->window;
 	view = parent->view;
 
+	pos = parent->pos;
+	scale = parent->scale;
+
 	toggle = false;
 	isChangingTextByUser = false;
 	prevKey = -1;
-	pos = _pos;
 }
 
-ATHElement::ATHElement(sf::RenderWindow& _window, sf::View& _view, std::string _name, sf::Vector2f _pos, sf::Vector2f _size) :
-	parent(), background(), contentText(), defaultText(), name(_name), childs() {
+ATHElement::ATHElement(ATHElement& _parent, std::string _name) :
+	background(), contentText(), defaultText(), name(_name), childs(){
+	parent = &_parent;
+
+	window = parent->window;
+	view = parent->view;
+
+	pos = parent->pos;
+	scale = parent->scale;
+
+	toggle = false;
+	isChangingTextByUser = false;
+	prevKey = -1;
+}
+
+ATHElement::ATHElement(sf::RenderWindow& _window, sf::View& _view, std::string _name, sf::Vector2f _pos, sf::Vector2f _scale) :
+	parent(), background(), contentText(), defaultText(), name(_name), childs(), scale(_scale) {
 	window = &_window;
 	view = &_view;
 
@@ -403,22 +422,25 @@ void ATHElement::Clear() {
 	childs.clear();
 }
 
-//ATHElement* ATHElement::AddElement() {
-//	childs.push_back(ATHElement(*this));
-//	return childs.back;
-//}
-
-ATHElement* ATHElement::AddElement(ATHElement _element) {
+ATHElement* ATHElement::AddElement(ATHElement _element, unsigned int _num) {
 	_element.parent = this;
 	_element.view = view;
 	_element.window = window;
 
-	childs.push_back(_element);
+	for (unsigned int i = 0; i < _num; i++)
+		childs.push_back(_element);
 	return &childs.back();
 }
 
-ATHElement* ATHElement::AddElement(std::string _name, sf::Vector2f _pos, sf::Vector2f _size) {
-	childs.push_back(ATHElement(*this, _name, _pos, _size));
+ATHElement* ATHElement::AddElement(std::string _name, unsigned int _num) {
+	for (unsigned int i = 0; i < _num; i++)
+		childs.push_back(ATHElement(*this, _name));
+	return &childs.back();
+}
+
+ATHElement* ATHElement::AddElement(std::string _name, sf::Vector2f _pos, unsigned int _num) {
+	for (unsigned int i = 0; i < _num; i++)
+		childs.push_back(ATHElement(*this, _name, _pos));
 	return &childs.back();
 }
 
@@ -428,7 +450,9 @@ void ATHElement::Load(std::string _path) {
 
 	//Get the number of elements in the file
 	const int nbElements = ReadInt(&_file);
-	childs.resize(nbElements, ATHElement(*this, ""));
+	Clear();
+	AddElement("", nbElements);
+	//childs.resize(nbElements, ATHElement(*this, ""));
 
 	const sf::Vector2f _scales = ReadVector2f(&_file);
 	//view.setSize(ReadVector2f(&_file));

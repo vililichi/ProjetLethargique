@@ -158,8 +158,6 @@ int main()
 			if (menu16x9->childs.size() > 0) {
 				LoadFromATHElement(selectedElement);
 			}
-
-			menu16x9->Scale(menu_Creator_Origin.background.getScale());
 		}
 
 		if (menuCreator->childs[1].isClicked(0, false)) {//Move the canvas
