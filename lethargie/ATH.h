@@ -43,10 +43,10 @@ public:
 	ATHElement(sf::RenderWindow& _window, sf::View& _view, std::string _name = "", sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _scale = sf::Vector2f(1, 1));
 	
 	//Self Function
-	void SetDefaultText(sf::Vector2f _pos, float _size, sf::Color _color, std::string _text, sf::Font &_font);
+	void SetDefaultText(sf::Vector2f _pos, unsigned int _size, sf::Color _color, std::string _text, sf::Font &_font);
 	void LoadDefaultText(std::ifstream* _file);
 
-	void SetContentText(sf::Vector2f _pos, float _size, sf::Color _color, std::string _text, sf::Font &_font);
+	void SetContentText(sf::Vector2f _pos, unsigned int _size, sf::Color _color, std::string _text, sf::Font &_font);
 	void LoadContentText(std::ifstream* _file);
 
 	void SetBackground(sf::Vector2f _pos, sf::Vector2f _size, sf::Color _color, float _outlineSize, sf::Color _outlineColor);

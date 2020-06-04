@@ -18,15 +18,20 @@ ATHElement *globalBackground, *menuCreator, *menu16x9;
 int selectedElement = 0;
 
 void Draw();
-void Resize(unsigned int _newSizeX, unsigned int _newSizeY);
+void Resize(float _newSizeX, float _newSizeY);
 void LoadFromATHElement(int _child);
 
+////////// Conversion //////////
+sf::Uint8 ToUInt8(std::string _string);
+unsigned int ToUInt(std::string _string);
+int ToInt(std::string _string);
 float ToFloat(std::string _string);
-sf::Vector2f ToVector2f(std::vector<ATHElement> _childs, int _firstElement);
-sf::Color ToColor(std::vector<ATHElement> _childs, int _firstElement);
+sf::Vector2f ToVector2f(std::vector<ATHElement> _childs, unsigned int _firstElement);
+sf::Color ToColor(std::vector<ATHElement> _childs, unsigned int _firstElement);
 
-void FillContentText(sf::Vector2f _vector2f, std::vector<ATHElement>& _tochilds, int _firstElement);
-void FillContentText(sf::Color _color, std::vector<ATHElement>& _tochilds, int _firstElement);
+void FillContentText(sf::Vector2f _vector2f, std::vector<ATHElement>& _tochilds, unsigned int _firstElement);
+void FillContentText(sf::Color _color, std::vector<ATHElement>& _tochilds, unsigned int _firstElement);
+void FillContentText(unsigned int _uint, ATHElement& _toElement);
 void FillContentText(float _float, ATHElement& _toElement);
 void FillContentText(const sf::Font* _font, ATHElement& _toElement);
 void FillContentText(std::string _string, ATHElement& _toElement);
@@ -76,8 +81,8 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 			if (event.type == sf::Event::Resized) {
-				camera.setSize(event.size.width, event.size.height);
-				Resize(event.size.width, event.size.height);
+				camera.setSize((float)event.size.width, (float)event.size.height);
+				Resize((float)event.size.width, (float)event.size.height);
 			}
 			if (event.type == sf::Event::MouseWheelScrolled)
 			{
@@ -106,8 +111,8 @@ int main()
 		}
 
 		menu16x9->childs[selectedElement].SetBackground(ToVector2f(menuCreator->childs, 5), ToVector2f(menuCreator->childs, 8), ToColor(menuCreator->childs, 11), ToFloat(menuCreator->childs[17].contentText.getString()), ToColor(menuCreator->childs, 19));
-		menu16x9->childs[selectedElement].SetDefaultText(ToVector2f(menuCreator->childs, 25), ToFloat(menuCreator->childs[28].contentText.getString()), ToColor(menuCreator->childs, 30), menuCreator->childs[35].contentText.getString(), *GestionnaireFont::obtenirFont("Pixeled.ttf"));
-		menu16x9->childs[selectedElement].SetContentText(ToVector2f(menuCreator->childs, 38), ToFloat(menuCreator->childs[41].contentText.getString()), ToColor(menuCreator->childs, 43), menuCreator->childs[48].contentText.getString(), *GestionnaireFont::obtenirFont("Pixeled.ttf"));
+		menu16x9->childs[selectedElement].SetDefaultText(ToVector2f(menuCreator->childs, 25), ToUInt(menuCreator->childs[28].contentText.getString()), ToColor(menuCreator->childs, 30), menuCreator->childs[35].contentText.getString(), *GestionnaireFont::obtenirFont("Pixeled.ttf"));
+		menu16x9->childs[selectedElement].SetContentText(ToVector2f(menuCreator->childs, 38), ToUInt(menuCreator->childs[41].contentText.getString()), ToColor(menuCreator->childs, 43), menuCreator->childs[48].contentText.getString(), *GestionnaireFont::obtenirFont("Pixeled.ttf"));
 
 		if (menuCreator->childs[51].isClicked(0, true)) {//Prev
 			if (selectedElement != 0) {
@@ -180,8 +185,8 @@ void Draw() {
 	menuCreator->Draw();
 }
 
-void Resize(unsigned int _newSizeX, unsigned int _newSizeY) {
-	menu_Creator_Origin.Scale((float)_newSizeX / menu_Creator_Origin.view->getSize().x, (float)_newSizeY / menu_Creator_Origin.view->getSize().y);
+void Resize(float _newSizeX, float _newSizeY) {
+	menu_Creator_Origin.Scale(_newSizeX / menu_Creator_Origin.view->getSize().x, _newSizeY / menu_Creator_Origin.view->getSize().y);
 
 	menu_Creator_Origin.view->setSize(_newSizeX, _newSizeY);
 
@@ -190,20 +195,29 @@ void Resize(unsigned int _newSizeX, unsigned int _newSizeY) {
 	menuCreator->childs[2].defaultText.setString(std::to_string(_newSizeX - 700) + "x" + std::to_string(_newSizeY));
 }
 
+////////// Conversion //////////
+sf::Uint8 ToUInt8(std::string _string) {
+	return std::stoi(_string == "" || _string == "-" ? "0.0" : _string);
+}
 
-////////// FLOAt //////////
+unsigned int ToUInt(std::string _string) {
+	return std::stoi(_string == "" || _string == "-" ? "0.0" : _string);
+}
+
+int ToInt(std::string _string) {
+	return std::stoi(_string == "" || _string == "-" ? "0.0" : _string);
+}
+
 float ToFloat(std::string _string) {
 	return std::stof(_string == "" || _string == "-" ? "0.0" : _string);
 }
 
-////////// VECTOR2F //////////
-sf::Vector2f ToVector2f(std::vector<ATHElement> _childs, int _firstElement) {
+sf::Vector2f ToVector2f(std::vector<ATHElement> _childs, unsigned int _firstElement) {
 	return sf::Vector2f(ToFloat(_childs[_firstElement].contentText.getString()), ToFloat(_childs[_firstElement + 1].contentText.getString()));
 }
 
-////////// COLOR //////////
-sf::Color ToColor(std::vector<ATHElement> _childs, int _firstElement) {
-	return sf::Color(ToFloat(_childs[_firstElement].contentText.getString()), ToFloat(_childs[_firstElement + 1].contentText.getString()), ToFloat(_childs[_firstElement + 2].contentText.getString()), ToFloat(_childs[_firstElement + 3].contentText.getString()));
+sf::Color ToColor(std::vector<ATHElement> _childs, unsigned int _firstElement) {
+	return sf::Color(ToUInt8(_childs[_firstElement].contentText.getString()), ToUInt8(_childs[_firstElement + 1].contentText.getString()), ToUInt8(_childs[_firstElement + 2].contentText.getString()), ToUInt8(_childs[_firstElement + 3].contentText.getString()));
 }
 
 
@@ -228,16 +242,20 @@ void LoadFromATHElement(int _child) {
 	menuCreator->childs[50].contentText.setString(menu16x9->childs[_child].name);
 }
 
-void FillContentText(sf::Vector2f _vector2f, std::vector<ATHElement>& _tochilds, int _firstElement) {
+void FillContentText(sf::Vector2f _vector2f, std::vector<ATHElement>& _tochilds, unsigned int _firstElement) {
 	_tochilds[_firstElement].contentText.setString(std::to_string(_vector2f.x));
 	_tochilds[_firstElement + 1].contentText.setString(std::to_string(_vector2f.y));
 }
 
-void FillContentText(sf::Color _color, std::vector<ATHElement>& _tochilds, int _firstElement) {
+void FillContentText(sf::Color _color, std::vector<ATHElement>& _tochilds, unsigned int _firstElement) {
 	_tochilds[_firstElement].contentText.setString(std::to_string(_color.r));
 	_tochilds[_firstElement + 1].contentText.setString(std::to_string(_color.g));
 	_tochilds[_firstElement + 2].contentText.setString(std::to_string(_color.b));
 	_tochilds[_firstElement + 3].contentText.setString(std::to_string(_color.a));
+}
+
+void FillContentText(unsigned int _uint, ATHElement& _toElement) {
+	_toElement.contentText.setString(std::to_string(_uint));
 }
 
 void FillContentText(float _float, ATHElement& _toElement) {

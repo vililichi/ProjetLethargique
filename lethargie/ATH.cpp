@@ -54,14 +54,14 @@ ATHElement::ATHElement(sf::RenderWindow& _window, sf::View& _view, std::string _
 	pos = _pos;
 }
 
-void ATHElement::SetDefaultText(sf::Vector2f _pos, float _size, sf::Color _color, std::string _text, sf::Font& _font) {
+void ATHElement::SetDefaultText(sf::Vector2f _pos, unsigned int _size, sf::Color _color, std::string _text, sf::Font& _font) {
 	defaultText.setPosition(_pos);
 	defaultText.setCharacterSize(_size);
 	defaultText.setFillColor(_color);
 	defaultText.setString(_text);
 	defaultText.setFont(_font);
 }
-void ATHElement::SetContentText(sf::Vector2f _pos, float _size, sf::Color _color, std::string _text, sf::Font& _font) {
+void ATHElement::SetContentText(sf::Vector2f _pos, unsigned int _size, sf::Color _color, std::string _text, sf::Font& _font) {
 	contentText.setPosition(_pos);
 	contentText.setCharacterSize(_size);
 	contentText.setFillColor(_color);
