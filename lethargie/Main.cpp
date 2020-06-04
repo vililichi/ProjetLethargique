@@ -82,7 +82,9 @@ int main()
 			if (event.type == sf::Event::MouseWheelScrolled)
 			{
 				if (event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel) {
-					mouseWheel(event.mouseWheelScroll.delta);
+					//mouseWheel(event.mouseWheelScroll.delta);
+					const float scaleFactor = 1 + event.mouseWheelScroll.delta * 0.05f;
+					menu16x9.Scale(scaleFactor, scaleFactor);
 				}
 			}
 		}
@@ -151,7 +153,8 @@ int main()
 		}
 
 		if (menuCreator.childs[1].isClicked(0, false)) {//Move the canvas
-			menu16x9.view->move(-_deltaMousePos.x, -_deltaMousePos.y);
+			//menu16x9.view->move(-_deltaMousePos.x, -_deltaMousePos.y);
+			menu16x9.Move(_deltaMousePos.x, _deltaMousePos.y);
 		}
 
 

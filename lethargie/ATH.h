@@ -36,7 +36,7 @@ public:
 	ATHElement(std::string _name = "", sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _size = sf::Vector2f(0.0f, 0.0f));
 
 	//child - Cant work without a parent who have a window and a view 
-	ATHElement(ATHElement& _parent, std::string _name = "", sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _size = sf::Vector2f(0.0f, 0.0f));
+	ATHElement(ATHElement& _parent, std::string _name, sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _size = sf::Vector2f(0.0f, 0.0f));
 
 	//parent - Work alone
 	ATHElement(sf::RenderWindow& _window, sf::View& _view, std::string _name = "", sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _size = sf::Vector2f(0.0f, 0.0f));
@@ -70,8 +70,8 @@ public:
 	//Self-Child Function
 	void Clear();
 	//ATHElement* AddElement();
-	ATHElement& AddElement(ATHElement _element);
-	ATHElement& AddElement(std::string _name = "", sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _size = sf::Vector2f(0.0f, 0.0f));
+	ATHElement* AddElement(ATHElement _element);
+	ATHElement* AddElement(std::string _name = "", sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _size = sf::Vector2f(0.0f, 0.0f));
 
 	void Save(std::string _path);
 	void Load(std::string _path);
@@ -92,41 +92,6 @@ public:
 
 	void Draw();
 };
-/*ATHManager is Deprecated
-	Use ATHElement as Origin instead
-*/
-//class ATHManager {
-//public:
-//	sf::RenderWindow* window;
-//	sf::View view; //position and scale of the entire ATH
-//
-//	std::vector<ATHElement> elements;
-//
-//	ATHManager();
-//	ATHManager(sf::RenderWindow& _window, sf::Vector2f _pos = sf::Vector2f(0.0f, 0.0f), sf::Vector2f _size = sf::Vector2f(0.0f, 0.0f));
-//
-//	void Clear();
-//	void AddElement();
-//	void AddElement(ATHElement _element);
-//
-//	void Save(std::string _path);
-//	void Load(std::string _path);
-//
-//	ATHElement *FindElement(std::string _name);
-//
-//	void SetPosition(sf::Vector2f _pos);
-//	void SetPosition(int _posX, int _posY);
-//
-//	void Move(sf::Vector2f _move);
-//	void Move(int _moveX, int _moveY);
-//
-//	void Resize(sf::Vector2f _newSize);
-//	void Resize(unsigned int _sizeX, unsigned int _sizeY);
-//
-//	void Scale(float _scale);
-//
-//	void Draw();
-//};
 
 
 static std::string ToString(sf::Color _color, char _insertChar = '\t');
