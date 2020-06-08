@@ -114,8 +114,9 @@ public:
 };
 namespace ATH {
 	#pragma region Global Function
-		static std::string ToString(sf::Color _color, char _insertChar = '\t');
-		static std::string ToString(sf::Vector2f _vector, char _insertChar = '\t');
+		std::string ToString(sf::Color _color, char _insertChar = '\t');
+		std::string ToString(float _float, char _insertChar = '\t');
+		std::string ToString(sf::Vector2f _vector, char _insertChar = '\t');
 
 		sf::Vector2f ReadVector2f(std::ifstream* _file);
 		sf::Color ReadColor(std::ifstream* _file);

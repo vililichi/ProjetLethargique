@@ -3,21 +3,21 @@ Childs Size :
 3
 
 Background :
-0.000000	0.000000
-0.000000	0.000000
+0	0
+0	0
 255	255	255	255
 0
 255	255	255	255
 
 Default Text :
-0.000000	0.000000
+0	0
 30
 255	255	255	255
 
 
 
 Content Text :
-0.000000	0.000000
+0	0
 30
 255	255	255	255
 
@@ -26,1892 +26,1892 @@ Content Text :
 Name :
 menu_Creator_Origin
 #pragma region menu_Creator_Origin
-	menu_Creator_Origin.childs[0]   globalBackground
+	menu_Creator_Origin.childs[0]   		globalBackground
 	Childs Size :
 	0
 
 	Background :
-	-950.000000	-450.000000
-	1900.000000	900.000000
+	-950	-450
+	1900	900
 	20	0	20	255
 	0
 	0	0	0	0
 
 	Default Text :
-	0.000000	0.000000
+	0	0
 	30
 	255	255	255	255
 	
-	
+	Pixeled.ttf
 
 	Content Text :
-	0.000000	0.000000
+	0	0
 	30
 	255	255	255	255
 	
-	
+	Pixeled.ttf
 
 	Name :
-	globalBackground
-	#pragma region globalBackground
+			globalBackground
+	#pragma region 		globalBackground
 	#pragma endregion
 
-	menu_Creator_Origin.childs[1]   menuCreator
+	menu_Creator_Origin.childs[1]   		menu16x9
 	Childs Size :
-	59
+	1
 
 	Background :
-	0.000000	0.000000
-	0.000000	0.000000
+	0	0
+	0	0
 	255	255	255	255
 	0
 	255	255	255	255
 
 	Default Text :
-	0.000000	0.000000
+	0	0
 	30
 	255	255	255	255
 	
 	
 
 	Content Text :
-	0.000000	0.000000
+	0	0
 	30
 	255	255	255	255
 	
 	
 
 	Name :
-	menuCreator
-	#pragma region menuCreator
-		menuCreator.childs[0]   Background
+			menu16x9
+	#pragma region 		menu16x9
+				menu16x9.childs[0]   				
 		Childs Size :
 		0
 
 		Background :
-		650.000000	-450.000000
-		300.000000	900.000000
-		25	25	50	255
+		0	0
+		0	0
+		0	0	0	0
 		0
 		0	0	0	0
 
 		Default Text :
-		0.000000	0.000000
+		0	0
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	0.000000
+		0	0
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Background
-		#pragma region Background
+						
+		#pragma region 				
 		#pragma endregion
 
-		menuCreator.childs[1]   16x9Area
+	#pragma endregion
+
+	menu_Creator_Origin.childs[2]   		menuCreator
+	Childs Size :
+	59
+
+	Background :
+	0	0
+	0	0
+	255	255	255	255
+	0
+	255	255	255	255
+
+	Default Text :
+	0	0
+	30
+	255	255	255	255
+	
+	
+
+	Content Text :
+	0	0
+	30
+	255	255	255	255
+	
+	
+
+	Name :
+			menuCreator
+	#pragma region 		menuCreator
+				menuCreator.childs[0]   				Background
 		Childs Size :
 		0
 
 		Background :
-		-950.000000	-450.000000
-		1600.000000	900.000000
+		650	-450
+		300	900
+		25	25	50	255
+		0
+		0	0	0	0
+
+		Default Text :
+		0	0
+		0
+		0	0	0	0
+		
+		Pixeled.ttf
+
+		Content Text :
+		0	0
+		0
+		0	0	0	0
+		
+		Pixeled.ttf
+
+		Name :
+						Background
+		#pragma region 				Background
+		#pragma endregion
+
+				menuCreator.childs[1]   				16x9Area
+		Childs Size :
+		0
+
+		Background :
+		-950	-450
+		1600	900
 		0	0	0	0
 		5
 		50	50	50	255
 
 		Default Text :
-		530.000000	430.000000
+		530	430
 		15
 		50	50	50	255
 		1600x900
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	0.000000
+		0	0
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		16x9Area
-		#pragma region 16x9Area
+						16x9Area
+		#pragma region 				16x9Area
 		#pragma endregion
 
-		menuCreator.childs[2]   4x3Area
+				menuCreator.childs[2]   				4x3Area
 		Childs Size :
 		0
 
 		Background :
-		-750.000000	-450.000000
-		1200.000000	900.000000
+		-750	-450
+		1200	900
 		0	0	0	0
 		5
 		0	50	0	255
 
 		Default Text :
-		330.000000	430.000000
+		330	430
 		15
 		0	50	0	255
 		1200x900
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	0.000000
+		0	0
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		4x3Area
-		#pragma region 4x3Area
+						4x3Area
+		#pragma region 				4x3Area
 		#pragma endregion
 
-		menuCreator.childs[3]   Background Title
+				menuCreator.childs[3]   				Background Title
 		Childs Size :
 		0
 
 		Background :
-		685.000000	-410.000000
-		245.000000	5.000000
+		685	-410
+		245	5
 		120	120	120	255
 		0
 		0	0	0	0
 
 		Default Text :
-		685.000000	-440.000000
+		685	-440
 		25
 		200	200	200	255
 		Background
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Background Title
-		#pragma region Background Title
+						Background Title
+		#pragma region 				Background Title
 		#pragma endregion
 
-		menuCreator.childs[4]   Background Pos Title
+				menuCreator.childs[4]   				Background Pos Title
 		Childs Size :
 		0
 
 		Background :
-		0.000000	-40.000000
-		0.000000	0.000000
+		0	-40
+		0	0
 		0	0	0	0
 		0
 		0	0	0	0
 
 		Default Text :
-		685.000000	-390.000000
+		685	-390
 		15
 		200	200	200	255
 		Position:
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Background Pos Title
-		#pragma region Background Pos Title
+						Background Pos Title
+		#pragma region 				Background Pos Title
 		#pragma endregion
 
-		menuCreator.childs[5]   Background Pos X
+				menuCreator.childs[5]   				Background Pos X
 		Childs Size :
 		0
 
 		Background :
-		795.000000	-392.000000
-		30.000000	17.000000
+		795	-392
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		805.000000	-388.000000
+		805	-388
 		12
 		200	200	200	255
 		X
 		Pixeled.ttf
 
 		Content Text :
-		805.000000	-388.000000
+		805	-388
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Background Pos X
-		#pragma region Background Pos X
+						Background Pos X
+		#pragma region 				Background Pos X
 		#pragma endregion
 
-		menuCreator.childs[6]   Background Pos Y
+				menuCreator.childs[6]   				Background Pos Y
 		Childs Size :
 		0
 
 		Background :
-		835.000000	-392.000000
-		30.000000	17.000000
+		835	-392
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		845.000000	-388.000000
+		845	-388
 		12
 		200	200	200	255
 		Y
 		Pixeled.ttf
 
 		Content Text :
-		845.000000	-388.000000
+		845	-388
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Background Pos Y
-		#pragma region Background Pos Y
+						Background Pos Y
+		#pragma region 				Background Pos Y
 		#pragma endregion
 
-		menuCreator.childs[7]   Background Size Title
+				menuCreator.childs[7]   				Background Size Title
 		Childs Size :
 		0
 
 		Background :
-		0.000000	-40.000000
-		0.000000	0.000000
+		0	-40
+		0	0
 		0	0	0	0
 		0
 		0	0	0	0
 
 		Default Text :
-		685.000000	-360.000000
+		685	-360
 		15
 		200	200	200	255
 		Size:
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Background Size Title
-		#pragma region Background Size Title
+						Background Size Title
+		#pragma region 				Background Size Title
 		#pragma endregion
 
-		menuCreator.childs[8]   Background Size X
+				menuCreator.childs[8]   				Background Size X
 		Childs Size :
 		0
 
 		Background :
-		795.000000	-362.000000
-		30.000000	17.000000
+		795	-362
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		805.000000	-358.000000
+		805	-358
 		12
 		200	200	200	255
 		X
 		Pixeled.ttf
 
 		Content Text :
-		805.000000	-358.000000
+		805	-358
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Background Size X
-		#pragma region Background Size X
+						Background Size X
+		#pragma region 				Background Size X
 		#pragma endregion
 
-		menuCreator.childs[9]   Background Size Y
+				menuCreator.childs[9]   				Background Size Y
 		Childs Size :
 		0
 
 		Background :
-		835.000000	-362.000000
-		30.000000	17.000000
+		835	-362
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		845.000000	-358.000000
+		845	-358
 		12
 		200	200	200	255
 		Y
 		Pixeled.ttf
 
 		Content Text :
-		845.000000	-358.000000
+		845	-358
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Background Size Y
-		#pragma region Background Size Y
+						Background Size Y
+		#pragma region 				Background Size Y
 		#pragma endregion
 
-		menuCreator.childs[10]   Background Color Title
+				menuCreator.childs[10]   				Background Color Title
 		Childs Size :
 		0
 
 		Background :
-		0.000000	-40.000000
-		0.000000	0.000000
+		0	-40
+		0	0
 		0	0	0	0
 		0
 		0	0	0	0
 
 		Default Text :
-		685.000000	-330.000000
+		685	-330
 		15
 		200	200	200	255
 		Color:
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Background Color Title
-		#pragma region Background Color Title
+						Background Color Title
+		#pragma region 				Background Color Title
 		#pragma endregion
 
-		menuCreator.childs[11]   Background Color r
+				menuCreator.childs[11]   				Background Color r
 		Childs Size :
 		0
 
 		Background :
-		795.000000	-332.000000
-		30.000000	17.000000
+		795	-332
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		805.000000	-328.000000
+		805	-328
 		12
 		200	200	200	255
 		r
 		Pixeled.ttf
 
 		Content Text :
-		805.000000	-328.000000
+		805	-328
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Background Color r
-		#pragma region Background Color r
+						Background Color r
+		#pragma region 				Background Color r
 		#pragma endregion
 
-		menuCreator.childs[12]   Background Color g
+				menuCreator.childs[12]   				Background Color g
 		Childs Size :
 		0
 
 		Background :
-		835.000000	-332.000000
-		30.000000	17.000000
+		835	-332
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		845.000000	-328.000000
+		845	-328
 		12
 		200	200	200	255
 		g
 		Pixeled.ttf
 
 		Content Text :
-		845.000000	-328.000000
+		845	-328
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Background Color g
-		#pragma region Background Color g
+						Background Color g
+		#pragma region 				Background Color g
 		#pragma endregion
 
-		menuCreator.childs[13]   Background Color b
+				menuCreator.childs[13]   				Background Color b
 		Childs Size :
 		0
 
 		Background :
-		875.000000	-332.000000
-		30.000000	17.000000
+		875	-332
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		885.000000	-328.000000
+		885	-328
 		12
 		200	200	200	255
 		b
 		Pixeled.ttf
 
 		Content Text :
-		885.000000	-328.000000
+		885	-328
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Background Color b
-		#pragma region Background Color b
+						Background Color b
+		#pragma region 				Background Color b
 		#pragma endregion
 
-		menuCreator.childs[14]   Background Color a
+				menuCreator.childs[14]   				Background Color a
 		Childs Size :
 		0
 
 		Background :
-		915.000000	-332.000000
-		30.000000	17.000000
+		915	-332
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		925.000000	-328.000000
+		925	-328
 		12
 		200	200	200	255
 		a
 		Pixeled.ttf
 
 		Content Text :
-		925.000000	-328.000000
+		925	-328
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Background Color a
-		#pragma region Background Color a
+						Background Color a
+		#pragma region 				Background Color a
 		#pragma endregion
 
-		menuCreator.childs[15]   Outline Title
+				menuCreator.childs[15]   				Outline Title
 		Childs Size :
 		0
 
 		Background :
-		685.000000	-240.000000
-		245.000000	5.000000
+		685	-240
+		245	5
 		120	120	120	255
 		0
 		0	0	0	0
 
 		Default Text :
-		685.000000	-270.000000
+		685	-270
 		25
 		200	200	200	255
 		Outline
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Outline Title
-		#pragma region Outline Title
+						Outline Title
+		#pragma region 				Outline Title
 		#pragma endregion
 
-		menuCreator.childs[16]   Outline Size Title
+				menuCreator.childs[16]   				Outline Size Title
 		Childs Size :
 		0
 
 		Background :
-		0.000000	-40.000000
-		0.000000	0.000000
+		0	-40
+		0	0
 		0	0	0	0
 		0
 		0	0	0	0
 
 		Default Text :
-		685.000000	-220.000000
+		685	-220
 		15
 		200	200	200	255
 		Size:
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Outline Size Title
-		#pragma region Outline Size Title
+						Outline Size Title
+		#pragma region 				Outline Size Title
 		#pragma endregion
 
-		menuCreator.childs[17]   Outline Size
+				menuCreator.childs[17]   				Outline Size
 		Childs Size :
 		0
 
 		Background :
-		795.000000	-222.000000
-		57.000000	17.000000
+		795	-222
+		57	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		805.000000	-218.000000
+		805	-218
 		12
 		200	200	200	255
 		size
 		Pixeled.ttf
 
 		Content Text :
-		805.000000	-218.000000
+		805	-218
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Outline Size
-		#pragma region Outline Size
+						Outline Size
+		#pragma region 				Outline Size
 		#pragma endregion
 
-		menuCreator.childs[18]   Outline Color Title
+				menuCreator.childs[18]   				Outline Color Title
 		Childs Size :
 		0
 
 		Background :
-		0.000000	-40.000000
-		0.000000	0.000000
+		0	-40
+		0	0
 		0	0	0	0
 		0
 		0	0	0	0
 
 		Default Text :
-		685.000000	-190.000000
+		685	-190
 		15
 		200	200	200	255
 		Color:
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Outline Color Title
-		#pragma region Outline Color Title
+						Outline Color Title
+		#pragma region 				Outline Color Title
 		#pragma endregion
 
-		menuCreator.childs[19]   Outline Color r
+				menuCreator.childs[19]   				Outline Color r
 		Childs Size :
 		0
 
 		Background :
-		795.000000	-192.000000
-		30.000000	17.000000
+		795	-192
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		805.000000	-188.000000
+		805	-188
 		12
 		200	200	200	255
 		r
 		Pixeled.ttf
 
 		Content Text :
-		805.000000	-188.000000
+		805	-188
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Outline Color r
-		#pragma region Outline Color r
+						Outline Color r
+		#pragma region 				Outline Color r
 		#pragma endregion
 
-		menuCreator.childs[20]   Outline Color g
+				menuCreator.childs[20]   				Outline Color g
 		Childs Size :
 		0
 
 		Background :
-		835.000000	-192.000000
-		30.000000	17.000000
+		835	-192
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		845.000000	-188.000000
+		845	-188
 		12
 		200	200	200	255
 		g
 		Pixeled.ttf
 
 		Content Text :
-		845.000000	-188.000000
+		845	-188
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Outline Color g
-		#pragma region Outline Color g
+						Outline Color g
+		#pragma region 				Outline Color g
 		#pragma endregion
 
-		menuCreator.childs[21]   Outline Color b
+				menuCreator.childs[21]   				Outline Color b
 		Childs Size :
 		0
 
 		Background :
-		875.000000	-192.000000
-		30.000000	17.000000
+		875	-192
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		885.000000	-188.000000
+		885	-188
 		12
 		200	200	200	255
 		b
 		Pixeled.ttf
 
 		Content Text :
-		885.000000	-188.000000
+		885	-188
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Outline Color b
-		#pragma region Outline Color b
+						Outline Color b
+		#pragma region 				Outline Color b
 		#pragma endregion
 
-		menuCreator.childs[22]   Outline Color a
+				menuCreator.childs[22]   				Outline Color a
 		Childs Size :
 		0
 
 		Background :
-		915.000000	-192.000000
-		30.000000	17.000000
+		915	-192
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		925.000000	-188.000000
+		925	-188
 		12
 		200	200	200	255
 		a
 		Pixeled.ttf
 
 		Content Text :
-		925.000000	-188.000000
+		925	-188
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Outline Color a
-		#pragma region Outline Color a
+						Outline Color a
+		#pragma region 				Outline Color a
 		#pragma endregion
 
-		menuCreator.childs[23]   Default Text Title
+				menuCreator.childs[23]   				Default Text Title
 		Childs Size :
 		0
 
 		Background :
-		685.000000	-100.000000
-		245.000000	5.000000
+		685	-100
+		245	5
 		120	120	120	255
 		0
 		0	0	0	0
 
 		Default Text :
-		685.000000	-130.000000
+		685	-130
 		22
 		200	200	200	255
 		Default Text
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Default Text Title
-		#pragma region Default Text Title
+						Default Text Title
+		#pragma region 				Default Text Title
 		#pragma endregion
 
-		menuCreator.childs[24]   Default Text Pos Title
+				menuCreator.childs[24]   				Default Text Pos Title
 		Childs Size :
 		0
 
 		Background :
-		0.000000	-40.000000
-		0.000000	0.000000
+		0	-40
+		0	0
 		0	0	0	0
 		0
 		0	0	0	0
 
 		Default Text :
-		685.000000	-80.000000
+		685	-80
 		15
 		200	200	200	255
 		Position:
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Default Text Pos Title
-		#pragma region Default Text Pos Title
+						Default Text Pos Title
+		#pragma region 				Default Text Pos Title
 		#pragma endregion
 
-		menuCreator.childs[25]   Default Text Pos X
+				menuCreator.childs[25]   				Default Text Pos X
 		Childs Size :
 		0
 
 		Background :
-		795.000000	-82.000000
-		30.000000	17.000000
+		795	-82
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		805.000000	-78.000000
+		805	-78
 		12
 		200	200	200	255
 		X
 		Pixeled.ttf
 
 		Content Text :
-		805.000000	-78.000000
+		805	-78
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Default Text Pos X
-		#pragma region Default Text Pos X
+						Default Text Pos X
+		#pragma region 				Default Text Pos X
 		#pragma endregion
 
-		menuCreator.childs[26]   Default Text Pos Y
+				menuCreator.childs[26]   				Default Text Pos Y
 		Childs Size :
 		0
 
 		Background :
-		835.000000	-82.000000
-		30.000000	17.000000
+		835	-82
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		845.000000	-78.000000
+		845	-78
 		12
 		200	200	200	255
 		Y
 		Pixeled.ttf
 
 		Content Text :
-		845.000000	-78.000000
+		845	-78
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Default Text Pos Y
-		#pragma region Default Text Pos Y
+						Default Text Pos Y
+		#pragma region 				Default Text Pos Y
 		#pragma endregion
 
-		menuCreator.childs[27]   Default Text Size Title
+				menuCreator.childs[27]   				Default Text Size Title
 		Childs Size :
 		0
 
 		Background :
-		0.000000	-40.000000
-		0.000000	0.000000
+		0	-40
+		0	0
 		0	0	0	0
 		0
 		0	0	0	0
 
 		Default Text :
-		685.000000	-50.000000
+		685	-50
 		15
 		200	200	200	255
 		Size:
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Default Text Size Title
-		#pragma region Default Text Size Title
+						Default Text Size Title
+		#pragma region 				Default Text Size Title
 		#pragma endregion
 
-		menuCreator.childs[28]   Default Text Size
+				menuCreator.childs[28]   				Default Text Size
 		Childs Size :
 		0
 
 		Background :
-		795.000000	-52.000000
-		57.000000	17.000000
+		795	-52
+		57	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		805.000000	-48.000000
+		805	-48
 		12
 		200	200	200	255
 		size
 		Pixeled.ttf
 
 		Content Text :
-		805.000000	-48.000000
+		805	-48
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Default Text Size
-		#pragma region Default Text Size
+						Default Text Size
+		#pragma region 				Default Text Size
 		#pragma endregion
 
-		menuCreator.childs[29]   Default Text Color Title
+				menuCreator.childs[29]   				Default Text Color Title
 		Childs Size :
 		0
 
 		Background :
-		0.000000	-40.000000
-		0.000000	0.000000
+		0	-40
+		0	0
 		0	0	0	0
 		0
 		0	0	0	0
 
 		Default Text :
-		685.000000	-20.000000
+		685	-20
 		15
 		200	200	200	255
 		Color:
 		Pixeled.ttf
 
 		Content Text :
-		685.000000	-20.000000
+		685	-20
 		15
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Default Text Color Title
-		#pragma region Default Text Color Title
+						Default Text Color Title
+		#pragma region 				Default Text Color Title
 		#pragma endregion
 
-		menuCreator.childs[30]   Default Text Color r
+				menuCreator.childs[30]   				Default Text Color r
 		Childs Size :
 		0
 
 		Background :
-		795.000000	-22.000000
-		30.000000	17.000000
+		795	-22
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		805.000000	-18.000000
+		805	-18
 		12
 		200	200	200	255
 		r
 		Pixeled.ttf
 
 		Content Text :
-		805.000000	-18.000000
+		805	-18
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Default Text Color r
-		#pragma region Default Text Color r
+						Default Text Color r
+		#pragma region 				Default Text Color r
 		#pragma endregion
 
-		menuCreator.childs[31]   Default Text Color g
+				menuCreator.childs[31]   				Default Text Color g
 		Childs Size :
 		0
 
 		Background :
-		835.000000	-22.000000
-		30.000000	17.000000
+		835	-22
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		845.000000	-18.000000
+		845	-18
 		12
 		200	200	200	255
 		g
 		Pixeled.ttf
 
 		Content Text :
-		845.000000	-18.000000
+		845	-18
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Default Text Color g
-		#pragma region Default Text Color g
+						Default Text Color g
+		#pragma region 				Default Text Color g
 		#pragma endregion
 
-		menuCreator.childs[32]   Default Text Color b
+				menuCreator.childs[32]   				Default Text Color b
 		Childs Size :
 		0
 
 		Background :
-		875.000000	-22.000000
-		30.000000	17.000000
+		875	-22
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		885.000000	-18.000000
+		885	-18
 		12
 		200	200	200	255
 		b
 		Pixeled.ttf
 
 		Content Text :
-		885.000000	-18.000000
+		885	-18
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Default Text Color b
-		#pragma region Default Text Color b
+						Default Text Color b
+		#pragma region 				Default Text Color b
 		#pragma endregion
 
-		menuCreator.childs[33]   Default Text Color a
+				menuCreator.childs[33]   				Default Text Color a
 		Childs Size :
 		0
 
 		Background :
-		915.000000	-22.000000
-		30.000000	17.000000
+		915	-22
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		925.000000	-18.000000
+		925	-18
 		12
 		200	200	200	255
 		a
 		Pixeled.ttf
 
 		Content Text :
-		925.000000	-18.000000
+		925	-18
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Default Text Color a
-		#pragma region Default Text Color a
+						Default Text Color a
+		#pragma region 				Default Text Color a
 		#pragma endregion
 
-		menuCreator.childs[34]   Default Text Text Title
+				menuCreator.childs[34]   				Default Text Text Title
 		Childs Size :
 		0
 
 		Background :
-		0.000000	-40.000000
-		0.000000	0.000000
+		0	-40
+		0	0
 		0	0	0	0
 		0
 		0	0	0	0
 
 		Default Text :
-		685.000000	10.000000
+		685	10
 		15
 		200	200	200	255
 		Text:
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Default Text Text Title
-		#pragma region Default Text Text Title
+						Default Text Text Title
+		#pragma region 				Default Text Text Title
 		#pragma endregion
 
-		menuCreator.childs[35]   Default Text Text
+				menuCreator.childs[35]   				Default Text Text
 		Childs Size :
 		0
 
 		Background :
-		795.000000	8.000000
-		150.000000	17.000000
+		795	8
+		150	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		805.000000	12.000000
+		805	12
 		12
 		200	200	200	255
 		text...
 		Pixeled.ttf
 
 		Content Text :
-		805.000000	12.000000
+		805	12
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Default Text Text
-		#pragma region Default Text Text
+						Default Text Text
+		#pragma region 				Default Text Text
 		#pragma endregion
 
-		menuCreator.childs[36]   Content Text Title
+				menuCreator.childs[36]   				Content Text Title
 		Childs Size :
 		0
 
 		Background :
-		685.000000	100.000000
-		245.000000	5.000000
+		685	100
+		245	5
 		120	120	120	255
 		0
 		0	0	0	0
 
 		Default Text :
-		685.000000	70.000000
+		685	70
 		21
 		200	200	200	255
 		Content Text
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Content Text Title
-		#pragma region Content Text Title
+						Content Text Title
+		#pragma region 				Content Text Title
 		#pragma endregion
 
-		menuCreator.childs[37]   Content Text Pos Title
+				menuCreator.childs[37]   				Content Text Pos Title
 		Childs Size :
 		0
 
 		Background :
-		0.000000	-40.000000
-		0.000000	0.000000
+		0	-40
+		0	0
 		0	0	0	0
 		0
 		0	0	0	0
 
 		Default Text :
-		685.000000	120.000000
+		685	120
 		15
 		200	200	200	255
 		Position:
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Content Text Pos Title
-		#pragma region Content Text Pos Title
+						Content Text Pos Title
+		#pragma region 				Content Text Pos Title
 		#pragma endregion
 
-		menuCreator.childs[38]   Content Text Pos X
+				menuCreator.childs[38]   				Content Text Pos X
 		Childs Size :
 		0
 
 		Background :
-		795.000000	118.000000
-		30.000000	17.000000
+		795	118
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		805.000000	122.000000
+		805	122
 		12
 		200	200	200	255
 		X
 		Pixeled.ttf
 
 		Content Text :
-		805.000000	122.000000
+		805	122
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Content Text Pos X
-		#pragma region Content Text Pos X
+						Content Text Pos X
+		#pragma region 				Content Text Pos X
 		#pragma endregion
 
-		menuCreator.childs[39]   Content Text Pos Y
+				menuCreator.childs[39]   				Content Text Pos Y
 		Childs Size :
 		0
 
 		Background :
-		835.000000	118.000000
-		30.000000	17.000000
+		835	118
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		845.000000	122.000000
+		845	122
 		12
 		200	200	200	255
 		Y
 		Pixeled.ttf
 
 		Content Text :
-		845.000000	122.000000
+		845	122
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Content Text Pos Y
-		#pragma region Content Text Pos Y
+						Content Text Pos Y
+		#pragma region 				Content Text Pos Y
 		#pragma endregion
 
-		menuCreator.childs[40]   Content Text Size Title
+				menuCreator.childs[40]   				Content Text Size Title
 		Childs Size :
 		0
 
 		Background :
-		0.000000	-40.000000
-		0.000000	0.000000
+		0	-40
+		0	0
 		0	0	0	0
 		0
 		0	0	0	0
 
 		Default Text :
-		685.000000	150.000000
+		685	150
 		15
 		200	200	200	255
 		Size:
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Content Text Size Title
-		#pragma region Content Text Size Title
+						Content Text Size Title
+		#pragma region 				Content Text Size Title
 		#pragma endregion
 
-		menuCreator.childs[41]   Content Text Size
+				menuCreator.childs[41]   				Content Text Size
 		Childs Size :
 		0
 
 		Background :
-		795.000000	148.000000
-		57.000000	17.000000
+		795	148
+		57	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		805.000000	152.000000
+		805	152
 		12
 		200	200	200	255
 		size
 		Pixeled.ttf
 
 		Content Text :
-		805.000000	152.000000
+		805	152
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Content Text Size
-		#pragma region Content Text Size
+						Content Text Size
+		#pragma region 				Content Text Size
 		#pragma endregion
 
-		menuCreator.childs[42]   Content Text Color Title
+				menuCreator.childs[42]   				Content Text Color Title
 		Childs Size :
 		0
 
 		Background :
-		0.000000	-40.000000
-		0.000000	0.000000
+		0	-40
+		0	0
 		0	0	0	0
 		0
 		0	0	0	0
 
 		Default Text :
-		685.000000	180.000000
+		685	180
 		15
 		200	200	200	255
 		Color:
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Content Text Color Title
-		#pragma region Content Text Color Title
+						Content Text Color Title
+		#pragma region 				Content Text Color Title
 		#pragma endregion
 
-		menuCreator.childs[43]   Content Text Color r
+				menuCreator.childs[43]   				Content Text Color r
 		Childs Size :
 		0
 
 		Background :
-		795.000000	178.000000
-		30.000000	17.000000
+		795	178
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		805.000000	182.000000
+		805	182
 		12
 		200	200	200	255
 		r
 		Pixeled.ttf
 
 		Content Text :
-		805.000000	182.000000
+		805	182
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Content Text Color r
-		#pragma region Content Text Color r
+						Content Text Color r
+		#pragma region 				Content Text Color r
 		#pragma endregion
 
-		menuCreator.childs[44]   Content Text Color g
+				menuCreator.childs[44]   				Content Text Color g
 		Childs Size :
 		0
 
 		Background :
-		835.000000	178.000000
-		30.000000	17.000000
+		835	178
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		845.000000	182.000000
+		845	182
 		12
 		200	200	200	255
 		g
 		Pixeled.ttf
 
 		Content Text :
-		845.000000	182.000000
+		845	182
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Content Text Color g
-		#pragma region Content Text Color g
+						Content Text Color g
+		#pragma region 				Content Text Color g
 		#pragma endregion
 
-		menuCreator.childs[45]   Content Text Color b
+				menuCreator.childs[45]   				Content Text Color b
 		Childs Size :
 		0
 
 		Background :
-		875.000000	178.000000
-		30.000000	17.000000
+		875	178
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		885.000000	182.000000
+		885	182
 		12
 		200	200	200	255
 		b
 		Pixeled.ttf
 
 		Content Text :
-		885.000000	182.000000
+		885	182
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Content Text Color b
-		#pragma region Content Text Color b
+						Content Text Color b
+		#pragma region 				Content Text Color b
 		#pragma endregion
 
-		menuCreator.childs[46]   Content Text Color a
+				menuCreator.childs[46]   				Content Text Color a
 		Childs Size :
 		0
 
 		Background :
-		915.000000	178.000000
-		30.000000	17.000000
+		915	178
+		30	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		925.000000	182.000000
+		925	182
 		12
 		200	200	200	255
 		a
 		Pixeled.ttf
 
 		Content Text :
-		925.000000	182.000000
+		925	182
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Content Text Color a
-		#pragma region Content Text Color a
+						Content Text Color a
+		#pragma region 				Content Text Color a
 		#pragma endregion
 
-		menuCreator.childs[47]   Content Text Text Title
+				menuCreator.childs[47]   				Content Text Text Title
 		Childs Size :
 		0
 
 		Background :
-		0.000000	-40.000000
-		0.000000	0.000000
+		0	-40
+		0	0
 		0	0	0	0
 		0
 		0	0	0	0
 
 		Default Text :
-		685.000000	210.000000
+		685	210
 		15
 		200	200	200	255
 		Text:
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Content Text Text Title
-		#pragma region Content Text Text Title
+						Content Text Text Title
+		#pragma region 				Content Text Text Title
 		#pragma endregion
 
-		menuCreator.childs[48]   Content Text Text
+				menuCreator.childs[48]   				Content Text Text
 		Childs Size :
 		0
 
 		Background :
-		795.000000	208.000000
-		150.000000	17.000000
+		795	208
+		150	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		805.000000	212.000000
+		805	212
 		12
 		200	200	200	255
 		text...
 		Pixeled.ttf
 
 		Content Text :
-		805.000000	212.000000
+		805	212
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Content Text Text
-		#pragma region Content Text Text
+						Content Text Text
+		#pragma region 				Content Text Text
 		#pragma endregion
 
-		menuCreator.childs[49]   Name Title
+				menuCreator.childs[49]   				Name Title
 		Childs Size :
 		0
 
 		Background :
-		0.000000	-40.000000
-		0.000000	0.000000
+		0	-40
+		0	0
 		0	0	0	0
 		0
 		0	0	0	0
 
 		Default Text :
-		685.000000	260.000000
+		685	260
 		15
 		200	200	200	255
 		Name:
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Name Title
-		#pragma region Name Title
+						Name Title
+		#pragma region 				Name Title
 		#pragma endregion
 
-		menuCreator.childs[50]   Name Text
+				menuCreator.childs[50]   				Name Text
 		Childs Size :
 		0
 
 		Background :
-		795.000000	258.000000
-		150.000000	17.000000
+		795	258
+		150	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		805.000000	262.000000
+		805	262
 		12
 		200	200	200	255
 		text...
 		Pixeled.ttf
 
 		Content Text :
-		805.000000	262.000000
+		805	262
 		12
 		200	200	200	255
 		
 		Pixeled.ttf
 
 		Name :
-		Name Text
-		#pragma region Name Text
+						Name Text
+		#pragma region 				Name Text
 		#pragma endregion
 
-		menuCreator.childs[51]   Prev
+				menuCreator.childs[51]   				Prev
 		Childs Size :
 		0
 
 		Background :
-		685.000000	308.000000
-		66.000000	17.000000
+		685	308
+		66	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		695.000000	312.000000
+		695	312
 		12
 		200	200	200	255
 		Prev
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Prev
-		#pragma region Prev
+						Prev
+		#pragma region 				Prev
 		#pragma endregion
 
-		menuCreator.childs[52]   Element #
+				menuCreator.childs[52]   				Element #
 		Childs Size :
 		0
 
 		Background :
-		795.000000	308.000000
-		41.000000	17.000000
+		795	308
+		41	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		805.000000	312.000000
+		805	312
 		12
 		200	200	200	255
 		00
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Element #
-		#pragma region Element #
+						Element #
+		#pragma region 				Element #
 		#pragma endregion
 
-		menuCreator.childs[53]   Next
+				menuCreator.childs[53]   				Next
 		Childs Size :
 		0
 
 		Background :
-		880.000000	308.000000
-		66.000000	17.000000
+		880	308
+		66	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		890.000000	312.000000
+		890	312
 		12
 		200	200	200	255
 		Next
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Next
-		#pragma region Next
+						Next
+		#pragma region 				Next
 		#pragma endregion
 
-		menuCreator.childs[54]   Add
+				menuCreator.childs[54]   				Add
 		Childs Size :
 		0
 
 		Background :
-		789.000000	338.000000
-		54.000000	17.000000
+		789	338
+		54	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		799.000000	342.000000
+		799	342
 		12
 		200	200	200	255
 		Add
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Add
-		#pragma region Add
+						Add
+		#pragma region 				Add
 		#pragma endregion
 
-		menuCreator.childs[55]   File Title
+				menuCreator.childs[55]   				File Title
 		Childs Size :
 		0
 
 		Background :
-		0.000000	0.000000
-		0.000000	0.000000
+		0	0
+		0	0
 		0	0	0	0
 		0
 		0	0	0	0
 
 		Default Text :
-		685.000000	380.000000
+		685	380
 		15
 		200	200	200	255
 		Path:
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		File Title
-		#pragma region File Title
+						File Title
+		#pragma region 				File Title
 		#pragma endregion
 
-		menuCreator.childs[56]   File Text
+				menuCreator.childs[56]   				File Text
 		Childs Size :
 		0
 
 		Background :
-		795.000000	378.000000
-		150.000000	17.000000
+		795	378
+		150	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		805.000000	382.000000
+		805	382
 		12
 		200	200	200	255
 		text...
 		Pixeled.ttf
 
 		Content Text :
-		805.000000	382.000000
+		805	382
 		12
 		200	200	200	255
 		Menu_Creator2.txt
 		Pixeled.ttf
 
 		Name :
-		File Text
-		#pragma region File Text
+						File Text
+		#pragma region 				File Text
 		#pragma endregion
 
-		menuCreator.childs[57]   Save
+				menuCreator.childs[57]   				Save
 		Childs Size :
 		0
 
 		Background :
-		685.000000	408.000000
-		66.000000	17.000000
+		685	408
+		66	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		695.000000	412.000000
+		695	412
 		12
 		200	200	200	255
 		Save
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Save
-		#pragma region Save
+						Save
+		#pragma region 				Save
 		#pragma endregion
 
-		menuCreator.childs[58]   Load
+				menuCreator.childs[58]   				Load
 		Childs Size :
 		0
 
 		Background :
-		880.000000	408.000000
-		66.000000	17.000000
+		880	408
+		66	17
 		120	120	120	255
 		2
 		50	50	50	255
 
 		Default Text :
-		890.000000	412.000000
+		890	412
 		12
 		200	200	200	255
 		Load
 		Pixeled.ttf
 
 		Content Text :
-		0.000000	-40.000000
+		0	-40
 		0
 		0	0	0	0
 		
 		Pixeled.ttf
 
 		Name :
-		Load
-		#pragma region Load
-		#pragma endregion
-
-	#pragma endregion
-
-	menu_Creator_Origin.childs[2]   menu16x9
-	Childs Size :
-	1
-
-	Background :
-	0.000000	0.000000
-	0.000000	0.000000
-	255	255	255	255
-	0
-	255	255	255	255
-
-	Default Text :
-	0.000000	0.000000
-	30
-	255	255	255	255
-	
-	
-
-	Content Text :
-	0.000000	0.000000
-	30
-	255	255	255	255
-	
-	
-
-	Name :
-	menu16x9
-	#pragma region menu16x9
-		menu16x9.childs[0]   
-		Childs Size :
-		0
-
-		Background :
-		0.000000	0.000000
-		0.000000	0.000000
-		0	0	0	0
-		0
-		0	0	0	0
-
-		Default Text :
-		0.000000	0.000000
-		0
-		0	0	0	0
-		
-		Pixeled.ttf
-
-		Content Text :
-		0.000000	0.000000
-		0
-		0	0	0	0
-		
-		Pixeled.ttf
-
-		Name :
-		
-		#pragma region 
+						Load
+		#pragma region 				Load
 		#pragma endregion
 
 	#pragma endregion

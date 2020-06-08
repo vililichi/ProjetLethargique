@@ -608,8 +608,28 @@ using namespace ATH;
 			std::string ATH::ToString(sf::Color _color, char _insertChar) {
 				return std::to_string(_color.r) + _insertChar + std::to_string(_color.g) + _insertChar + std::to_string(_color.b) + _insertChar + std::to_string(_color.a);
 			}
+			std::string ATH::ToString(float _float, char _insertChar) {
+				std::string _floatString = std::to_string(_float);
+
+				for (int i = _floatString.size() - 1; i > 0; i--)
+				{
+					
+					if (_floatString[i] == '.')
+					{
+						_floatString.pop_back();
+						break;
+					}
+					else if (_floatString[i] != '0')
+						break;
+					else {
+						_floatString.pop_back();
+					}
+				}
+
+				return _floatString;
+			}
 			std::string ATH::ToString(sf::Vector2f _vector, char _insertChar) {
-				return std::to_string(_vector.x) + _insertChar + std::to_string(_vector.y);
+				return ToString(_vector.x) + _insertChar + ToString(_vector.y);
 			}
 
 			sf::Vector2f ATH::ReadVector2f(std::ifstream* _file) {

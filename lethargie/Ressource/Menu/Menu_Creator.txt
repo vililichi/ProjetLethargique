@@ -1476,7 +1476,7 @@ Content Text :
 805.000000	382.000000
 12
 200	200	200	255
-Menu_Creator2.txt
+Menu_Creator2.cpp
 Pixeled.ttf
 
 Name :

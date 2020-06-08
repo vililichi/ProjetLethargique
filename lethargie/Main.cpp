@@ -58,18 +58,11 @@ int main()
 	camera.setCenter(0, 0);
 	camera.setSize(500, 500);
 
-	menu_Creator_Origin.AddElement("globalBackground");
-	menu_Creator_Origin.AddElement("menuCreator");
-	menu_Creator_Origin.AddElement("menu16x9");
+	menu_Creator_Origin.Load("Ressource/Menu/Menu_Creator.cpp");
 
 	globalBackground = &menu_Creator_Origin.childs[0];
-	menuCreator = &menu_Creator_Origin.childs[1];
-	menu16x9 = &menu_Creator_Origin.childs[2];
-
-	globalBackground->SetBackground(sf::Vector2f(-950, -450), sf::Vector2f(1900, 900), sf::Color(20, 0, 20, 255), 0, sf::Color::Transparent);
-
-	menuCreator->OldLoad("Menu_Creator.txt");
-	menu16x9->AddElement();
+	menuCreator = &menu_Creator_Origin.childs[2];
+	menu16x9 = &menu_Creator_Origin.childs[1];
 
 	////////UPDATE////////
 	timerFPS.restart();
@@ -145,12 +138,12 @@ int main()
 			menu16x9->AddElement();
 		}
 		else if (menuCreator->childs[57].isClicked(0, true)) {//Save
-			//menu16x9->Save(menuCreator->childs[56].contentText.getString());
-			menu_Creator_Origin.Save("SaveTest.cpp");
+			menu16x9->Save("Ressource/Menu/" + menuCreator->childs[56].contentText.getString());
+			//menu_Creator_Origin.Save("Ressource/Menu/SaveTest2.cpp");
 		}
 		else if (menuCreator->childs[58].isClicked(0, true)) {//Load
-			//menu16x9->Load(menuCreator->childs[56].contentText.getString());
-			menu16x9->Load("SaveTest.cpp");
+			menu16x9->Load("Ressource/Menu/" + menuCreator->childs[56].contentText.getString());
+			//menu16x9->Load("SaveTest.cpp");
 
 			selectedElement = 0;
 
@@ -183,9 +176,10 @@ int main()
 
 void Draw() {
 	//window->setView(menuCreator.view);
-	globalBackground->Draw();
-	menu16x9->Draw();
-	menuCreator->Draw();
+	//globalBackground->Draw();
+	//menu16x9->Draw();
+	//menuCreator->Draw();
+	menu_Creator_Origin.Draw();
 }
 
 void Resize(float _newSizeX, float _newSizeY) {
@@ -246,8 +240,8 @@ void LoadFromATHElement(int _child) {
 }
 
 void FillContentText(sf::Vector2f _vector2f, std::vector<ATHElement>& _tochilds, unsigned int _firstElement) {
-	_tochilds[_firstElement].contentText.setString(std::to_string(_vector2f.x));
-	_tochilds[_firstElement + 1].contentText.setString(std::to_string(_vector2f.y));
+	_tochilds[_firstElement].contentText.setString(ATH::ToString(_vector2f.x));
+	_tochilds[_firstElement + 1].contentText.setString(ATH::ToString(_vector2f.y));
 }
 
 void FillContentText(sf::Color _color, std::vector<ATHElement>& _tochilds, unsigned int _firstElement) {
@@ -262,7 +256,7 @@ void FillContentText(unsigned int _uint, ATHElement& _toElement) {
 }
 
 void FillContentText(float _float, ATHElement& _toElement) {
-	_toElement.contentText.setString(std::to_string(_float));
+	_toElement.contentText.setString(ATH::ToString(_float));
 }
 
 void FillContentText(const sf::Font* _font, ATHElement& _toElement) {
