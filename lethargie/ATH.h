@@ -67,15 +67,16 @@ public:
 			std::string WriteText();
 		#pragma endregion
 		#pragma region Files
-			void LoadDefaultText(std::ifstream* _file);
-			void LoadContentText(std::ifstream* _file);
+			void LoadDefaultText(std::ifstream* _file, unsigned int _numTab = 0);
+			void LoadContentText(std::ifstream* _file, unsigned int _numTab = 0);
 			void LoadBackground(std::ifstream* _file);
 
-			void SaveSelf(std::string _path);
-			void SaveSelf(std::ofstream* _file);
+			//void SaveSelf(std::string _path);
+			void SaveSelf(std::ofstream* _file, unsigned int _numTab = 0);
 
-			void LoadSelf(std::string _path);
-			void LoadSelf(std::ifstream* _file);
+			//void LoadSelf(std::string _path);
+			void LoadSelf(std::ifstream* _file, unsigned int _numTab = 0);
+			void OldLoadSelf(std::ifstream* _file);
 		#pragma endregion
 	#pragma endregion
 	#pragma region Self-Child function
@@ -92,8 +93,12 @@ public:
 			void Clear();
 		#pragma endregion
 		#pragma region Files
-			void Save(std::string _path);
-			void Load(std::string _path);
+			void Save(std::string _path, unsigned int _numTab = 0);
+			void Save(std::ofstream* _file, unsigned int _numTab = 0);
+			
+			void OldLoad(std::string _path);
+			void Load(std::string _path, unsigned int _numTab = 0);
+			void Load(std::ifstream* _file, unsigned int _numTab = 0);
 		#pragma endregion
 		#pragma region Transformable
 			void SetPosition(sf::Vector2f _newPos);
@@ -116,7 +121,10 @@ namespace ATH {
 		sf::Color ReadColor(std::ifstream* _file);
 		int ReadInt(std::ifstream* _file);
 		int GetKeyPressed();
-		std::string ReadString(std::ifstream* _file, int _lineSkip = 0);
+		std::string ReadString(std::ifstream* _file, int _lineSkip = 0, int _charSkip = 0);
 		void ReadSkipTitle(std::ifstream* _file);
+
+		std::string tab(unsigned int _numTab);
+		std::string tab(unsigned int _numTab);
 	#pragma endregion
 }

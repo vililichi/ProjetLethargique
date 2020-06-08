@@ -12,7 +12,7 @@ sf::View view(sf::Vector2f(0, 0), sf::Vector2f(1900, 900));
 
 sf::Vector2i _deltaMousePos, _oldMousePos, _mousePos;
 
-ATHElement menu_Creator_Origin(window, view, "");
+ATHElement menu_Creator_Origin(window, view, "menu_Creator_Origin");
 ATHElement *globalBackground, *menuCreator, *menu16x9;
 
 int selectedElement = 0;
@@ -58,8 +58,9 @@ int main()
 	camera.setCenter(0, 0);
 	camera.setSize(500, 500);
 
-	//menu_Creator_Origin.AddElement();
-	menu_Creator_Origin.AddElement("", 3);
+	menu_Creator_Origin.AddElement("globalBackground");
+	menu_Creator_Origin.AddElement("menuCreator");
+	menu_Creator_Origin.AddElement("menu16x9");
 
 	globalBackground = &menu_Creator_Origin.childs[0];
 	menuCreator = &menu_Creator_Origin.childs[1];
@@ -67,7 +68,7 @@ int main()
 
 	globalBackground->SetBackground(sf::Vector2f(-950, -450), sf::Vector2f(1900, 900), sf::Color(20, 0, 20, 255), 0, sf::Color::Transparent);
 
-	menuCreator->Load("Menu_Creator.txt");
+	menuCreator->OldLoad("Menu_Creator.txt");
 	menu16x9->AddElement();
 
 	////////UPDATE////////
@@ -144,10 +145,12 @@ int main()
 			menu16x9->AddElement();
 		}
 		else if (menuCreator->childs[57].isClicked(0, true)) {//Save
-			menu16x9->Save(menuCreator->childs[56].contentText.getString());
+			//menu16x9->Save(menuCreator->childs[56].contentText.getString());
+			menu_Creator_Origin.Save("SaveTest.cpp");
 		}
 		else if (menuCreator->childs[58].isClicked(0, true)) {//Load
-			menu16x9->Load(menuCreator->childs[56].contentText.getString());
+			//menu16x9->Load(menuCreator->childs[56].contentText.getString());
+			menu16x9->Load("SaveTest.cpp");
 
 			selectedElement = 0;
 
