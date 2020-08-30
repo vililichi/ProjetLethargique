@@ -19,6 +19,7 @@ public:
 	bool animActif;
 
 	Damage degat;
+	Damage cout;
 
 	void update(float sec);
 	void activate();

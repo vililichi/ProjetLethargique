@@ -28,9 +28,9 @@ void Vivant::update(float sec)
 	updatePosition(sec);
 	resplendissement += sec * resplendissance;
 	stabilisation += sec * stabilite;
-	if (resplendissement >= 1)
+	if (stabilisation >= 1)
 	{
-		resplendissement -= 1;
+		stabilisation -= 1;
 		ombre += 1;
 		//etats stable
 		if (etat[gel] > 0)
@@ -42,12 +42,16 @@ void Vivant::update(float sec)
 
 		//verdict
 		if (ombre > ombreMax) ombre = ombreMax;
-		if (ombre <= 0) vivant = false;
+		if (ombre <= 0)
+		{
+			vivant = false;
+			std::cout << "mort" << std::endl;
+		}
 
 	}
-	if (stabilisation >= 1)
+	if (resplendissement >= 1)
 	{
-		stabilisation -= 1;
+		resplendissement -= 1;
 		lumiere -= 1;
 		//etats chaotique
 		if (etat[immolation] > 0)

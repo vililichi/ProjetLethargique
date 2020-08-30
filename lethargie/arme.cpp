@@ -36,6 +36,8 @@ void Competence::activate()
 	animActif = true;
 	position = acteur->getPosition() + acteur->images_offset[bras2];
 	objectif = acteur->actionFutur.pointeur;
+
+	acteur->attack(cout);
 }
 //arme
 Arme::Arme()

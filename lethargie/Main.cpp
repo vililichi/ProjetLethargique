@@ -20,8 +20,19 @@ int main()
     mainDivine.p_joueur = univers.addJoueur();
     haut_display.p_joueur = mainDivine.p_joueur;
 
+    Damage cout_comp1;
+    cout_comp1.lumiere = 2;
+
+    Damage cout_comp2;
+    cout_comp2.lumiere = 1;
+    cout_comp2.entropie = 1;
+
     InfusionNova* comp1 = new InfusionNova();
     InfusionDart* comp2 = new InfusionDart();
+
+    comp1->cout = cout_comp1;
+    comp2->cout = cout_comp2;
+
     Arme* arme = new Arme();
     arme->setCompetence(comp1, 1);
     arme->setCompetence(comp2, 2);
