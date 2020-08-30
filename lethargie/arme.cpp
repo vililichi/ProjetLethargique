@@ -94,27 +94,7 @@ void Arme::bound(Joueur* _possesseur)
 
 
 #pragma endregion
-#pragma region fonctions
-Sort* importSort(std::string path,float life_time = -1,bool is_floating = false, bool is_spectral = false, bool has_percing = false, bool is_dynamic = true)
-{
-	Sort* p_sort = new Sort;
-	std::ifstream f;
-	f.open(path);
-	LireFichier(f, *p_sort);
-	p_sort->is_Dynamic = is_dynamic;
-	p_sort->percing = has_percing;
-	p_sort->spectral = is_spectral;
-	p_sort->floating = is_floating;
-	if(life_time > 0) p_sort->set_lifeTime(life_time);
-	return p_sort;
-}
-Sort* SetActorAndWorld(Sort* p_sort, Joueur* acteur, bool blacklist_player = true)
-{
-	if(blacklist_player == true)p_sort->blacklist.push_back(acteur);
-	acteur->p_monde->addSort(p_sort);
-	return p_sort;
-}
-#pragma endregion
+
 #pragma region infusion
 
 void InfusionSphere::anim(float sec)

@@ -1,4 +1,5 @@
 #include "Sort.h"
+#include "FichierIO.h"
 
 
 Sort::Sort() : VisibleBody()
@@ -89,3 +90,26 @@ void Sort::collideVivant(Vivant& cible)
 		if (!percing)end = true;
 	}
 }
+
+
+#pragma region fonctions
+Sort* importSort(std::string path, float life_time , bool is_floating , bool is_spectral , bool has_percing , bool is_dynamic)
+{
+	Sort* p_sort = new Sort;
+	std::ifstream f;
+	f.open(path);
+	LireFichier(f, *p_sort);
+	p_sort->is_Dynamic = is_dynamic;
+	p_sort->percing = has_percing;
+	p_sort->spectral = is_spectral;
+	p_sort->floating = is_floating;
+	if (life_time > 0) p_sort->set_lifeTime(life_time);
+	return p_sort;
+}
+Sort* SetActorAndWorld(Sort* p_sort, Vivant* acteur, bool blacklist_player)
+{
+	if (blacklist_player == true)p_sort->blacklist.push_back(acteur);
+	acteur->p_monde->addSort(p_sort);
+	return p_sort;
+}
+#pragma endregion

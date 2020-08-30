@@ -1,4 +1,6 @@
 #include "Vivant.h"
+#include "sort.h"
+#include "FichierIO.h"
 
 Vivant::Vivant(int _lumiereMax, int _ombreMax, float _masse, Float2 _position, Concave _forme)
 	: VisibleBody(_masse, _position, _forme)
@@ -134,7 +136,17 @@ void Vivant::resurection(int puissance )
 }
 void Vivant::explosionLumineuse()
 {
-	ombre -= lumiere / 2;
+	Damage degat_lum;
+	degat_lum.entropie = lumiere / 6;
+
+	Sort* nova = importSort("Ressource/Sort/nova.txt", 0.3, true, true, true, false);
+	SetActorAndWorld(nova, this, false);
+
+	nova->setPosition(getPosition());
+	float size (RigidBody::getApproxTaille() / 3);
+	nova->resize(Float2(size,size));
+	nova->dommage = degat_lum;
+	attack(degat_lum);
 	lumiere = 0;
 }
 void Vivant::reduireOmbre(int valeur)

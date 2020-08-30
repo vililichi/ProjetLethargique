@@ -8,8 +8,8 @@ HUD::HUD()
 	vide =    GestionnaireTexture::obtenirTexture("Ressource/Texture/Orbe/Vide.png");
 	
 	//initialisation des pointeur
-	unsigned short int nbr_lum = 0;
-	unsigned short int nbr_omb = 0;
+	nbr_lum = 0;
+	nbr_omb = 0;
 
 	ombres = new sf::Sprite[0];
 	lumieres = new sf::Sprite[0];
@@ -72,18 +72,18 @@ void HUD::afficher(sf::RenderWindow& fenetre)
 		int nbr_elem = nbr_lum;
 		if (nbr_omb > nbr_lum) nbr_elem = nbr_omb;
 		
-		int h_max = taille.y / 10;
-		int l_max = taille.x / (3*nbr_omb);
-		int cote = h_max;
+		float h_max = taille.y / 10.f;
+		float l_max = taille.x / (3*nbr_omb);
+		float cote = h_max;
 		if (l_max < h_max) cote = l_max;
 
-		float scale = ((float)cote) / 18.f;
+		float scale = cote / 18.f;
 		std::cout << " taille: " << scale << std::endl;
 
 		for (short i = 0; i < nbr_lum; i++)
 		{
-			int posX = taille.x /2 - 10 - (cote * (i + 1));
-			int posY = 20 - taille.y/2;
+			float posX = taille.x /2 - 10 - (cote * (i + 1));
+			float posY = 20 - taille.y/2;
 			lumieres[i].setPosition(sf::Vector2f(posX, posY));
 			lumieres[i].setScale(scale,scale);
 
@@ -92,8 +92,8 @@ void HUD::afficher(sf::RenderWindow& fenetre)
 		}
 		for (short i = 0; i < nbr_omb; i++)
 		{
-			int posX = 10 + (cote * i) - taille.x/2;
-			int posY = 20 - taille.y / 2;
+			float posX = 10 + (cote * i) - taille.x/2;
+			float posY = 20 - taille.y / 2;
 			ombres[i].setPosition(sf::Vector2f(posX, posY));
 			ombres[i].setScale(scale, scale);
 

@@ -31,3 +31,6 @@ public:
 	void collideWall(RigidBody& wall);
 	void collideVivant(Vivant& cible);
 };
+
+Sort* importSort(std::string path, float life_time = -1, bool is_floating = false, bool is_spectral = false, bool has_percing = false, bool is_dynamic = true);
+Sort* SetActorAndWorld(Sort* p_sort, Vivant* acteur, bool blacklist_player = true);
