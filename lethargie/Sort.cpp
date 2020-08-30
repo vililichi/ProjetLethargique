@@ -83,7 +83,7 @@ void Sort::collideVivant(Vivant& cible)
 		if (blacklist[i] == &cible) return;
 	}
 	//collision
-	if (collide(cible).taille > 0)
+	if (testCollision(cible).taille > 0)
 	{
 		cible.attack(dommage);
 		blacklist.push_back(&cible);
