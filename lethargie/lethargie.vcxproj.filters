@@ -51,6 +51,9 @@
     <ClCompile Include="Sort.cpp">
       <Filter>Fichiers de ressources</Filter>
     </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Fichiers de ressources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Monde.h">
@@ -78,6 +81,9 @@
       <Filter>Fichiers d%27en-tête\finie</Filter>
     </ClInclude>
     <ClInclude Include="sort.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

@@ -215,6 +215,7 @@ sf::Texture* GestionnaireTexture::obtenirTexture(std::string nom)
 		else
 		{
 			delete listeTexture[index].texture;
+			std::cout << "Erreur dans le chargement du fichier :" << nom << std::endl;
 			listeTexture.pop_back();
 		}
 	}
