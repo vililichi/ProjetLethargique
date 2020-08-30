@@ -137,16 +137,18 @@ void Vivant::resurection(int puissance )
 void Vivant::explosionLumineuse()
 {
 	Damage degat_lum;
-	degat_lum.entropie = lumiere / 6;
+	degat_lum.lumiere = lumiere / 8;
+	Damage degat_jou;
+	degat_jou.entropie = lumiere / 3;
 
 	Sort* nova = importSort("Ressource/Sort/nova.txt", 0.3, true, true, true, false);
-	SetActorAndWorld(nova, this, false);
+	SetActorAndWorld(nova, this, true);
 
 	nova->setPosition(getPosition());
 	float size (RigidBody::getApproxTaille() / 3);
 	nova->resize(Float2(size,size));
 	nova->dommage = degat_lum;
-	attack(degat_lum);
+	attack(degat_jou);
 	lumiere = 0;
 }
 void Vivant::reduireOmbre(int valeur)
