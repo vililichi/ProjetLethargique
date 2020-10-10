@@ -192,7 +192,8 @@ const Float2 grav(0, 500);
 		//dash et jump
 		Float2 actionVit;
 		if( actionFutur.jump && actionPret[jump])
-		{
+		{	//le saut n'est pas directement éffectué, la commande est concervée en mémoire 
+			//et est éffectué lors d'une collision avec une surface
 			actionPret[jumpMem] = true;
 			actionTimer[jumpMem] = actionTime[jumpMem];
 		}
@@ -200,7 +201,7 @@ const Float2 grav(0, 500);
 		{
 			if (actionForce.norm2() > puiss / 10)
 			{
-				Float2 dashVit = actionForce;
+				Float2 dashVit = actionForce;//le dash est éffecuté dans la direction de la commande
 				dashVit.setNorm(2 * puiss);
 				actionVit += dashVit;
 				actionPret[dash] = false;
