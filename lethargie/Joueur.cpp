@@ -186,7 +186,7 @@ const Float2 grav(0, 500);
 		Float2 actionForce;
 		if (actionFutur.gauche)actionForce += Float2( -puiss,0 );
 		if (actionFutur.droite)actionForce += Float2( puiss,0 );
-		if (actionForce.x * vit.x < 1) actionForce.x += vit.x * -fren;
+		if (actionForce.x * vit.x < 0.1f) actionForce.x += vit.x * -fren;
 		forc += actionForce;
 
 		//dash et jump
@@ -200,7 +200,9 @@ const Float2 grav(0, 500);
 		{
 			if (actionForce.norm2() > puiss / 10)
 			{
-				actionVit += actionForce;
+				Float2 dashVit = actionForce;
+				dashVit.setNorm(2 * puiss);
+				actionVit += dashVit;
 				actionPret[dash] = false;
 				actionTimer[dash] = actionTime[dash];
 			}
