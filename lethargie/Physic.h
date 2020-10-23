@@ -21,6 +21,7 @@ protected:
 
 public:
 	bool to_destroy;
+	bool floating;
 	float bounce, friction, masse;
 
 	Float2 vit;
@@ -39,6 +40,7 @@ public:
 	Float2 getPosition() const;
 	float getApproxTaille() const;
 	virtual void updatePosition(float sec);
+	virtual void addGravity(Float2 gravity);
 	infoColl testCollision (RigidBody& c);
 	infoColl collide (RigidBody& c);
 	virtual void resize(Float2 multiplicateur);

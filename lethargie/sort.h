@@ -20,7 +20,6 @@ public:
 	float endTime;
 	bool whiteliste_only;
 	bool percing;
-	bool floating;
 	bool spectral;
 	Damage dommage;
 

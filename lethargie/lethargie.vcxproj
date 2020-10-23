@@ -152,6 +152,7 @@
   <ItemGroup>
     <ClCompile Include="arme.cpp" />
     <ClCompile Include="CameraMobile.cpp" />
+    <ClCompile Include="Cherubin.cpp" />
     <ClCompile Include="FichierIO.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Joueur.cpp" />
@@ -165,6 +166,7 @@
   <ItemGroup>
     <ClInclude Include="arme.h" />
     <ClInclude Include="CameraMobile.h" />
+    <ClInclude Include="Cherubin.h" />
     <ClInclude Include="FichierIO.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Joueur.h" />

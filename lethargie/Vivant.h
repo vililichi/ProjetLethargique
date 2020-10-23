@@ -20,24 +20,26 @@ class Vivant :public VisibleBody
 {
 	friend Competence;
 protected:
-	int ombre;
-	int lumiere;
-	bool vivant;
-	int etat[nbrEtat];
-	float stabilisation;
-	float resplendissement;
+	int ombre;				//mort si tombe à 0
+	int lumiere;			//explose si tombe à lumiereMax
+	bool vivant;			//indique si l'entité est vivante
+	int etat[nbrEtat];		//En cours de travail, gestion des différents altérations
+	float stabilisation;	//recharge et update l'ombre à 1
+	float resplendissement; //recharge et update la lumière à 1
 	std::vector<Float2> images_init_offset;
+	float timerMort;
 public:
 
-	int ombreMax;
-	int lumiereMax;
-	float stabilite;
-	float resplendissance;
+	int ombreMax;			//ombre maximale pouvant être atteinte
+	int lumiereMax;			//seuil d'explosion
+	float stabilite;		//stabilisation à chaque 1/stabilite secondes; défault 0.5
+	float resplendissance;	//resplandissement à chaque 1/resplandissance secondes; défault 1
 
 
 	Vivant(int _lumiereMax = 10, int _ombreMax = 10,float _masse = 1, Float2 _position = Float2(0,0), Concave _forme = Concave() );
-	void update(float sec);
-	void attack(Damage description);
+	virtual void update(float sec);
+	virtual void attack(Damage description);
+	virtual void animation_mort(float sec);
 	int getOmbre();
 	int getLumiere();
 	int getEtat(int type);

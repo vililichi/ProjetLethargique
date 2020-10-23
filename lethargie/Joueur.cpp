@@ -180,67 +180,69 @@ const Float2 grav(0, 500);
 	}
 	void Joueur::update(float sec)
 	{
-		
-
-		//deplacements latéraux
-		Float2 actionForce;
-		if (actionFutur.gauche)actionForce += Float2( -puiss,0 );
-		if (actionFutur.droite)actionForce += Float2( puiss,0 );
-		if (actionForce.x * vit.x < 0.1f) actionForce.x += vit.x * -fren;
-		forc += actionForce;
-
-		//dash et jump
-		Float2 actionVit;
-		if( actionFutur.jump && actionPret[jump])
-		{	//le saut n'est pas directement éffectué, la commande est concervée en mémoire 
-			//et est éffectué lors d'une collision avec une surface
-			actionPret[jumpMem] = true;
-			actionTimer[jumpMem] = actionTime[jumpMem];
-		}
-		if (actionFutur.dash && actionPret[dash])
+		if(vivant)
 		{
-			if (actionForce.norm2() > puiss / 10)
-			{
-				Float2 dashVit = actionForce;//le dash est éffecuté dans la direction de la commande
-				dashVit.setNorm(2 * puiss);
-				actionVit += dashVit;
-				actionPret[dash] = false;
-				actionTimer[dash] = actionTime[dash];
+
+			//deplacements latéraux
+			Float2 actionForce;
+			if (actionFutur.gauche)actionForce += Float2(-puiss, 0);
+			if (actionFutur.droite)actionForce += Float2(puiss, 0);
+			if (actionForce.x * vit.x < 0.1f) actionForce.x += vit.x * -fren;
+			forc += actionForce;
+
+			//dash et jump
+			Float2 actionVit;
+			if (actionFutur.jump && actionPret[jump])
+			{	//le saut n'est pas directement éffectué, la commande est concervée en mémoire 
+					//et est éffectué lors d'une collision avec une surface
+				actionPret[jumpMem] = true;
+				actionTimer[jumpMem] = actionTime[jumpMem];
 			}
-		}
-		vit += actionVit;
-
-		//mise à jour des timers
-		for (int i = 0; i < nbrAction; i++)
-		{
-			if (i != jumpMem)
+			if (actionFutur.dash && actionPret[dash])
 			{
-				if (!actionPret[i])
+				if (actionForce.norm2() > puiss / 10)
 				{
-					actionTimer[i] -= sec;
-					if (actionTimer[i] <= 0)
+					Float2 dashVit = actionForce;//le dash est éffecuté dans la direction de la commande
+					dashVit.setNorm(2 * puiss);
+					actionVit += dashVit;
+					actionPret[dash] = false;
+					actionTimer[dash] = actionTime[dash];
+				}
+			}
+			vit += actionVit;
+
+			//mise à jour des timers
+			for (int i = 0; i < nbrAction; i++)
+			{
+				if (i != jumpMem)
+				{
+					if (!actionPret[i])
 					{
-						actionPret[i] = true;
+						actionTimer[i] -= sec;
+						if (actionTimer[i] <= 0)
+						{
+							actionPret[i] = true;
+						}
+					}
+				}
+				else
+				{
+					if (actionPret[i])
+					{
+						actionTimer[i] -= sec;
+						if (actionTimer[i] <= 0)
+						{
+							actionPret[i] = false;
+						}
 					}
 				}
 			}
-			else
-			{
-				if (actionPret[i])
-				{
-					actionTimer[i] -= sec;
-					if (actionTimer[i] <= 0)
-					{
-						actionPret[i] = false;
-					}
-				}
-			}
-		}
 
-		//update normale
-		modif_images = true;
-		updateAnim(sec);
-		if (arme)arme->update(sec);
+			//update normale
+			modif_images = true;
+			updateAnim(sec);
+			if (arme)arme->update(sec);
+		}
 		Vivant::update(sec);
 	}
 	bool Joueur::collideJump(infoColl collision)
@@ -287,6 +289,22 @@ const Float2 grav(0, 500);
 	{
 		arme = _arme;
 		arme->bound(this);
+	}
+	void Joueur::animation_mort(float sec)
+	{
+		if (vivant) return;
+		timerMort += sec / 5;
+		floating = false;
+		if (timerMort >= 1)
+		{
+			return;
+		}
+		for (int i = 0; i < images.size(); i++)
+		{
+			sf::Color couleur = images[i].getColor();
+			couleur.a = 256 - timerMort * 180;
+			images[i].setColor(couleur);
+		}
 	}
 
 #pragma endregion

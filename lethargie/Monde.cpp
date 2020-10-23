@@ -62,6 +62,12 @@ Joueur* Monde::addJoueur()
 	p_new_joueur->setMonde(this);
 	return p_new_joueur;
 }
+Vivant* Monde::addVivant(Vivant* new_vivant)
+{
+	vivants.push_back(new_vivant);
+	new_vivant->setMonde(this);
+	return new_vivant;
+}
 Sort* Monde::addSort(Sort new_sort)
 {
 	Sort* p_new_sort = new Sort(new_sort);
@@ -83,14 +89,22 @@ void Monde::update()
 	int tailleS = statiques.size();
 	int tailleD = dynamiques.size();
 	int tailleJ = joueurs.size();
+	int tailleV = vivants.size();
 	int tailleSS = sorts.size();
+
+	std::vector<RigidBody*> trashRB;
+	std::vector<Joueur*> trashJ;
+	std::vector<Vivant*> trashV;
+	std::vector<Sort*> trashS;
+
+
 
 	//statique
 	for (int i = 0; i < tailleS;)
 	{
 		if (statiques[i]->to_destroy)
 		{
-			delete statiques[i];
+			trashRB.push_back( statiques[i]);
 			tailleS--;
 			std::swap(statiques[i], statiques[tailleS]);
 			statiques.pop_back();
@@ -102,7 +116,7 @@ void Monde::update()
 	{
 		if (dynamiques[i]->to_destroy)
 		{
-			delete dynamiques[i];
+			trashRB.push_back(dynamiques[i]);
 			tailleD--;
 			std::swap(dynamiques[i], dynamiques[tailleD]);
 			dynamiques.pop_back();
@@ -115,10 +129,22 @@ void Monde::update()
 
 		if (joueurs[i]->to_destroy)
 		{
-			delete joueurs[i];
+			trashJ.push_back(joueurs[i]);
 			tailleJ--;
 			std::swap(joueurs[i], joueurs[tailleJ]);
 			joueurs.pop_back();
+		}
+		else i++;
+	}
+	//vivants
+	for (int i = 0; i < tailleV;)
+	{
+		if (vivants[i]->to_destroy)
+		{
+			trashV.push_back( vivants[i]);
+			tailleV--;
+			std::swap(vivants[i], vivants[tailleV]);
+			vivants.pop_back();
 		}
 		else i++;
 	}
@@ -128,7 +154,7 @@ void Monde::update()
 	
 		if (sorts[i]->to_destroy)
 		{
-			delete sorts[i];
+			trashS.push_back( sorts[i]);
 			tailleSS--;
 			std::swap(sorts[i], sorts[tailleSS]);
 			sorts.pop_back();
@@ -139,11 +165,19 @@ void Monde::update()
 
 	for (int i = 0; i < tailleD; i++)
 	{
-		dynamiques[i]->forc += gravity * dynamiques[i]->masse;
+		dynamiques[i]->addGravity(gravity);
 	}
 	for (int i = 0; i < tailleJ; i++)
 	{
-		joueurs[i]->forc += gravity * joueurs[i]->masse;
+		joueurs[i]->addGravity(gravity);
+	}
+	for (int i = 0; i < tailleSS; i++)
+	{
+		sorts[i]->addGravity(gravity);
+	}
+	for (int i = 0; i < tailleV; i++)
+	{
+		vivants[i]->addGravity(gravity);
 	}
 
 
@@ -162,6 +196,11 @@ void Monde::update()
 		{
 			joueurs[j]->collide( *dynamiques[i]);
 		}
+		//dynamique - vivant
+		for (int j = 0; j < tailleV; j++)
+		{
+			vivants[j]->collide(*dynamiques[i]);
+		}
 	}
 
 	//statique  //n'étant pas modifier par les collision, l'ordre n'importe pas
@@ -178,6 +217,11 @@ void Monde::update()
 			infoColl info = joueurs[j]->collide(*statiques[i]);
 			joueurs[j]->collideJump(info);
 		}
+		//statique-vivant
+		for (int j = 0; j < tailleV; j++)
+		{
+			infoColl info = vivants[j]->collide(*statiques[i]);
+		}
 	}
 
 	//sort
@@ -188,10 +232,15 @@ void Monde::update()
 		{
 			sorts[i]->collideWall(*statiques[j]);
 		}
-		//statique-joueur
+		//sort-joueur
 		for (int j = 0; j < tailleJ; j++)
 		{
 			sorts[i]->collideVivant(*joueurs[j]);
+		}
+		//sort-vivant
+		for (int j = 0; j < tailleV; j++)
+		{
+			sorts[i]->collideVivant(*vivants[j]);
 		}
 	}
 
@@ -210,10 +259,23 @@ void Monde::update()
 	{
 		joueurs[i]->update(deltaT);
 	}
+	for (int i = 0; i < tailleV; i++)
+	{
+		vivants[i]->update(deltaT);
+	}
 	for (int i = 0; i < tailleSS; i++)
 	{
 		sorts[i]->update(deltaT);
 	}
+	//destruction
+	for (int i = 0; i < trashRB.size(); i++) delete trashRB[i];
+	for (int i = 0; i < trashJ.size(); i++) delete trashJ[i];
+	for (int i = 0; i < trashV.size(); i++) delete trashV[i];
+	for (int i = 0; i < trashS.size(); i++) delete trashS[i];
+	trashRB.clear();
+	trashJ.clear();
+	trashS.clear();
+	trashV.clear();
 }
 void Monde::afficher(sf::RenderWindow& fenetre)
 {
@@ -228,6 +290,10 @@ void Monde::afficher(sf::RenderWindow& fenetre)
 	for (int i = 0, taille = dynamiques.size(); i < taille; i++)
 	{
 		dynamiques[i]->afficher(fenetre);
+	}
+	for (int i = 0, taille = vivants.size(); i < taille; i++)
+	{
+		vivants[i]->afficher(fenetre);
 	}
 	for (int i = 0, taille = joueurs.size(); i < taille; i++)
 	{

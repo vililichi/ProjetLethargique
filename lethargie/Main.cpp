@@ -4,6 +4,7 @@
 #include "Joueur.h"
 #include "CameraMobile.h"
 #include "HUD.h"
+#include "Cherubin.h"
 
 int main()
 {
@@ -14,6 +15,10 @@ int main()
     Monde univers;
     univers.gravity = Float2(0, 1000);
     std::ifstream ifs;
+
+    //cherubin
+    Vivant* cherubin = new Cherubin();
+    univers.addVivant(cherubin);
     
     Controler mainDivine;
     HUD haut_display;
@@ -27,11 +32,19 @@ int main()
     cout_comp2.lumiere = 1;
     cout_comp2.entropie = 1;
 
+    Damage degat_comp1;
+    degat_comp1.lumiere = 4;
+
+    Damage degat_comp2;
+    degat_comp2.reflexion = 2;
+
     InfusionNova* comp1 = new InfusionNova();
     InfusionDart* comp2 = new InfusionDart();
 
     comp1->cout = cout_comp1;
+    comp1->degat = degat_comp1;
     comp2->cout = cout_comp2;
+    comp2->degat = degat_comp2;
 
     Arme* arme = new Arme();
     arme->setCompetence(comp1, 1);

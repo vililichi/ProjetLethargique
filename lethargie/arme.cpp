@@ -133,6 +133,7 @@ void InfusionDart::anim(float sec)
 		dart->setPosition(acteur->getPosition() +acteur->images_offset[bras2] + 2.f*dir);
 		dart->rotate(objDir.angle());
 		dart->vit = acteur->vit + objDir * vit_sort;
+		dart->dommage = degat;
 	}
 	if (etape < 2 && animEtat > 0.5)
 	{
@@ -142,15 +143,17 @@ void InfusionDart::anim(float sec)
 		dart->setPosition(acteur->getPosition() + acteur->images_offset[bras2] + 2.f * dir);
 		dart->rotate(objDir.angle());
 		dart->vit = acteur->vit + objDir * vit_sort;
+		dart->dommage = degat;
 	}
 	if (etape < 3 && animEtat > 0.8)
 	{
 		etape = 3;
-		Sort* dart = importSort("Ressource/Sort/dart.txt", 1, true, false, true);
+		Sort* dart = importSort("Ressource/Sort/dart.txt", 1, true, false, false/*true*/);
 		SetActorAndWorld(dart, acteur);
 		dart->setPosition(acteur->getPosition() + acteur->images_offset[bras2] + 2.f * dir);
 		dart->rotate(objDir.angle());
 		dart->vit = acteur->vit + objDir * vit_sort;
+		dart->dommage = degat;
 	}
 	
 }
@@ -167,6 +170,7 @@ void InfusionNova::anim(float sec)
 		SetActorAndWorld(nova, acteur);
 		nova->setPosition(acteur->getPosition()+Float2(8,10));
 		nova->resize(Float2(3, 3));
+		nova->dommage = degat;
 	}
 }
 

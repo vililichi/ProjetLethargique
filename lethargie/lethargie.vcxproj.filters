@@ -19,6 +19,12 @@
     <Filter Include="Fichiers de ressources\finie">
       <UniqueIdentifier>{5dc73ecf-099b-4dbf-9ea2-cb2f1f635fbe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers de ressources\png">
+      <UniqueIdentifier>{4fa25e43-f00b-413a-9c0d-a83025897208}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\png">
+      <UniqueIdentifier>{038981e7-5ce8-4124-b622-075439726183}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -54,6 +60,9 @@
     <ClCompile Include="HUD.cpp">
       <Filter>Fichiers de ressources</Filter>
     </ClCompile>
+    <ClCompile Include="Cherubin.cpp">
+      <Filter>Fichiers de ressources\png</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Monde.h">
@@ -85,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="HUD.h">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Cherubin.h">
+      <Filter>Fichiers d%27en-tête\png</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

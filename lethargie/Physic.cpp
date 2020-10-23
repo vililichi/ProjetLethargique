@@ -24,6 +24,7 @@ Float2 Nulify(Float2& v, Float2 normal)
 RigidBody::RigidBody()
 {
 	to_destroy = false;
+	floating = false;
 	size = Float2(1, 1);
 	forme = Concave();
 	worldForme = Concave();
@@ -121,6 +122,10 @@ void RigidBody::updatePosition(float sec)
 
 		acc = Float2(0, 0);
 		forc = Float2(0, 0);
+}
+void RigidBody::addGravity(Float2 gravity)
+{
+	if (!floating) forc += gravity * masse;
 }
 infoColl RigidBody::testCollision (RigidBody& c)
 {
