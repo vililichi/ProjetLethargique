@@ -1,6 +1,0 @@
-cv
-1	0.5	0.5	1
-4
-0,0	0,28	20,28	20,0	
-1
-Ressource/Texture/testSprite.png	0	1,1	0,0

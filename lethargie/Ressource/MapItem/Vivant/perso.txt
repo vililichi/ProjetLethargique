@@ -1,0 +1,12 @@
+cv
+1	0.5	0.5	1
+4
+2,0	0,28	20,28	18,0	
+6
+Ressource/Texture/Perso/main.png	0	1,1	14,16
+Ressource/Texture/Perso/corps.png	0	1,1	0,0
+Ressource/Texture/Perso/tete.png	0	1,1	8,4
+Ressource/Texture/Perso/pied.png	0	1,1	3,23
+Ressource/Texture/Perso/pied.png	0	1,1	11,23
+Ressource/Texture/Perso/main.png	0	1,1	0,16
+

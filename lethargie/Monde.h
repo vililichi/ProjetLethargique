@@ -2,24 +2,30 @@
 
 #include "Physic.h"
 #include "Joueur.h"
+#include "Sort.h"
 
 class Monde
 {
 protected:
 	sf::Clock temps;
 public:
-	std::vector<corps_visible*> dynamiques;
-	std::vector<corps_visible*> statiques;
+	std::vector<VisibleBody*> dynamiques;
+	std::vector<VisibleBody*> statiques;
 	std::vector<Joueur*> joueurs;
+	std::vector<Vivant*> vivants;
+	std::vector<Sort*> sorts;
 
 	Float2 gravity;
 
 	Monde();
 	~Monde();
 	void clear();
-	corps_visible* addStatique(corps_visible);
-	corps_visible* addDynamique(corps_visible);
+	VisibleBody* addStatique(VisibleBody);
+	VisibleBody* addDynamique(VisibleBody);
 	Joueur* addJoueur();
+	Vivant* addVivant(Vivant*);
+	Sort* addSort( Sort);
+	Sort* addSort(Sort*);
 
 	void update();
 	void afficher(sf::RenderWindow& fenetre);

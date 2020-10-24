@@ -1,8 +1,9 @@
 #pragma once
 #include "Vivant.h"
-
+#include "arme.h"
 
 const int nbrAction = 5;
+const int nbrAnim = 3;
 
 struct controlInfo
 {
@@ -14,6 +15,7 @@ struct controlInfo
 	bool dash = false;
 	bool action1 = false;
 	bool action2 = false;
+	Float2 pointeur = Float2(0, 0);
 };
 
 
@@ -22,12 +24,22 @@ class Joueur : public Vivant
 protected:
 	float actionTimer[nbrAction];
 	bool actionPret[nbrAction];
+	float animEtat[nbrAnim];
+	bool animActif[nbrAnim];
+	void updateAnim(float sec);
+	bool swap(bool invers);
+	bool isInvers;
+	float tempsChute;
+	Arme* arme;
+
 public :
+
 	Joueur();
 	controlInfo actionFutur;
-	virtual void update(sf::Time deltaT);
-	virtual infoColl operator + (corps& c);
-
+	void update(float sec);
+	bool collideJump(infoColl);
+	void equiper(Arme* _arme);
+	void animation_mort(float sec);
 
 };
 
@@ -37,5 +49,5 @@ public:
 	Joueur* p_joueur;
 
 	Controler();
-	void creerControl();
+	void creerControl(sf::RenderWindow& window);
 };

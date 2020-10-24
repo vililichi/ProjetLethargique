@@ -150,22 +150,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ATH.cpp" />
+    <ClCompile Include="arme.cpp" />
+    <ClCompile Include="CameraMobile.cpp" />
+    <ClCompile Include="Cherubin.cpp" />
     <ClCompile Include="FichierIO.cpp" />
+    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Joueur.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Math_addOn.cpp" />
     <ClCompile Include="Monde.cpp" />
     <ClCompile Include="Physic.cpp" />
+    <ClCompile Include="Sort.cpp" />
     <ClCompile Include="Vivant.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ATH.h" />
+    <ClInclude Include="arme.h" />
+    <ClInclude Include="CameraMobile.h" />
+    <ClInclude Include="Cherubin.h" />
     <ClInclude Include="FichierIO.h" />
+    <ClInclude Include="HUD.h" />
     <ClInclude Include="Joueur.h" />
     <ClInclude Include="Math_addOn.h" />
     <ClInclude Include="Monde.h" />
     <ClInclude Include="Physic.h" />
+    <ClInclude Include="sort.h" />
     <ClInclude Include="Vivant.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

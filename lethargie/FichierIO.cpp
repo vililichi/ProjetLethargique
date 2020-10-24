@@ -1,6 +1,6 @@
 #include"FichierIO.h"
 #pragma region fichiers corps
-int LireFichier(std::ifstream& fichier, corps_visible& contenant)
+int LireFichier(std::ifstream& fichier, VisibleBody& contenant)
 {
 	int retour = REUSSITE;
 	std::string type;
@@ -55,7 +55,7 @@ int LireFichier(std::ifstream& fichier, corps_visible& contenant)
 
 	return retour;
 }
-int EcrireFichier(std::ofstream& fichier, corps_visible& objet)
+int EcrireFichier(std::ofstream& fichier, VisibleBody& objet)
 {
 	int retour = REUSSITE;
 	if (!fichier) return ERREUR_OUVERTURE;
@@ -85,7 +85,7 @@ int EcrireFichier(std::ofstream& fichier, corps_visible& objet)
 			fichier << nom << '\t'
 				<< objet.images[i].getRotation() << '\t'
 				<< (Float2)objet.images[i].getScale() << '\t'
-				<< objet.images_offet[i] << '\n';
+				<< objet.images_offset[i] << '\n';
 
 		}
 	}
@@ -102,7 +102,7 @@ ProtoMonde::~ProtoMonde()
 {
 	clear();
 }
-corps_visible* ProtoMonde::addOfficialStatique(std::string nom)
+VisibleBody* ProtoMonde::addOfficialStatique(std::string nom)
 {
 	official_corps_visible* p_new_corps = new official_corps_visible;
 	official_statiques.push_back(p_new_corps);
@@ -116,7 +116,7 @@ corps_visible* ProtoMonde::addOfficialStatique(std::string nom)
 	p_new_corps->nom = nom;
 	return &p_new_corps->corps;
 }
-corps_visible* ProtoMonde::addOfficialDynamique(std::string nom)
+VisibleBody* ProtoMonde::addOfficialDynamique(std::string nom)
 {
 	official_corps_visible* p_new_corps = new official_corps_visible;
 	official_dynamiques.push_back(p_new_corps);
@@ -130,18 +130,18 @@ corps_visible* ProtoMonde::addOfficialDynamique(std::string nom)
 	p_new_corps->nom = nom;
 	return &p_new_corps->corps;
 }
-corps_visible* ProtoMonde::addNonOfficialStatique(corps_visible new_corps)
+VisibleBody* ProtoMonde::addNonOfficialStatique(VisibleBody new_corps)
 {
-	corps_visible* p_new_corps = new corps_visible(new_corps);
+	VisibleBody* p_new_corps = new VisibleBody(new_corps);
 	p_new_corps->is_Dynamic = false;
 	p_new_corps->setMonde(this);
 	statiques.push_back(p_new_corps);
 	non_official_statiques.push_back(p_new_corps);
 	return p_new_corps;
 }
-corps_visible* ProtoMonde::addNonOfficialDynamique(corps_visible new_corps)
+VisibleBody* ProtoMonde::addNonOfficialDynamique(VisibleBody new_corps)
 {
-	corps_visible* p_new_corps = new corps_visible(new_corps);
+	VisibleBody* p_new_corps = new VisibleBody(new_corps);
 	p_new_corps->is_Dynamic = true;
 	p_new_corps->setMonde(this);
 	dynamiques.push_back(p_new_corps);
@@ -209,11 +209,13 @@ sf::Texture* GestionnaireTexture::obtenirTexture(std::string nom)
 		if (listeTexture[index].texture->loadFromFile(nom))
 		{
 			listeTexture[index].nom = nom;
+			//listeTexture[index].texture->setSmooth(true);
 			retour = listeTexture[index].texture;
 		}
 		else
 		{
 			delete listeTexture[index].texture;
+			std::cout << "Erreur dans le chargement du fichier :" << nom << std::endl;
 			listeTexture.pop_back();
 		}
 	}
@@ -319,7 +321,7 @@ int LireFichier(std::ifstream& fichier, ProtoMonde& contenant)
 	for (int i = 0; i < taille; i++)
 	{
 		std::string nom;
-		corps_visible* p_objet;
+		VisibleBody* p_objet;
 		Float2 position;
 		Float2 size;
 
@@ -334,11 +336,11 @@ int LireFichier(std::ifstream& fichier, ProtoMonde& contenant)
 	fichier >> taille;
 	for (int i = 0; i < taille; i++)
 	{
-		corps_visible* p_objet;
+		VisibleBody* p_objet;
 		Float2 position ;
 		Float2 size;
 
-		p_objet = contenant.addNonOfficialStatique(corps_visible());
+		p_objet = contenant.addNonOfficialStatique(VisibleBody());
 		LireFichier(fichier, *p_objet);
 		fichier >> position;
 		fichier >> size;
@@ -350,7 +352,7 @@ int LireFichier(std::ifstream& fichier, ProtoMonde& contenant)
 	for (int i = 0; i < taille; i++)
 	{
 		std::string nom;
-		corps_visible* p_objet;
+		VisibleBody* p_objet;
 		Float2 position;
 		Float2 size;
 
@@ -366,11 +368,11 @@ int LireFichier(std::ifstream& fichier, ProtoMonde& contenant)
 	fichier >> taille;
 	for (int i = 0; i < taille; i++)
 	{
-		corps_visible* p_objet;
+		VisibleBody* p_objet;
 		Float2 position;
 		Float2 size;
 
-		p_objet = contenant.addNonOfficialDynamique(corps_visible());
+		p_objet = contenant.addNonOfficialDynamique(VisibleBody());
 		LireFichier(fichier, *p_objet);
 		fichier >> position;
 		fichier >> size;
@@ -396,7 +398,7 @@ int LireFichier(std::ifstream& fichier, Monde& contenant)
 	for (int i = 0; i < taille; i++)
 	{
 		std::ifstream ifs;
-		corps_visible* p_objet;
+		VisibleBody* p_objet;
 		std::string nom;
 		Float2 position;
 		Float2 size;
@@ -404,7 +406,7 @@ int LireFichier(std::ifstream& fichier, Monde& contenant)
 		fichier >> nom;
 		ifs.open(nom);
 		if (!ifs) return ERREUR_OUVERTURE;
-		p_objet = contenant.addStatique(corps_visible());
+		p_objet = contenant.addStatique(VisibleBody());
 		LireFichier(ifs, *p_objet);
 		ifs.close();
 		fichier >> position;
@@ -416,11 +418,11 @@ int LireFichier(std::ifstream& fichier, Monde& contenant)
 	fichier >> taille;
 	for (int i = 0; i < taille; i++)
 	{
-		corps_visible* p_objet;
+		VisibleBody* p_objet;
 		Float2 position;
 		Float2 size;
 
-		p_objet = contenant.addStatique(corps_visible());
+		p_objet = contenant.addStatique(VisibleBody());
 		LireFichier(fichier, *p_objet);
 		fichier >> position;
 		fichier >> size;
@@ -432,7 +434,7 @@ int LireFichier(std::ifstream& fichier, Monde& contenant)
 	for (int i = 0; i < taille; i++)
 	{
 		std::ifstream ifs;
-		corps_visible* p_objet;
+		VisibleBody* p_objet;
 		std::string nom;
 		Float2 position;
 		Float2 size;
@@ -440,7 +442,7 @@ int LireFichier(std::ifstream& fichier, Monde& contenant)
 		fichier >> nom;
 		ifs.open(nom);
 		if (!ifs) return ERREUR_OUVERTURE;
-		p_objet = contenant.addDynamique(corps_visible());
+		p_objet = contenant.addDynamique(VisibleBody());
 		LireFichier(ifs, *p_objet);
 		ifs.close();
 		fichier >> position;
@@ -454,11 +456,11 @@ int LireFichier(std::ifstream& fichier, Monde& contenant)
 	for (int i = 0; i < taille; i++)
 	{
 		std::ifstream ifs;
-		corps_visible* p_objet;
+		VisibleBody* p_objet;
 		Float2 position;
 		Float2 size;
 
-		p_objet = contenant.addDynamique(corps_visible());
+		p_objet = contenant.addDynamique(VisibleBody());
 		LireFichier(fichier, *p_objet);
 		fichier >> position;
 		fichier >> size;

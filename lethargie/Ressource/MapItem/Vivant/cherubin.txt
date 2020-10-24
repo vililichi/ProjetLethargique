@@ -1,0 +1,9 @@
+cv
+1	0.5	0.5	1
+3
+-10,-20	10,20	0,-20	
+3
+Ressource/Texture/foe/cherubin_queue.png	0	1,1	-10,4
+Ressource/Texture/foe/cherubin_body.png		0	1,1	-10,-20
+Ressource/Texture/foe/cherubin_tete.png		0	1,1	-5,-20
+
