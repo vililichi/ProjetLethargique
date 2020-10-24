@@ -10,6 +10,7 @@ class Competence
 protected:
 	Joueur* acteur;
 	Float2 position, objectif;
+	int etape;
 public:
 	Competence();
 
@@ -18,6 +19,7 @@ public:
 	bool animActif;
 
 	Damage degat;
+	Damage cout;
 
 	void update(float sec);
 	void activate();

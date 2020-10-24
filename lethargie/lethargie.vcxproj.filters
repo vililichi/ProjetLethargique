@@ -13,62 +13,90 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\finie">
+      <UniqueIdentifier>{2b58d6a8-69c2-41b1-a08a-8b471960361d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\finie">
+      <UniqueIdentifier>{5dc73ecf-099b-4dbf-9ea2-cb2f1f635fbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\png">
+      <UniqueIdentifier>{4fa25e43-f00b-413a-9c0d-a83025897208}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\png">
+      <UniqueIdentifier>{038981e7-5ce8-4124-b622-075439726183}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Math_addOn.cpp">
-      <Filter>Fichiers de ressources</Filter>
-    </ClCompile>
-    <ClCompile Include="Physic.cpp">
-      <Filter>Fichiers de ressources</Filter>
-    </ClCompile>
     <ClCompile Include="Monde.cpp">
-      <Filter>Fichiers de ressources</Filter>
-    </ClCompile>
-    <ClCompile Include="FichierIO.cpp">
-      <Filter>Fichiers de ressources</Filter>
-    </ClCompile>
-    <ClCompile Include="Vivant.cpp">
-      <Filter>Fichiers de ressources</Filter>
-    </ClCompile>
-    <ClCompile Include="Joueur.cpp">
       <Filter>Fichiers de ressources</Filter>
     </ClCompile>
     <ClCompile Include="arme.cpp">
       <Filter>Fichiers de ressources</Filter>
     </ClCompile>
     <ClCompile Include="CameraMobile.cpp">
+      <Filter>Fichiers de ressources\finie</Filter>
+    </ClCompile>
+    <ClCompile Include="FichierIO.cpp">
+      <Filter>Fichiers de ressources\finie</Filter>
+    </ClCompile>
+    <ClCompile Include="Joueur.cpp">
+      <Filter>Fichiers de ressources\finie</Filter>
+    </ClCompile>
+    <ClCompile Include="Math_addOn.cpp">
+      <Filter>Fichiers de ressources\finie</Filter>
+    </ClCompile>
+    <ClCompile Include="Physic.cpp">
+      <Filter>Fichiers de ressources\finie</Filter>
+    </ClCompile>
+    <ClCompile Include="Vivant.cpp">
+      <Filter>Fichiers de ressources\finie</Filter>
+    </ClCompile>
+    <ClCompile Include="Sort.cpp">
       <Filter>Fichiers de ressources</Filter>
-
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Fichiers de ressources</Filter>
+    </ClCompile>
+    <ClCompile Include="Cherubin.cpp">
+      <Filter>Fichiers de ressources\png</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Math_addOn.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Physic.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="Monde.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="FichierIO.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Vivant.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Joueur.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="arme.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="CameraMobile.h">
-
+      <Filter>Fichiers d%27en-tête\finie</Filter>
+    </ClInclude>
+    <ClInclude Include="Math_addOn.h">
+      <Filter>Fichiers d%27en-tête\finie</Filter>
+    </ClInclude>
+    <ClInclude Include="Physic.h">
+      <Filter>Fichiers d%27en-tête\finie</Filter>
+    </ClInclude>
+    <ClInclude Include="Vivant.h">
+      <Filter>Fichiers d%27en-tête\finie</Filter>
+    </ClInclude>
+    <ClInclude Include="Joueur.h">
+      <Filter>Fichiers d%27en-tête\finie</Filter>
+    </ClInclude>
+    <ClInclude Include="FichierIO.h">
+      <Filter>Fichiers d%27en-tête\finie</Filter>
+    </ClInclude>
+    <ClInclude Include="sort.h">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Cherubin.h">
+      <Filter>Fichiers d%27en-tête\png</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

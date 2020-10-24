@@ -209,11 +209,13 @@ sf::Texture* GestionnaireTexture::obtenirTexture(std::string nom)
 		if (listeTexture[index].texture->loadFromFile(nom))
 		{
 			listeTexture[index].nom = nom;
+			//listeTexture[index].texture->setSmooth(true);
 			retour = listeTexture[index].texture;
 		}
 		else
 		{
 			delete listeTexture[index].texture;
+			std::cout << "Erreur dans le chargement du fichier :" << nom << std::endl;
 			listeTexture.pop_back();
 		}
 	}

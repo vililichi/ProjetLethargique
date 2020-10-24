@@ -3,9 +3,12 @@
 #include "FichierIO.h"
 #include "Joueur.h"
 #include "CameraMobile.h"
+#include "HUD.h"
+#include "Cherubin.h"
 
 int main()
 {
+
     int itt = 0;
 
     sf::Clock timerFPS;
@@ -13,11 +16,37 @@ int main()
     Monde univers;
     univers.gravity = Float2(0, 1000);
     std::ifstream ifs;
+
+    //cherubin
+    Vivant* cherubin = new Cherubin();
+    univers.addVivant(cherubin);
     
     Controler mainDivine;
+    HUD haut_display;
     mainDivine.p_joueur = univers.addJoueur();
-    InfusionDart* comp1 = new InfusionDart();
-    InfusionSphere* comp2 = new InfusionSphere();
+    haut_display.p_joueur = mainDivine.p_joueur;
+
+    Damage cout_comp1;
+    cout_comp1.lumiere = 2;
+
+    Damage cout_comp2;
+    cout_comp2.lumiere = 1;
+    cout_comp2.entropie = 1;
+
+    Damage degat_comp1;
+    degat_comp1.lumiere = 4;
+
+    Damage degat_comp2;
+    degat_comp2.reflexion = 2;
+
+    InfusionNova* comp1 = new InfusionNova();
+    InfusionDart* comp2 = new InfusionDart();
+
+    comp1->cout = cout_comp1;
+    comp1->degat = degat_comp1;
+    comp2->cout = cout_comp2;
+    comp2->degat = degat_comp2;
+
     Arme* arme = new Arme();
     arme->setCompetence(comp1, 1);
     arme->setCompetence(comp2, 2);
@@ -30,9 +59,14 @@ int main()
     CameraMobile camera;
     camera.setCenter(0, 0);
     camera.setSize(1000, 700);
+    camera.zoom(0.75);
+
+    sf::View view_interface;
+    view_interface.setCenter(0, 0);
+    view_interface.setSize(1000, 700);
 
 
-    sf::RenderWindow window(sf::VideoMode(1000,700), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(1000,700), "Lethargie");
     window.setVerticalSyncEnabled(true);
 
     //interface
@@ -52,7 +86,16 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
             if (event.type == sf::Event::Resized)
-                camera.setSize(event.size.width, event.size.height);
+            {
+                
+                float factor = (float)event.size.width * (float)event.size.width + (float)event.size.height * (float)event.size.height;
+                const float normal = 1700000.f;
+
+                camera.setSize((float)event.size.width, (float)event.size.height);
+                camera.zoom( normal/factor);
+
+                view_interface.setSize((float)event.size.width, (float)event.size.height);
+            }
         }
 
         mainDivine.creerControl(window);
@@ -61,22 +104,27 @@ int main()
         if (itt >= 3)
         {
             camera.move(mainDivine.p_joueur->getPosition(), 10);
-            window.clear();
-            univers.afficher(window);
+            window.clear(sf::Color::Cyan);
 
-            window.setView(camera);
+
+            univers.afficher(window);       //affichage du monde
+            window.setView(view_interface); //changement pour camera fixe
+            haut_display.afficher(window);  //affichage de l'interface
+            window.setView(camera);         //retour à la camera monde
+
+
             window.display();
             itt = 0;
         }
         else itt++;
 
         compteur++;
-        if (compteur == 600)
+        /*if (compteur == 600)
         {
             
             std::cout << 600 / timerFPS.restart().asSeconds()<<" boucles par seconde" << std::endl;
             compteur = 0;
-        }
+        }*/
     }
 
     return 0;

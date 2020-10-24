@@ -1,6 +1,8 @@
 #include "Vivant.h"
+#include "sort.h"
+#include "FichierIO.h"
 
-Vivant::Vivant(float _lumiereMax, float _ombreMax, float _masse, Float2 _position, Concave _forme)
+Vivant::Vivant(int _lumiereMax, int _ombreMax, float _masse, Float2 _position, Concave _forme)
 	: VisibleBody(_masse, _position, _forme)
 {
 
@@ -17,52 +19,67 @@ Vivant::Vivant(float _lumiereMax, float _ombreMax, float _masse, Float2 _positio
 	}
 	resplendissement = 0;
 	stabilisation = 0;
-	resplendissance = 2;
-	stabilite = 1;
+	resplendissance = 1;
+	stabilite = 0.5;
 	lumiere = 0;
 	ombre = ombreMax;
 	vivant = true;
+	timerMort = 0;
 }
-void Vivant::update(sf::Time deltaT)
+void Vivant::update(float sec)
 {
-	updatePosition(deltaT);
-	const float sec = deltaT.asSeconds();
-	resplendissement += sec * resplendissance;
-	stabilisation += sec * stabilite;
-	if (resplendissement >= 1)
+	updatePosition(sec);
+	if (vivant)
 	{
-		resplendissement -= 1;
-		ombre += 1;
-		//etats stable
-		if (etat[gel] > 0)
+		resplendissement += sec * resplendissance;
+		stabilisation += sec * stabilite;
+		if (stabilisation >= 1)
 		{
-			ombre += 1;
-			etat[gel] -= 1;
+			stabilisation -= 1;
+			//etats stable
+			if (etat[gel] > 0)
+			{
+				if (ombre = 0)
+				{
+					ombre += etat[gel];
+					etat[gel] = 0;
+				}
+				else 
+				{
+					ombre += 1;
+					etat[gel] -= 1;
+				}
+
+			}
+
+			//verdict
+			if (ombre > ombreMax) ombre = ombreMax;
+			if (ombre <= 0)
+			{
+				vivant = false;
+				std::cout << "mort" << std::endl;
+			}
+			if (vivant)	ombre += 1;
 
 		}
-
-		//verdict
-		if (ombre > ombreMax) ombre = ombreMax;
-		if (ombre <= 0) vivant = false;
-
-	}
-	if (stabilisation >= 1)
-	{
-		stabilisation -= 1;
-		lumiere -= 1;
-		//etats chaotique
-		if (etat[immolation] > 0)
+		if (resplendissement >= 1)
 		{
-			lumiere += 1;
-			reduireOmbre( 1);
-			etat[immolation] -= 1;
+			resplendissement -= 1;
+			lumiere -= 1;
+			//etats chaotique
+			if (etat[immolation] > 0)
+			{
+				lumiere += 1;
+				reduireOmbre(1);
+				etat[immolation] -= 1;
+			}
+
+			//verdict
+			if (lumiere < 0) lumiere = 0;
+			if (lumiere > lumiereMax)explosionLumineuse();
 		}
-
-		//verdict
-		if (lumiere < 0) lumiere = 0;
-		if (lumiere > lumiereMax)explosionLumineuse();
 	}
-
+	else animation_mort(sec);
 }
 void Vivant::attack(Damage description)
 {
@@ -92,6 +109,9 @@ void Vivant::attack(Damage description)
 
 		//vie max
 		if (ombre > ombreMax) ombre = ombreMax;
+		//valeurs négatives retirés
+		if (ombre < 0) ombre = 0;
+		if (lumiere < 0) lumiere = 0;
 	}
 }
 int Vivant::getOmbre()
@@ -131,7 +151,19 @@ void Vivant::resurection(int puissance )
 }
 void Vivant::explosionLumineuse()
 {
-	ombre -= lumiere / 2;
+	Damage degat_lum;
+	degat_lum.lumiere = lumiere / 8;
+	Damage degat_jou;
+	degat_jou.entropie = lumiere / 3;
+
+	Sort* nova = importSort("Ressource/Sort/nova.txt", 0.3, true, true, true, false);
+	SetActorAndWorld(nova, this, true);
+
+	nova->setPosition(getPosition());
+	float size (RigidBody::getApproxTaille() / 3);
+	nova->resize(Float2(size,size));
+	nova->dommage = degat_lum;
+	attack(degat_jou);
 	lumiere = 0;
 }
 void Vivant::reduireOmbre(int valeur)
@@ -154,4 +186,24 @@ float Vivant::coefVitesse()
 
 
 	return retour;
+}
+void Vivant::animation_mort(float sec)
+{
+	std::cout << "ombre mort \n";
+	std::cout << ombre << std::endl;
+	if (vivant) return;
+	timerMort += sec / 5;
+	floating = false;
+	if (timerMort >= 1)
+	{
+		to_destroy = true;
+		return;
+	}
+	for (int i = 0; i < images.size(); i++)
+	{
+		sf::Color couleur = images[i].getColor();
+		couleur.a = 256 - timerMort * 256;
+		images[i].setColor(couleur);
+	}
+	
 }

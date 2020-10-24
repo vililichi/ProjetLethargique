@@ -23,6 +23,8 @@ Float2 Nulify(Float2& v, Float2 normal)
 }
 RigidBody::RigidBody()
 {
+	to_destroy = false;
+	floating = false;
 	size = Float2(1, 1);
 	forme = Concave();
 	worldForme = Concave();
@@ -40,6 +42,7 @@ RigidBody::RigidBody()
 }
 RigidBody::RigidBody(float _masse, Float2 _position, Concave _forme, bool dynamic)
 {
+	to_destroy = false;
 	size = Float2(1, 1);
 	forme = Concave();
 	worldForme = Concave();
@@ -89,6 +92,17 @@ void RigidBody::setPosition(Float2 new_position)
 	if (!is_Dynamic)old_position = new_position;
 	modif = true;
 }
+void RigidBody::rotate(float angle)
+{
+	for (int i = 0, taille = forme.formes.size(); i < taille; i++)
+	{
+		for (int j = 0, tailleJ = forme.formes[i].sommets.size(); j < tailleJ; j++)
+		{
+			forme.formes[i].sommets[j].setAngle(forme.formes[i].sommets[j].angle() + angle);
+		}
+	}
+	modif = true;
+}
 Float2 RigidBody::getPosition() const 
 {
 	return position;
@@ -98,10 +112,9 @@ float RigidBody::getApproxTaille() const
 	return approxTaille;
 
 }
-void RigidBody::updatePosition(sf::Time deltaT)
+void RigidBody::updatePosition(float sec)
 {
 	old_position = position;
-	float sec = deltaT.asSeconds();
 		modif = true;
 		acc += forc  / masse;
 		position += (acc * sec * sec * 0.5f) + vit * sec;
@@ -109,8 +122,10 @@ void RigidBody::updatePosition(sf::Time deltaT)
 
 		acc = Float2(0, 0);
 		forc = Float2(0, 0);
-
-
+}
+void RigidBody::addGravity(Float2 gravity)
+{
+	if (!floating) forc += gravity * masse;
 }
 infoColl RigidBody::testCollision (RigidBody& c)
 {
@@ -118,7 +133,7 @@ infoColl RigidBody::testCollision (RigidBody& c)
 	bool col = true;
 	Float2 dir = position - c.getPosition();
 	float dist = dir.norm2();
-	float tailleSqrt = approxTaille + c.getApproxTaille();
+	float tailleSqrt = (approxTaille + c.getApproxTaille())*1.1f;
 	tailleSqrt *= tailleSqrt;
 	if (dist > tailleSqrt) {
 		col = false;
@@ -201,44 +216,31 @@ infoColl RigidBody::collide (RigidBody& c)
 
 
 		}
-		else if (firstF->is_Dynamic)
+		else
 		{
-			//normal
+			RigidBody* Dynamic = firstF;
 			Float2 normal = fact.normal;
+			if (secondF->is_Dynamic)
+			{
+				Dynamic = secondF;
+				normal = normal * -1.f;
+			}
+
+			
 			//position
-			
-			firstF->setPosition(firstF->position + fact.factor * ((Float2)(firstF->old_position - firstF->position)/normal));
-			
+			Dynamic->setPosition(Dynamic->position + fact.factor * ((Float2)(Dynamic->old_position - Dynamic->position) / normal));
+	
 			//force
 
-			Nulify(secondF->forc, normal);
+			Nulify(Dynamic->forc, normal);
 
 			//vitesse
-			doBounce(firstF->vit, normal, bounce * c.bounce);
+			doBounce(Dynamic->vit, normal, bounce * c.bounce);
 
 			//ground
 			collision.grounded = true;
 			collision.groundDir = normal;
-		}
-		else if (secondF->is_Dynamic)
-		{
-			//normal
-			Float2 normal = -fact.normal;
 
-			//position
-			
-			secondF->setPosition(secondF->position + fact.factor * ((Float2)(secondF->old_position - secondF->position) / normal));
-			
-		
-			//force
-			Nulify(secondF->forc, normal);
-
-			//vitesse
-			doBounce(secondF->vit, normal, bounce * c.bounce);
-
-			//ground
-			collision.grounded = true;
-			collision.groundDir = normal;
 		}
 	return collision;
 }
@@ -459,9 +461,19 @@ void VisibleBody::setPosition(Float2 new_position)
 	modif_images = true;
 	RigidBody::setPosition(new_position);
 }
-void VisibleBody::updatePosition(sf::Time deltaT)
+void VisibleBody::rotate(float angle)
 {
-	RigidBody::updatePosition(deltaT);
+	RigidBody::rotate(angle);
+	for (int i = 0, taille = images.size(); i < taille; i++)
+	{
+		images[i].rotate(angle*180/PI);
+		images_offset[i].setAngle(images_offset[i].angle() + angle);
+	}
+	modif_images = true;
+}
+void VisibleBody::updatePosition(float sec)
+{
+	RigidBody::updatePosition(sec);
 	modif_images = true;
 }
 void VisibleBody::resize(Float2 multiplicateur)
